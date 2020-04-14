@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!-- saved from url=(0084)https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE -->
+<html dir="ltr" mozdisallowselectionprint="true"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<script src="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/stub.js.下载" type="text/javascript"></script><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/zen-componentsCompatible.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/elements.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/common.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/dStandard.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/dCustom0.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/extended.css" rel="stylesheet" type="text/css"><link class="user" href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/setup.css" rel="stylesheet" type="text/css"><script>(function(UITheme) {
+    UITheme.getUITheme = function() { 
+        return UserContext.uiTheme;
+    };
+}(window.UITheme = window.UITheme || {}));</script><meta http-equiv="PRAGMA" content="NO-CACHE">
+<meta http-equiv="Expires" content="Mon, 01 Jan 1990 12:00:00 GMT">
+
+            
+            <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport">
+            <meta content="notranslate" name="google">
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
+            <title>HSPICE® Quick Start Guide - hspice_qsg.pdf</title>
+        
+
+            <link href="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/viewer.css" rel="stylesheet" type="text/css">
+        
+        
+            
+            <link href="https://solvnetplus.synopsys.com/apex/locale/locale.properties" rel="resource" type="application/l10n">
+            <script>            
+                if(false) {
+                    window.location.href = 'https://solvnet.synopsys.com' + '?startURL=' + window.location.pathname + window.location.search;
+                }
+                var contentDocumentId = '0693g000000kNclAAE',
+                    searchString = '';
+
+                if (contentDocumentId) {
+                    window.filePath = 'https://solvnetplus.synopsys.com/sfc/servlet.shepherd/document/download/' + contentDocumentId+ '?operationContext=S1';
+
+                }
+                else {
+                    window.filePath = 'No PDF Found';
+                }
+
+                if (searchString) {
+                    window.initialSearchString = searchString;
+                }
+
+            </script>
+            <script src="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/pdf.js.下载"></script>
+            <script src="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/pdf.worker.js.下载"></script>
+            <script src="./HSPICE® Quick Start Guide - hspice_qsg.pdf_files/viewer.js.下载"></script>
+        </head>
+            
+        <body class="" tabindex="1">
+            <div id="outerContainer" class="sidebarOpen">
+        
+            <div id="sidebarContainer">
+                <div id="toolbarSidebar">
+                <div class="splitToolbarButton toggled">
+                    <button class="toolbarButton" data-l10n-id="thumbs" id="viewThumbnail" tabindex="2" title="Show Thumbnails">
+                        <span data-l10n-id="thumbs_label">Thumbnails</span>
+                    </button>
+                    <button class="toolbarButton toggled" data-l10n-id="document_outline" id="viewOutline" tabindex="3" title="Show Document Outline (double-click to expand/collapse all items)">
+                        <span data-l10n-id="document_outline_label">Document Outline</span>
+                    </button>
+                    <button class="toolbarButton" data-l10n-id="attachments" id="viewAttachments" tabindex="4" title="Show Attachments" disabled="">
+                        <span data-l10n-id="attachments_label">Attachments</span>
+                    </button>
+                </div>
+                </div>
+                <div id="sidebarContent">
+                <div id="thumbnailView" class="hidden"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=1" title="Page 1"><div class="thumbnail selected" data-page-number="1"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=2" title="Page 2"><div class="thumbnail" data-page-number="2"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=3" title="Page 3"><div class="thumbnail" data-page-number="3"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=4" title="Page 4"><div class="thumbnail" data-page-number="4"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=5" title="Page 5"><div class="thumbnail" data-page-number="5"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=6" title="Page 6"><div class="thumbnail" data-page-number="6"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=7" title="Page 7"><div class="thumbnail" data-page-number="7"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=8" title="Page 8"><div class="thumbnail" data-page-number="8"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=9" title="Page 9"><div class="thumbnail" data-page-number="9"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=10" title="Page 10"><div class="thumbnail" data-page-number="10"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=11" title="Page 11"><div class="thumbnail" data-page-number="11"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=12" title="Page 12"><div class="thumbnail" data-page-number="12"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=13" title="Page 13"><div class="thumbnail" data-page-number="13"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=14" title="Page 14"><div class="thumbnail" data-page-number="14"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=15" title="Page 15"><div class="thumbnail" data-page-number="15"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=16" title="Page 16"><div class="thumbnail" data-page-number="16"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=17" title="Page 17"><div class="thumbnail" data-page-number="17"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=18" title="Page 18"><div class="thumbnail" data-page-number="18"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=19" title="Page 19"><div class="thumbnail" data-page-number="19"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=20" title="Page 20"><div class="thumbnail" data-page-number="20"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=21" title="Page 21"><div class="thumbnail" data-page-number="21"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=22" title="Page 22"><div class="thumbnail" data-page-number="22"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=23" title="Page 23"><div class="thumbnail" data-page-number="23"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=24" title="Page 24"><div class="thumbnail" data-page-number="24"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=25" title="Page 25"><div class="thumbnail" data-page-number="25"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=26" title="Page 26"><div class="thumbnail" data-page-number="26"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=27" title="Page 27"><div class="thumbnail" data-page-number="27"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=28" title="Page 28"><div class="thumbnail" data-page-number="28"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=29" title="Page 29"><div class="thumbnail" data-page-number="29"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=30" title="Page 30"><div class="thumbnail" data-page-number="30"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=31" title="Page 31"><div class="thumbnail" data-page-number="31"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=32" title="Page 32"><div class="thumbnail" data-page-number="32"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=33" title="Page 33"><div class="thumbnail" data-page-number="33"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=34" title="Page 34"><div class="thumbnail" data-page-number="34"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=35" title="Page 35"><div class="thumbnail" data-page-number="35"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=36" title="Page 36"><div class="thumbnail" data-page-number="36"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=37" title="Page 37"><div class="thumbnail" data-page-number="37"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=38" title="Page 38"><div class="thumbnail" data-page-number="38"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=39" title="Page 39"><div class="thumbnail" data-page-number="39"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=40" title="Page 40"><div class="thumbnail" data-page-number="40"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=41" title="Page 41"><div class="thumbnail" data-page-number="41"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=42" title="Page 42"><div class="thumbnail" data-page-number="42"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=43" title="Page 43"><div class="thumbnail" data-page-number="43"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=44" title="Page 44"><div class="thumbnail" data-page-number="44"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=45" title="Page 45"><div class="thumbnail" data-page-number="45"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=46" title="Page 46"><div class="thumbnail" data-page-number="46"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=47" title="Page 47"><div class="thumbnail" data-page-number="47"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=48" title="Page 48"><div class="thumbnail" data-page-number="48"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=49" title="Page 49"><div class="thumbnail" data-page-number="49"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=50" title="Page 50"><div class="thumbnail" data-page-number="50"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=51" title="Page 51"><div class="thumbnail" data-page-number="51"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=52" title="Page 52"><div class="thumbnail" data-page-number="52"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=53" title="Page 53"><div class="thumbnail" data-page-number="53"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=54" title="Page 54"><div class="thumbnail" data-page-number="54"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=55" title="Page 55"><div class="thumbnail" data-page-number="55"><div class="thumbnailSelectionRing" style="width: 100px; height: 128px;"></div></div></a></div>
+                <div class="outlineWithDeepNesting" id="outlineView"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G2.34623">Contents</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G3.1001323185">Related Products and Trademarks</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G3.1001365719">Topics in This Document</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G3.1001365818">The HSPICE Documentation Set</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G3.1001329689">Conventions</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G3.1003025129">Customer Support</a></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1000234063">1 HSPICE Overview</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003043593">Simulation Flow</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003043887">Analysis Types</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003044358">Elements</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003044620">Models</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045409">Demonstration Files</a></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045432">Documentation</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045489">The HSPICE Documentation Set</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045606">Finding HSPICE Documentation</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003062660">Accessing HSPICE Documentation</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045652">Launching Context-Sensitive Help</a></div></div></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G4.1003045749">HSPICE Application Notes</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002398904">2 Customizing Your Environment</a><div class="outlineItems"><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002977624">Installing the HSPICE Tool—An Overview</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002978166">Installing the HSPICE Tool on UNIX</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002977668">Installing the HSPICE Tool on Windows</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002978071">Setting Up the Licensing Environment</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G5.1002978963">Setting Up License Queuing</a></div></div></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002983720">3 Running an Analysis</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002983757">Running the HSPICE Tool</a></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002984002">Netlist Structure</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1003039991">HSPICE Netlists</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002984061">Sections in a Netlist File</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002984911">Examples</a></div></div></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002984917">Output Files</a></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1002983683">Simulation Examples</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1003192149">DC Analysis of an Inverter</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1003192155">AC Analysis of an RC Network</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1003192178">Transient Analysis of an RC Network</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G6.1003192198">Transient Analysis of an Inverter</a></div></div></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G7.1002983720">4 Working With Elements</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G7.1002988878">Introduction to Elements</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G7.1002989403">About Element Instances</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G8.1002983720">5 Working With Models</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G8.1002988878">Introduction to Models</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G8.1002990005">Selecting Models</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G9.1002239923">A Measurement System, Units, and Numbers</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G9.1002306603">About the HSPICE Measurement System</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G10.1002239923">B Best Practices</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G10.1002307424">Netlists</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G10.1002309834">Netlist Topologies</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G10.1002310371">Analysis</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G11.1002239923">C Abbreviations and Acronyms</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G11.1002311621">List of Abbreviations and Acronyms</a></div></div></div><div class="outlineItem"><div class="outlineItemToggler"></div><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000000532">Index</a><div class="outlineItems"><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040370">A</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040395">B</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040404">C</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040419">D</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040430">E</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040445">F</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040450">H</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040488">I</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040498">L</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040504">M</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040514">N</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040524">O</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040528">R</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040538">S</a></div><div class="outlineItem"><a href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#G12.1000040546">T</a></div></div></div></div>
+                <div class="hidden" id="attachmentsView"></div>
+                </div>
+                <div class="" id="sidebarResizer"></div>
+            </div>  
+        
+            <div id="mainContainer">
+                <div class="findbar hidden doorHanger" id="findbar">
+                <div id="findbarInputContainer">
+                    <input class="toolbarField" data-l10n-id="find_input" id="findInput" placeholder="Find in document…" tabindex="91" title="Find">
+                    <div class="splitToolbarButton">
+                    <button class="toolbarButton findPrevious" data-l10n-id="find_previous" id="findPrevious" tabindex="92" title="Find the previous occurrence of the phrase">
+                        <span data-l10n-id="find_previous_label">Previous</span>
+                    </button>
+                    <div class="splitToolbarButtonSeparator"></div>
+                    <button class="toolbarButton findNext" data-l10n-id="find_next" id="findNext" tabindex="93" title="Find the next occurrence of the phrase">
+                        <span data-l10n-id="find_next_label">Next</span>
+                    </button>
+                    </div>
+                </div>
+        
+                <div id="findbarOptionsOneContainer">
+                    <input class="toolbarField" id="findHighlightAll" tabindex="94" type="checkbox">
+                    <label class="toolbarLabel" data-l10n-id="find_highlight" for="findHighlightAll">Highlight all</label>
+                    <input class="toolbarField" id="findMatchCase" tabindex="95" type="checkbox">
+                    <label class="toolbarLabel" data-l10n-id="find_match_case_label" for="findMatchCase">Match case</label>
+                </div>
+                <div id="findbarOptionsTwoContainer">
+                    <input class="toolbarField" id="findEntireWord" tabindex="96" type="checkbox">
+                    <label class="toolbarLabel" data-l10n-id="find_entire_word_label" for="findEntireWord">Whole words</label>
+                    <span class="toolbarLabel hidden" id="findResultsCount"></span>
+                </div>
+        
+                <div id="findbarMessageContainer">
+                    <span class="toolbarLabel" id="findMsg"></span>
+                </div>
+                </div>  
+        
+                <div class="secondaryToolbar hidden doorHangerRight" id="secondaryToolbar">
+                <div id="secondaryToolbarButtonContainer">
+                    <button class="secondaryToolbarButton presentationMode visibleLargeView" data-l10n-id="presentation_mode" id="secondaryPresentationMode" tabindex="51" title="Switch to Presentation Mode">
+                    <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                    </button>
+        
+                    <button class="secondaryToolbarButton openFile visibleLargeView" data-l10n-id="open_file" id="secondaryOpenFile" tabindex="52" title="Open File">
+                    <span data-l10n-id="open_file_label">Open</span>
+                    </button>
+        
+                    <button class="secondaryToolbarButton print visibleMediumView" data-l10n-id="print" id="secondaryPrint" tabindex="53" title="Print">
+                    <span data-l10n-id="print_label">Print</span>
+                    </button>
+        
+                    <button class="secondaryToolbarButton download visibleMediumView" data-l10n-id="download" id="secondaryDownload" tabindex="54" title="Download">
+                    <span data-l10n-id="download_label">Download</span>
+                    </button>
+        
+                    <a class="secondaryToolbarButton bookmark visibleSmallView" data-l10n-id="bookmark" href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=1&amp;zoom=auto,-77,792" id="secondaryViewBookmark" tabindex="55" title="Current view (copy or open in new window)">
+                    <span data-l10n-id="bookmark_label">Current View</span>
+                    </a>
+        
+                    <div class="horizontalToolbarSeparator visibleLargeView"></div>
+        
+                    <button class="secondaryToolbarButton firstPage" data-l10n-id="first_page" id="firstPage" tabindex="56" title="Go to First Page" disabled="">
+                    <span data-l10n-id="first_page_label">Go to First Page</span>
+                    </button>
+                    <button class="secondaryToolbarButton lastPage" data-l10n-id="last_page" id="lastPage" tabindex="57" title="Go to Last Page">
+                    <span data-l10n-id="last_page_label">Go to Last Page</span>
+                    </button>
+        
+                    <div class="horizontalToolbarSeparator"></div>
+        
+                    <button class="secondaryToolbarButton rotateCw" data-l10n-id="page_rotate_cw" id="pageRotateCw" tabindex="58" title="Rotate Clockwise">
+                    <span data-l10n-id="page_rotate_cw_label">Rotate Clockwise</span>
+                    </button>
+                    <button class="secondaryToolbarButton rotateCcw" data-l10n-id="page_rotate_ccw" id="pageRotateCcw" tabindex="59" title="Rotate Counterclockwise">
+                    <span data-l10n-id="page_rotate_ccw_label">Rotate Counterclockwise</span>
+                    </button>
+        
+                    <div class="horizontalToolbarSeparator"></div>
+        
+                    <button class="secondaryToolbarButton selectTool toggled" data-l10n-id="cursor_text_select_tool" id="cursorSelectTool" tabindex="60" title="Enable Text Selection Tool">
+                    <span data-l10n-id="cursor_text_select_tool_label">Text Selection Tool</span>
+                    </button>
+                    <button class="secondaryToolbarButton handTool" data-l10n-id="cursor_hand_tool" id="cursorHandTool" tabindex="61" title="Enable Hand Tool">
+                    <span data-l10n-id="cursor_hand_tool_label">Hand Tool</span>
+                    </button>
+        
+                    <div class="horizontalToolbarSeparator"></div>
+        
+                    <button class="secondaryToolbarButton scrollModeButtons scrollVertical toggled" data-l10n-id="scroll_vertical" id="scrollVertical" tabindex="62" title="Use Vertical Scrolling">
+                    <span data-l10n-id="scroll_vertical_label">Vertical Scrolling</span>
+                    </button>
+                    <button class="secondaryToolbarButton scrollModeButtons scrollHorizontal" data-l10n-id="scroll_horizontal" id="scrollHorizontal" tabindex="63" title="Use Horizontal Scrolling">
+                    <span data-l10n-id="scroll_horizontal_label">Horizontal Scrolling</span>
+                    </button>
+                    <button class="secondaryToolbarButton scrollModeButtons scrollWrapped" data-l10n-id="scroll_wrapped" id="scrollWrapped" tabindex="64" title="Use Wrapped Scrolling">
+                    <span data-l10n-id="scroll_wrapped_label">Wrapped Scrolling</span>
+                    </button>
+        
+                    <div class="horizontalToolbarSeparator scrollModeButtons"></div>
+        
+                    <button class="secondaryToolbarButton spreadModeButtons spreadNone toggled" data-l10n-id="spread_none" id="spreadNone" tabindex="65" title="Do not join page spreads">
+                    <span data-l10n-id="spread_none_label">No Spreads</span>
+                    </button>
+                    <button class="secondaryToolbarButton spreadModeButtons spreadOdd" data-l10n-id="spread_odd" id="spreadOdd" tabindex="66" title="Join page spreads starting with odd-numbered pages">
+                    <span data-l10n-id="spread_odd_label">Odd Spreads</span>
+                    </button>
+                    <button class="secondaryToolbarButton spreadModeButtons spreadEven" data-l10n-id="spread_even" id="spreadEven" tabindex="67" title="Join page spreads starting with even-numbered pages">
+                    <span data-l10n-id="spread_even_label">Even Spreads</span>
+                    </button>
+        
+                    <div class="horizontalToolbarSeparator spreadModeButtons"></div>
+        
+                    <button class="secondaryToolbarButton documentProperties" data-l10n-id="document_properties" id="documentProperties" tabindex="68" title="Document Properties…">
+                    <span data-l10n-id="document_properties_label">Document Properties…</span>
+                    </button>
+                </div>
+                </div>  
+        
+                <div class="toolbar">
+                <div id="toolbarContainer">
+                    <div id="toolbarViewer">
+                    <div id="toolbarViewerLeft">
+                        <button class="toolbarButton toggled" data-l10n-id="toggle_sidebar" id="sidebarToggle" tabindex="11" title="Toggle Sidebar (document contains outline/attachments)">
+                        <span data-l10n-id="toggle_sidebar_label">Toggle Sidebar</span>
+                        </button>
+                        <div class="toolbarButtonSpacer"></div>
+                        <button class="toolbarButton" data-l10n-id="findbar" id="viewFind" tabindex="12" title="Find in Document">
+                        <span data-l10n-id="findbar_label">Find</span>
+                        </button>
+                        <div class="splitToolbarButton hiddenSmallView">
+                        <button class="toolbarButton pageUp" data-l10n-id="previous" id="previous" tabindex="13" title="Previous Page" disabled="">
+                            <span data-l10n-id="previous_label">Previous</span>
+                        </button>
+                        <div class="splitToolbarButtonSeparator"></div>
+                        <button class="toolbarButton pageDown" data-l10n-id="next" id="next" tabindex="14" title="Next Page">
+                            <span data-l10n-id="next_label">Next</span>
+                        </button>
+                        </div>
+                        <input class="toolbarField pageNumber" data-l10n-id="page" id="pageNumber" min="1" size="4" tabindex="15" title="Page" type="number" value="1" max="55">
+                        <span class="toolbarLabel" id="numPages">of 55</span>
+                    </div>
+                    <div id="toolbarViewerRight">
+                        <button class="toolbarButton presentationMode hiddenLargeView" data-l10n-id="presentation_mode" id="presentationMode" tabindex="31" title="Switch to Presentation Mode">
+                        <span data-l10n-id="presentation_mode_label">Presentation Mode</span>
+                        </button>
+        
+                        <button class="toolbarButton openFile hiddenLargeView" data-l10n-id="open_file" id="openFile" tabindex="32" title="Open File">
+                        <span data-l10n-id="open_file_label">Open</span>
+                        </button>
+        
+                        <button class="toolbarButton print hiddenMediumView" data-l10n-id="print" id="print" tabindex="33" title="Print">
+                        <span data-l10n-id="print_label">Print</span>
+                        </button>
+        
+                        <button class="toolbarButton download hiddenMediumView" data-l10n-id="download" id="download" tabindex="34" title="Download">
+                        <span data-l10n-id="download_label">Download</span>
+                        </button>
+                        <a class="toolbarButton bookmark hiddenSmallView" data-l10n-id="bookmark" href="https://solvnetplus.synopsys.com/apex/pdfViewer?ContentDocumentId=0693g000000kNclAAE#page=1&amp;zoom=auto,-77,792" id="viewBookmark" tabindex="35" title="Current view (copy or open in new window)">
+                        <span data-l10n-id="bookmark_label">Current View</span>
+                        </a>
+        
+                        <div class="verticalToolbarSeparator hiddenSmallView"></div>
+        
+                        <button class="toolbarButton" data-l10n-id="tools" id="secondaryToolbarToggle" tabindex="36" title="Tools">
+                        <span data-l10n-id="tools_label">Tools</span>
+                        </button>
+                    </div>
+                    <div id="toolbarViewerMiddle">
+                        <div class="splitToolbarButton">
+                        <button class="toolbarButton zoomOut" data-l10n-id="zoom_out" id="zoomOut" tabindex="21" title="Zoom Out">
+                            <span data-l10n-id="zoom_out_label">Zoom Out</span>
+                        </button>
+                        <div class="splitToolbarButtonSeparator"></div>
+                        <button class="toolbarButton zoomIn" data-l10n-id="zoom_in" id="zoomIn" tabindex="22" title="Zoom In">
+                            <span data-l10n-id="zoom_in_label">Zoom In</span>
+                            </button>
+                        </div>
+                        <span class="dropdownToolbarButton" id="scaleSelectContainer" style="min-width: 122px; max-width: 122px;">
+                        <select data-l10n-id="zoom" id="scaleSelect" tabindex="23" title="Zoom" style="min-width: 144px;">
+                            <option data-l10n-id="page_scale_auto" id="pageAutoOption" selected="selected" value="auto">Automatic Zoom</option>
+                            <option data-l10n-id="page_scale_actual" id="pageActualOption" value="page-actual">Actual Size</option>
+                            <option data-l10n-id="page_scale_fit" id="pageFitOption" value="page-fit">Page Fit</option>
+                            <option data-l10n-id="page_scale_width" id="pageWidthOption" value="page-width">Page Width</option>
+                            <option disabled="disabled" hidden="true" id="customScaleOption" value="custom"></option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 50 }" data-l10n-id="page_scale_percent" value="0.5">50%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 75 }" data-l10n-id="page_scale_percent" value="0.75">75%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 100 }" data-l10n-id="page_scale_percent" value="1">100%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 125 }" data-l10n-id="page_scale_percent" value="1.25">125%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 150 }" data-l10n-id="page_scale_percent" value="1.5">150%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 200 }" data-l10n-id="page_scale_percent" value="2">200%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 300 }" data-l10n-id="page_scale_percent" value="3">300%</option>
+                            <option data-l10n-args="{ &quot;scale&quot;: 400 }" data-l10n-id="page_scale_percent" value="4">400%</option>
+                        </select>
+                        </span>
+                    </div>
+                    </div>
+                    <div id="loadingBar" class="hidden" style="width: calc(100% - 17px);">
+                    <div class="progress" style="height: 100%; width: 100%;">
+                        <div class="glimmer">
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                </div>
+        
+                <menu id="viewerContextMenu" type="context">
+                <menuitem data-l10n-id="first_page" id="contextFirstPage" label="First Page"></menuitem>
+                <menuitem data-l10n-id="last_page" id="contextLastPage" label="Last Page"></menuitem>
+                <menuitem data-l10n-id="page_rotate_cw" id="contextPageRotateCw" label="Rotate Clockwise"></menuitem>
+                <menuitem data-l10n-id="page_rotate_ccw" id="contextPageRotateCcw" label="Rotate Counter-Clockwise"></menuitem>
+                </menu>
+        
+                <div id="viewerContainer" tabindex="0">
+                <div class="pdfViewer" id="viewer"><div class="page" data-page-number="1" style="width: 1019px; height: 1319px;" data-loaded="true"><div class="canvasWrapper" style="width: 1019px; height: 1319px;"><canvas id="page1" width="1020" height="1320" style="width: 1020px; height: 1320px;"></canvas></div><div class="textLayer" style="width: 1019px; height: 1319px;"><span style="left: 240px; top: 365.6px; font-size: 40px; font-family: sans-serif; transform: scaleX(0.91634);">HSPICE® Quick Start Guide</span><span style="left: 240px; top: 435.52px; font-size: 26.6px; font-family: sans-serif; transform: scaleX(0.939085);">Version Q-2020.03, March 2020</span><div class="endOfContent"></div></div><div class="annotationLayer"><section data-annotation-id="5676R" class="linkAnnotation" style="transform: matrix(1.66667, 0, 0, 1.66667, 0, 0); transform-origin: -71.991px -29.956px; left: 71.991px; top: 29.956px; width: 62.005px; height: 13.002px;"><a title="mailto:docfeedback1@synopsys.com?subject=Documentation%20feedback%20on%20HSPICE%20Quick%20Start%20Guide&amp;body=HSPICE%20Quick%20Start%20Guide,%20on%20page%201%0A%20%20Version%20information:%20Version%20Q-2020.03,%20March%202020%0A%0A(Please%20enter%20your%20comments%20for%20Synopsys%20Technical%20Publications%20here.)%0A" href="mailto:docfeedback1@synopsys.com?subject=Documentation%20feedback%20on%20HSPICE%20Quick%20Start%20Guide&amp;body=HSPICE%20Quick%20Start%20Guide,%20on%20page%201%0A%20%20Version%20information:%20Version%20Q-2020.03,%20March%202020%0A%0A(Please%20enter%20your%20comments%20for%20Synopsys%20Technical%20Publications%20here.)%0A" target="" rel="noopener noreferrer nofollow"></a></section></div></div><div class="page" data-page-number="2" style="width: 1019px; height: 1319px;" data-loaded="true"><div class="canvasWrapper" style="width: 1019px; height: 1319px;"><canvas id="page2" width="1020" height="1320" style="width: 1020px; height: 1320px;"></canvas></div><div class="textLayer" style="width: 1019px; height: 1319px;"><span style="left: 120px; top: 1175.07px; font-size: 16.6px; font-family: sans-serif; transform: scaleX(0.963082);">HSPICE® Quick Start Guide</span><span style="left: 890.7994199999999px; top: 1175.0724609375px; font-size: 16.6px; font-family: sans-serif;">2</span><span style="left: 120px; top: 1195.07px; font-size: 16.6px; font-family: sans-serif; transform: scaleX(0.947126);">Q-2020.03</span><span style="left: 120px; top: 157.95px; font-size: 30px; font-family: sans-serif; transform: scaleX(0.982691);">Copyright and Proprietary Information Notice</span><span style="left: 120px; top: 193.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.935017);">© 2020 Synopsys, Inc. This Synopsys software and all associ</span><span style="left: 520.9px; top: 193.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.907387);">ated documentation are proprietary to Synopsys, Inc. and </span><span style="left: 120px; top: 208.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.914512);">may only be used pursuant to the terms </span><span style="left: 387.2px; top: 208.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.911911);">and conditions of a written license </span><span style="left: 616.2px; top: 208.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.926544);">agreement with Synopsys, Inc. All other </span><span style="left: 120px; top: 223.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.905549);">use, reproduction, modification, or di</span><span style="left: 361.4px; top: 223.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.910001);">stribution of the Synopsys software or th</span><span style="left: 627.9px; top: 223.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.91946);">e associated documentation is strictly </span><span style="left: 120px; top: 238.221px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.885301);">prohibited.</span><span style="left: 120px; top: 259.4px; font-size: 20px; font-family: sans-serif; transform: scaleX(0.985349);">Destination Control Statement</span><span style="left: 120px; top: 282.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.909952);">All technical data contained in this publicat</span><span style="left: 401.4px; top: 282.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.902895);">ion is subject to the export control la</span><span style="left: 640.399px; top: 282.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.916886);">ws of the United St</span><span style="left: 766.099px; top: 282.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.933059);">ates of America. </span><span style="left: 120px; top: 297.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.912163);">Disclosure to nationals of other countries contrary to United Stat</span><span style="left: 543.799px; top: 297.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.91583);">es law is prohibited. It is t</span><span style="left: 711.099px; top: 297.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.869286);">he reader’s responsibility to </span><span style="left: 119.998px; top: 312.321px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.90571);">determine the applicable regulations and to comply with them.</span><span style="left: 120px; top: 333.6px; font-size: 20px; font-family: sans-serif; transform: scaleX(1.01806);">Disclaimer</span><span style="left: 120px; top: 356.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(1.00491);">SYNOPSYS, INC., AND ITS LICENSORS MAKE NO WA</span><span style="left: 499px; top: 356.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(1.00667);">RRANTY OF ANY KIND, EXPR</span><span style="left: 708.201px; top: 356.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(1.01663);">ESS OR IMPLIED, WITH </span><span style="left: 120.002px; top: 371.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.999349);">REGARD TO THIS MATERIAL, INCLUDING, BUT </span><span style="left: 457.401px; top: 371.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.976421);">NOT LIMITED TO, THE IM</span><span style="left: 635.301px; top: 371.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(1.01926);">PLIED WARRANTIES OF </span><span style="left: 120.002px; top: 386.421px; font-size: 15px; font-family: sans-serif; transform: scaleX(1.01163);">MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.</span><span style="left: 120px; top: 407.7px; font-size: 20px; font-family: sans-serif; transform: scaleX(1.00262);">Trademarks</span><span style="left: 120px; top: 430.521px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.940351);">Synopsys and certain Synopsys product names ar</span><span style="left: 453px; top: 430.521px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.935464);">e trademarks of Synopsys, as set forth at</span><span style="left: 120px; top: 445.521px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.903729);">https://www.synopsys.com/company/legal/trademarks-brands.html</span><span style="left: 558.7004999999999px; top: 445.5208984374999px; font-size: 14.999999999999998px; font-family: sans-serif;">.</span><span style="left: 120px; top: 460.521px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.912868);">All other product or company names may be</span><span style="left: 413.899px; top: 460.521px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.924282);"> trademarks of their respective owners.</span><span style="left: 120px; top: 481.8px; font-size: 20px; font-family: sans-serif; transform: scaleX(1.00467);">Free and Open-Source Licensing Notices</span><span style="left: 120px; top: 504.621px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.953242);">If applicable, Free and Open-Source Software (FOSS) licens</span><span style="left: 522.101px; top: 504.621px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.913843);">ing notices are available in the product installation.</span><span style="left: 120px; top: 525.9px; font-size: 20px; font-family: sans-serif; transform: scaleX(1.02071);">Third-Party Links</span><span style="left: 120px; top: 548.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.904111);">Any links to third-party websites included in this docum</span><span style="left: 482.7px; top: 548.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.919824);">ent are for your convenience </span><span style="left: 676.5px; top: 548.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.929412);">only. Synopsys does not endorse </span><span style="left: 120px; top: 563.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.921794);">and is not responsible for such websites and their practice</span><span style="left: 504.6px; top: 563.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.923585);">s, including privacy practices, availability, and content.</span><span style="left: 120px; top: 593.721px; font-size: 15px; font-family: sans-serif; transform: scaleX(0.940437);">www.synopsys.com </span><div class="endOfContent"></div></div><div class="annotationLayer"><section data-annotation-id="246R" class="linkAnnotation" style="transform: matrix(1.66667, 0, 0, 1.66667, 0, 0); transform-origin: -72px -267.96px; left: 72px; top: 267.96px; width: 263.22px; height: 9.66px;"><a title="https://www.synopsys.com/company/legal/trademarks-brands.html" href="https://www.synopsys.com/company/legal/trademarks-brands.html" target="" rel="noopener noreferrer nofollow"></a></section><section data-annotation-id="247R" class="linkAnnotation" style="transform: matrix(1.66667, 0, 0, 1.66667, 0, 0); transform-origin: -72px -356.88px; left: 72px; top: 356.88px; width: 468px; height: 9.66px;"><a title="https://www.synopsys.com/" href="https://www.synopsys.com/" target="" rel="noopener noreferrer nofollow"></a></section><section data-annotation-id="248R" class="linkAnnotation" style="transform: matrix(1.66667, 0, 0, 1.66667, 0, 0); transform-origin: -71.991px -29.956px; left: 71.991px; top: 29.956px; width: 62.005px; height: 13.002px;"><a title="mailto:docfeedback1@synopsys.com?subject=Documentation%20feedback%20on%20HSPICE%20Quick%20Start%20Guide&amp;body=HSPICE%20Quick%20Start%20Guide,%20on%20page%202%0A%20%20Version%20information:%20Version%20Q-2020.03,%20March%202020%0A%0A(Please%20enter%20your%20comments%20for%20Synopsys%20Technical%20Publications%20here.)%0A" href="mailto:docfeedback1@synopsys.com?subject=Documentation%20feedback%20on%20HSPICE%20Quick%20Start%20Guide&amp;body=HSPICE%20Quick%20Start%20Guide,%20on%20page%202%0A%20%20Version%20information:%20Version%20Q-2020.03,%20March%202020%0A%0A(Please%20enter%20your%20comments%20for%20Synopsys%20Technical%20Publications%20here.)%0A" target="" rel="noopener noreferrer nofollow"></a></section></div></div><div class="page" data-page-number="3" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="4" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="5" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="6" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="7" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="8" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="9" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="10" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="11" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="12" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="13" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="14" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="15" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="16" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="17" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="18" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="19" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="20" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="21" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="22" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="23" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="24" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="25" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="26" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="27" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="28" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="29" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="30" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="31" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="32" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="33" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="34" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="35" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="36" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="37" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="38" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="39" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="40" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="41" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="42" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="43" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="44" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="45" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="46" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="47" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="48" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="49" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="50" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="51" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="52" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="53" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="54" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div><div class="page" data-page-number="55" style="width: 1019px; height: 1319px;"><div class="loadingIcon"></div></div></div>
+                </div>
+        
+                <div hidden="true" id="errorWrapper">
+                <div id="errorMessageLeft">
+                    <span id="errorMessage"></span>
+                    <button data-l10n-id="error_more_info" id="errorShowMore">
+                    More Information
+                    </button>
+                    <button data-l10n-id="error_less_info" hidden="true" id="errorShowLess">
+                    Less Information
+                    </button>
+                </div>
+                <div id="errorMessageRight">
+                    <button data-l10n-id="error_close" id="errorClose">
+                    Close
+                    </button>
+                </div>
+                <div class="clearBoth"></div>
+                <textarea hidden="true" id="errorMoreInfo" readonly="readonly"></textarea>
+                </div>
+            </div> 
+        
+            <div class="hidden" id="overlayContainer">
+                <div class="container hidden" id="passwordOverlay">
+                <div class="dialog">
+                    <div class="row">
+                    <p data-l10n-id="password_label" id="passwordText">Enter the password to open this PDF file:</p>
+                    </div>
+                    <div class="row">
+                    <input class="toolbarField" id="password" type="password">
+                    </div>
+                    <div class="buttonRow">
+                    <button class="overlayButton" id="passwordCancel"><span data-l10n-id="password_cancel">Cancel</span></button>
+                    <button class="overlayButton" id="passwordSubmit"><span data-l10n-id="password_ok">OK</span></button>
+                    </div>
+                </div>
+                </div>
+                <div class="container hidden" id="documentPropertiesOverlay">
+                <div class="dialog">
+                    <div class="row">
+                    <span data-l10n-id="document_properties_file_name">File name:</span> <p id="fileNameField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_file_size">File size:</span> <p id="fileSizeField">-</p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_title">Title:</span> <p id="titleField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_author">Author:</span> <p id="authorField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_subject">Subject:</span> <p id="subjectField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_keywords">Keywords:</span> <p id="keywordsField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_creation_date">Creation Date:</span> <p id="creationDateField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_modification_date">Modification Date:</span> <p id="modificationDateField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_creator">Creator:</span> <p id="creatorField">-</p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_producer">PDF Producer:</span> <p id="producerField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_version">PDF Version:</span> <p id="versionField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_page_count">Page Count:</span> <p id="pageCountField">-</p>
+                    </div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_page_size">Page Size:</span> <p id="pageSizeField">-</p>
+                    </div>
+                    <div class="separator"></div>
+                    <div class="row">
+                    <span data-l10n-id="document_properties_linearized">Fast Web View:</span> <p id="linearizedField">-</p>
+                    </div>
+                    <div class="buttonRow">
+                    <button class="overlayButton" id="documentPropertiesClose"><span data-l10n-id="document_properties_close">Close</span></button>
+                    </div>
+                </div>
+                </div>
+                <div class="container hidden" id="printServiceOverlay">
+                <div class="dialog">
+                    <div class="row">
+                    <span data-l10n-id="print_progress_message">Preparing document for printing…</span>
+                    </div>
+                    <div class="row">
+                    <progress max="100" value="0"></progress>
+                    <span class="relative-progress" data-l10n-args="{ &quot;progress&quot;: 0 }" data-l10n-id="print_progress_percent">0%</span>
+                    </div>
+                    <div class="buttonRow">
+                    <button class="overlayButton" id="printCancel"><span data-l10n-id="print_progress_close">Cancel</span></button>
+                    </div>
+                </div>
+                </div>
+            </div>  
+        
+            </div> 
+            <div id="printContainer"></div>
+        
+    <input id="fileInput" class="fileInput" type="file"></body></html>
