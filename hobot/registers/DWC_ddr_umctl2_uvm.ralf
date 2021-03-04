@@ -1,0 +1,5481 @@
+#
+# ABSTRACT : RAL file generated for DWC_ddr_umctl2
+#
+block DWC_ddr_umctl2_axi_0_AXI_block {
+  endian little;
+  bytes 4;
+  memory DWC_ddr_umctl2_axi_0_AXI_block {
+    size   0x1000;
+    bits   32;
+    access rw;
+  }
+}
+block DWC_ddr_umctl2_axi_1_AXI_block {
+  endian little;
+  bytes 4;
+  memory DWC_ddr_umctl2_axi_1_AXI_block {
+    size   0x1000;
+    bits   32;
+    access rw;
+  }
+}
+block DWC_ddr_umctl2_axi_2_AXI_block {
+  endian little;
+  bytes 4;
+  memory DWC_ddr_umctl2_axi_2_AXI_block {
+    size   0x1000;
+    bits   32;
+    access rw;
+  }
+}
+block DWC_ddr_umctl2_axi_3_AXI_block {
+  endian little;
+  bytes 4;
+  memory DWC_ddr_umctl2_axi_3_AXI_block {
+    size   0x1000;
+    bits   32;
+    access rw;
+  }
+}
+block DWC_ddr_umctl2_axi_4_AXI_block {
+  endian little;
+  bytes 4;
+  memory DWC_ddr_umctl2_axi_4_AXI_block {
+    size   0x1000;
+    bits   32;
+    access rw;
+  }
+}
+block DWC_ddr_umctl2_map_UMCTL2_REGS {
+  endian little;
+  bytes 4;
+  register MSTR @'h0 {
+    field ddr3 @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_1_1 @1 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field lpddr2 @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field lpddr3 @3 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ddr4 @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field lpddr4 @5 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_6_8 @6 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field burstchop @9 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field en_2t_timing_mode @10 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field geardown_mode @11 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field data_bus_width @12 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_14_14 @14 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dll_off_mode @15 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field burst_rdwr @16 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field active_ranks @24 {
+       bits 2;
+       access rw;
+       reset 2'h3;
+    }
+    field Reserved_26_29 @26 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field device_config @30 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+  }
+  register STAT @'h4 {
+    field operating_mode @0 {
+       bits 3;
+       access ro;
+       reset 3'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field selfref_type @4 {
+       bits 2;
+       access ro;
+       reset 2'h0;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field selfref_state @8 {
+       bits 2;
+       access ro;
+       reset 2'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field selfref_cam_not_empty @12 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_13_31 @13 {
+       bits 19;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register MRCTRL0 @'h10 {
+    field mr_type @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mpr_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field pda_en @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field sw_init_int @3 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mr_rank @4 {
+       bits 2;
+       access rw;
+       reset 2'h3;
+    }
+    field Reserved_6_11 @6 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field mr_addr @12 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_16_29 @16 {
+       bits 14;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field pba_mode @30 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mr_wr @31 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+  }
+  register MRCTRL1 @'h14 {
+    field mr_data @0 {
+       bits 18;
+       access rw;
+       reset 18'h0;
+    }
+    field Reserved_18_31 @18 {
+       bits 14;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register MRSTAT @'h18 {
+    field mr_wr_busy @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_1_7 @1 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field pda_done @8 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_9_31 @9 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register MRCTRL2 @'h1c {
+    field mr_device_sel @0 {
+       bits 32;
+       access rw;
+       reset 32'h0;
+    }
+  }
+  register DERATEEN @'h20 {
+    field derate_enable @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field derate_value @1 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field derate_byte @4 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field rc_derate_value @8 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+    field Reserved_11_11 @11 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field derate_mr4_tuf_dis @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field derate_mr4_pause_fc @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_14_31 @14 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DERATEINT @'h24 {
+    field mr4_read_interval @0 {
+       bits 32;
+       access rw;
+       reset 32'h800000;
+    }
+  }
+  register DERATECTL @'h2c {
+    field derate_temp_limit_intr_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field derate_temp_limit_intr_clr @1 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field derate_temp_limit_intr_force @2 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_3_31 @3 {
+       bits 29;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PWRCTL @'h30 {
+    field selfref_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field powerdown_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field deeppowerdown_en @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field en_dfi_dram_clk_disable @3 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mpsm_en @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field selfref_sw @5 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field stay_in_selfref @6 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_cam_drain_selfref @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field lpddr4_sr_allowed @8 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_9_31 @9 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PWRTMG @'h34 {
+    field powerdown_to_x32 @0 {
+       bits 5;
+       access rw;
+       reset 5'h10;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_dpd_x4096 @8 {
+       bits 8;
+       access rw;
+       reset 8'h20;
+    }
+    field selfref_to_x32 @16 {
+       bits 8;
+       access rw;
+       reset 8'h40;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register HWLPCTL @'h38 {
+    field hw_lp_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field hw_lp_exit_idle_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_2_15 @2 {
+       bits 14;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field hw_lp_idle_x32 @16 {
+       bits 12;
+       access rw;
+       reset 12'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register RFSHCTL0 @'h50 {
+    field Reserved_0_1 @0 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field per_bank_refresh @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field refresh_burst @4 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field refresh_to_x1_x32 @12 {
+       bits 5;
+       access rw;
+       reset 5'h10;
+    }
+    field Reserved_17_19 @17 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field refresh_margin @20 {
+       bits 4;
+       access rw;
+       reset 4'h2;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register RFSHCTL1 @'h54 {
+    field refresh_timer0_start_value_x32 @0 {
+       bits 12;
+       access rw;
+       reset 12'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field refresh_timer1_start_value_x32 @16 {
+       bits 12;
+       access rw;
+       reset 12'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register RFSHCTL3 @'h60 {
+    field dis_auto_refresh @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field refresh_update_level @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_2_3 @2 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field refresh_mode @4 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+    field Reserved_7_31 @7 {
+       bits 25;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register RFSHTMG @'h64 {
+    field t_rfc_min @0 {
+       bits 10;
+       access rw;
+       reset 10'h8c;
+    }
+    field Reserved_10_14 @10 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field lpddr3_trefbw_en @15 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field t_rfc_nom_x1_x32 @16 {
+       bits 12;
+       access rw;
+       reset 12'h62;
+    }
+    field Reserved_28_30 @28 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_rfc_nom_x1_sel @31 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+  }
+  register RFSHTMG1 @'h68 {
+    field Reserved_0_15 @0 {
+       bits 16;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_pbr2pbr @16 {
+       bits 8;
+       access rw;
+       reset 8'h8c;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCCFG0 @'h70 {
+    field ecc_mode @0 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dis_scrub @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_5_5 @5 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_ap_en @6 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ecc_region_remap_en @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ecc_region_map @8 {
+       bits 7;
+       access rw;
+       reset 7'h7f;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field blk_channel_idle_time_x32 @16 {
+       bits 6;
+       access rw;
+       reset 6'h3f;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_ap_err_threshold @24 {
+       bits 3;
+       access rw;
+       reset 3'h3;
+    }
+    field Reserved_27_28 @27 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_region_map_other @29 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ecc_region_map_granu @30 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+  }
+  register ECCCFG1 @'h74 {
+    field data_poison_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field data_poison_bit @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_2_3 @2 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_region_parity_lock @4 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ecc_region_waste_lock @5 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_6_6 @6 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field blk_channel_active_term @7 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field active_blk_channel @8 {
+       bits 5;
+       access rw;
+       reset 5'hf;
+    }
+    field Reserved_13_31 @13 {
+       bits 19;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCSTAT @'h78 {
+    field ecc_corrected_bit_num @0 {
+       bits 7;
+       access ro;
+       reset 7'h0;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corrected_err @8 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_9_15 @9 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_uncorrected_err @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCCTL @'h7c {
+    field ecc_corrected_err_clr @0 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_uncorrected_err_clr @1 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_corr_err_cnt_clr @2 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_uncorr_err_cnt_clr @3 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_ap_err_intr_clr @4 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corrected_err_intr_en @8 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ecc_uncorrected_err_intr_en @9 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ecc_ap_err_intr_en @10 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corrected_err_intr_force @16 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_uncorrected_err_intr_force @17 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ecc_ap_err_intr_force @18 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_19_31 @19 {
+       bits 13;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCERRCNT @'h80 {
+    field ecc_corr_err_cnt @0 {
+       bits 16;
+       access ro;
+       reset 16'h0;
+    }
+    field ecc_uncorr_err_cnt @16 {
+       bits 16;
+       access ro;
+       reset 16'h0;
+    }
+  }
+  register ECCCADDR0 @'h84 {
+    field ecc_corr_row @0 {
+       bits 18;
+       access ro;
+       reset 18'h0;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corr_rank @24 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_25_31 @25 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCCADDR1 @'h88 {
+    field ecc_corr_col @0 {
+       bits 12;
+       access ro;
+       reset 12'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corr_bank @16 {
+       bits 3;
+       access ro;
+       reset 3'h0;
+    }
+    field Reserved_19_23 @19 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_corr_bg @24 {
+       bits 2;
+       access ro;
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCCSYN0 @'h8c {
+    field ecc_corr_syndromes_31_0 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCCSYN1 @'h90 {
+    field ecc_corr_syndromes_63_32 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCCSYN2 @'h94 {
+    field ecc_corr_syndromes_71_64 @0 {
+       bits 8;
+       access ro;
+       reset 8'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCBITMASK0 @'h98 {
+    field ecc_corr_bit_mask_31_0 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCBITMASK1 @'h9c {
+    field ecc_corr_bit_mask_63_32 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCBITMASK2 @'ha0 {
+    field ecc_corr_bit_mask_71_64 @0 {
+       bits 8;
+       access ro;
+       reset 8'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCUADDR0 @'ha4 {
+    field ecc_uncorr_row @0 {
+       bits 18;
+       access ro;
+       reset 18'h0;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_uncorr_rank @24 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_25_31 @25 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCUADDR1 @'ha8 {
+    field ecc_uncorr_col @0 {
+       bits 12;
+       access ro;
+       reset 12'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_uncorr_bank @16 {
+       bits 3;
+       access ro;
+       reset 3'h0;
+    }
+    field Reserved_19_23 @19 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_uncorr_bg @24 {
+       bits 2;
+       access ro;
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCUSYN0 @'hac {
+    field ecc_uncorr_syndromes_31_0 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCUSYN1 @'hb0 {
+    field ecc_uncorr_syndromes_63_32 @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register ECCUSYN2 @'hb4 {
+    field ecc_uncorr_syndromes_71_64 @0 {
+       bits 8;
+       access ro;
+       reset 8'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCPOISONADDR0 @'hb8 {
+    field ecc_poison_col @0 {
+       bits 12;
+       access rw;
+       reset 12'h0;
+    }
+    field Reserved_12_23 @12 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_poison_rank @24 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_25_31 @25 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCPOISONADDR1 @'hbc {
+    field ecc_poison_row @0 {
+       bits 18;
+       access rw;
+       reset 18'h0;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_poison_bank @24 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+    field Reserved_27_27 @27 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ecc_poison_bg @28 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register CRCPARCTL0 @'hc0 {
+    field dfi_alert_err_int_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_alert_err_int_clr @1 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field dfi_alert_err_cnt_clr @2 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_3_31 @3 {
+       bits 29;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register CRCPARCTL1 @'hc4 {
+    field parity_enable @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field crc_enable @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_5_6 @5 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field crc_inc_dm @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_8_11 @8 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field caparity_disable_before_sr @12 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_13_31 @13 {
+       bits 19;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register CRCPARSTAT @'hcc {
+    field dfi_alert_err_cnt @0 {
+       bits 16;
+       access ro;
+       reset 16'h0;
+    }
+    field dfi_alert_err_int @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register INIT0 @'hd0 {
+    field pre_cke_x1024 @0 {
+       bits 12;
+       access rw;
+       reset 12'h4e;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field post_cke_x1024 @16 {
+       bits 10;
+       access rw;
+       reset 10'h2;
+    }
+    field Reserved_26_29 @26 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field skip_dram_init @30 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+  }
+  register INIT1 @'hd4 {
+    field pre_ocd_x32 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dram_rstn_x1024 @16 {
+       bits 9;
+       access rw;
+       reset 9'h0;
+    }
+    field Reserved_25_31 @25 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register INIT2 @'hd8 {
+    field Reserved_0_7 @0 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field idle_after_reset_x32 @8 {
+       bits 8;
+       access rw;
+       reset 8'hd;
+    }
+    field Reserved_16_31 @16 {
+       bits 16;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register INIT3 @'hdc {
+    field emr @0 {
+       bits 16;
+       access rw;
+       reset 16'h510;
+    }
+    field mr @16 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+  }
+  register INIT4 @'he0 {
+    field emr3 @0 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+    field emr2 @16 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+  }
+  register INIT5 @'he4 {
+    field max_auto_init_x1024 @0 {
+       bits 10;
+       access rw;
+       reset 10'h4;
+    }
+    field Reserved_10_15 @10 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dev_zqinit_x32 @16 {
+       bits 8;
+       access rw;
+       reset 8'h10;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register INIT6 @'he8 {
+    field mr5 @0 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+    field mr4 @16 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+  }
+  register INIT7 @'hec {
+    field mr6 @0 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+    field mr22 @16 {
+       bits 16;
+       access rw;
+       reset 16'h0;
+    }
+  }
+  register DIMMCTL @'hf0 {
+    field dimm_stagger_cs_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dimm_addr_mirr_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dimm_output_inv_en @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mrs_a17_en @3 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field mrs_bg1_en @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dimm_dis_bg_mirroring @5 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field lrdimm_bcom_cmd_prot @6 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_7_11 @7 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rcd_weak_drive @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rcd_a_output_disabled @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rcd_b_output_disabled @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register RANKCTL @'hf4 {
+    field max_rank_rd @0 {
+       bits 4;
+       access rw;
+       reset 4'hf;
+    }
+    field diff_rank_rd_gap @4 {
+       bits 4;
+       access rw;
+       reset 4'h6;
+    }
+    field diff_rank_wr_gap @8 {
+       bits 4;
+       access rw;
+       reset 4'h6;
+    }
+    field max_rank_wr @12 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_16_23 @16 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field diff_rank_rd_gap_msb @24 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_25_25 @25 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field diff_rank_wr_gap_msb @26 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG0 @'h100 {
+    field t_ras_min @0 {
+       bits 6;
+       access rw;
+       reset 6'hf;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ras_max @8 {
+       bits 7;
+       access rw;
+       reset 7'h1b;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_faw @16 {
+       bits 6;
+       access rw;
+       reset 6'h10;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr2pre @24 {
+       bits 7;
+       access rw;
+       reset 7'hf;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG1 @'h104 {
+    field t_rc @0 {
+       bits 7;
+       access rw;
+       reset 7'h14;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd2pre @8 {
+       bits 6;
+       access rw;
+       reset 6'h4;
+    }
+    field Reserved_14_15 @14 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_xp @16 {
+       bits 5;
+       access rw;
+       reset 5'h8;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG2 @'h108 {
+    field wr2rd @0 {
+       bits 6;
+       access rw;
+       reset 6'hd;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd2wr @8 {
+       bits 6;
+       access rw;
+       reset 6'h6;
+    }
+    field Reserved_14_15 @14 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field read_latency @16 {
+       bits 6;
+       access rw;
+       reset 6'h5;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field write_latency @24 {
+       bits 6;
+       access rw;
+       reset 6'h3;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG3 @'h10c {
+    field t_mod @0 {
+       bits 10;
+       access rw;
+       reset 10'hc;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_mrd @12 {
+       bits 6;
+       access rw;
+       reset 6'h4;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_mrw @20 {
+       bits 10;
+       access rw;
+       reset 10'h5;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG4 @'h110 {
+    field t_rp @0 {
+       bits 5;
+       access rw;
+       reset 5'h5;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_rrd @8 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ccd @16 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_rcd @24 {
+       bits 5;
+       access rw;
+       reset 5'h5;
+    }
+    field Reserved_29_31 @29 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG5 @'h114 {
+    field t_cke @0 {
+       bits 5;
+       access rw;
+       reset 5'h3;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ckesr @8 {
+       bits 6;
+       access rw;
+       reset 6'h4;
+    }
+    field Reserved_14_15 @14 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_cksre @16 {
+       bits 7;
+       access rw;
+       reset 7'h5;
+    }
+    field Reserved_23_23 @23 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_cksrx @24 {
+       bits 4;
+       access rw;
+       reset 4'h5;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG6 @'h118 {
+    field t_ckcsx @0 {
+       bits 4;
+       access rw;
+       reset 4'h5;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ckdpdx @16 {
+       bits 4;
+       access rw;
+       reset 4'h2;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ckdpde @24 {
+       bits 4;
+       access rw;
+       reset 4'h2;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG7 @'h11c {
+    field t_ckpdx @0 {
+       bits 4;
+       access rw;
+       reset 4'h2;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ckpde @8 {
+       bits 4;
+       access rw;
+       reset 4'h2;
+    }
+    field Reserved_12_31 @12 {
+       bits 20;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG8 @'h120 {
+    field t_xs_x32 @0 {
+       bits 7;
+       access rw;
+       reset 7'h5;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_xs_dll_x32 @8 {
+       bits 7;
+       access rw;
+       reset 7'h44;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_xs_abort_x32 @16 {
+       bits 7;
+       access rw;
+       reset 7'h3;
+    }
+    field Reserved_23_23 @23 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_xs_fast_x32 @24 {
+       bits 7;
+       access rw;
+       reset 7'h3;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG9 @'h124 {
+    field wr2rd_s @0 {
+       bits 6;
+       access rw;
+       reset 6'hd;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_rrd_s @8 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ccd_s @16 {
+       bits 3;
+       access rw;
+       reset 3'h4;
+    }
+    field Reserved_19_29 @19 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ddr4_wr_preamble @30 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG10 @'h128 {
+    field t_gear_hold @0 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field t_gear_setup @2 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_cmd_gear @8 {
+       bits 5;
+       access rw;
+       reset 5'h18;
+    }
+    field Reserved_13_15 @13 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_sync_gear @16 {
+       bits 5;
+       access rw;
+       reset 5'h1c;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG11 @'h12c {
+    field t_ckmpe @0 {
+       bits 5;
+       access rw;
+       reset 5'h1c;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_mpx_s @8 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field Reserved_10_15 @10 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_mpx_lh @16 {
+       bits 5;
+       access rw;
+       reset 5'hc;
+    }
+    field Reserved_21_23 @21 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field post_mpsm_gap_x32 @24 {
+       bits 7;
+       access rw;
+       reset 7'h44;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG12 @'h130 {
+    field t_mrd_pda @0 {
+       bits 5;
+       access rw;
+       reset 5'h10;
+    }
+    field Reserved_5_15 @5 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_cmdcke @16 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_wr_mpr @24 {
+       bits 6;
+       access rw;
+       reset 6'h1a;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG13 @'h134 {
+    field t_ppd @0 {
+       bits 3;
+       access rw;
+       reset 3'h4;
+    }
+    field Reserved_3_15 @3 {
+       bits 13;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_ccd_mw @16 {
+       bits 6;
+       access rw;
+       reset 6'h20;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field odtloff @24 {
+       bits 7;
+       access rw;
+       reset 7'h1c;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG14 @'h138 {
+    field t_xsr @0 {
+       bits 12;
+       access rw;
+       reset 12'ha0;
+    }
+    field Reserved_12_31 @12 {
+       bits 20;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DRAMTMG15 @'h13c {
+    field t_stab_x32 @0 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field Reserved_8_30 @8 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field en_dfi_lp_t_stab @31 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+  }
+  register ZQCTL0 @'h180 {
+    field t_zq_short_nop @0 {
+       bits 10;
+       access rw;
+       reset 10'h40;
+    }
+    field Reserved_10_15 @10 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field t_zq_long_nop @16 {
+       bits 11;
+       access rw;
+       reset 11'h200;
+    }
+    field Reserved_27_27 @27 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dis_mpsmx_zqcl @28 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field zq_resistor_shared @29 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_srx_zqcl @30 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_auto_zq @31 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+  }
+  register ZQCTL1 @'h184 {
+    field t_zq_short_interval_x1024 @0 {
+       bits 20;
+       access rw;
+       reset 20'h100;
+    }
+    field t_zq_reset_nop @20 {
+       bits 10;
+       access rw;
+       reset 10'h20;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ZQCTL2 @'h188 {
+    field zq_reset @0 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ZQSTAT @'h18c {
+    field zq_reset_busy @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFITMG0 @'h190 {
+    field dfi_tphy_wrlat @0 {
+       bits 6;
+       access rw;
+       reset 6'h2;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_tphy_wrdata @8 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_14_14 @14 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_wrdata_use_dfi_phy_clk @15 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_t_rddata_en @16 {
+       bits 7;
+       access rw;
+       reset 7'h2;
+    }
+    field dfi_rddata_use_dfi_phy_clk @23 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_t_ctrl_delay @24 {
+       bits 5;
+       access rw;
+       reset 5'h7;
+    }
+    field Reserved_29_31 @29 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFITMG1 @'h194 {
+    field dfi_t_dram_clk_enable @0 {
+       bits 5;
+       access rw;
+       reset 5'h4;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_dram_clk_disable @8 {
+       bits 5;
+       access rw;
+       reset 5'h4;
+    }
+    field Reserved_13_15 @13 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_wrdata_delay @16 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_21_23 @21 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_parin_lat @24 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_26_27 @26 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_cmd_lat @28 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+  }
+  register DFILPCFG0 @'h198 {
+    field dfi_lp_en_pd @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_lp_wakeup_pd @4 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field dfi_lp_en_sr @8 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_9_11 @9 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_lp_wakeup_sr @12 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field dfi_lp_en_dpd @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_19 @17 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_lp_wakeup_dpd @20 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field dfi_tlp_resp @24 {
+       bits 5;
+       access rw;
+       reset 5'h7;
+    }
+    field Reserved_29_31 @29 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFILPCFG1 @'h19c {
+    field dfi_lp_en_mpsm @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_lp_wakeup_mpsm @4 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFIUPD0 @'h1a0 {
+    field dfi_t_ctrlup_min @0 {
+       bits 10;
+       access rw;
+       reset 10'h3;
+    }
+    field Reserved_10_15 @10 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_ctrlup_max @16 {
+       bits 10;
+       access rw;
+       reset 10'h40;
+    }
+    field Reserved_26_28 @26 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ctrlupd_pre_srx @29 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_auto_ctrlupd_srx @30 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_auto_ctrlupd @31 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+  }
+  register DFIUPD1 @'h1a4 {
+    field dfi_t_ctrlupd_interval_max_x1024 @0 {
+       bits 8;
+       access rw;
+       reset 8'h1;
+    }
+    field Reserved_8_15 @8 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_t_ctrlupd_interval_min_x1024 @16 {
+       bits 8;
+       access rw;
+       reset 8'h1;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFIUPD2 @'h1a8 {
+    field Reserved_0_30 @0 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_phyupd_en @31 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+  }
+  register DFIMISC @'h1b0 {
+    field dfi_init_complete_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field phy_dbi_mode @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_data_cs_polarity @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ctl_idle_en @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_init_start @5 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_dyn_adr_tri @6 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field lp_optimized_write @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dfi_frequency @8 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_13_31 @13 {
+       bits 19;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFITMG2 @'h1b4 {
+    field dfi_tphy_wrcslat @0 {
+       bits 6;
+       access rw;
+       reset 6'h2;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_tphy_rdcslat @8 {
+       bits 7;
+       access rw;
+       reset 7'h2;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFITMG3 @'h1b8 {
+    field dfi_t_geardown_delay @0 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_5_31 @5 {
+       bits 27;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFISTAT @'h1bc {
+    field dfi_init_complete @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field dfi_lp_ack @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_2_31 @2 {
+       bits 30;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBICTL @'h1c0 {
+    field dm_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field wr_dbi_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_dbi_en @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_3_31 @3 {
+       bits 29;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DFIPHYMSTR @'h1c4 {
+    field dfi_phymstr_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_1_23 @1 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dfi_phymstr_blk_ref_x32 @24 {
+       bits 8;
+       access rw;
+       reset 8'h80;
+    }
+  }
+  register ADDRMAP0 @'h200 {
+    field addrmap_cs_bit0 @0 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_5_31 @5 {
+       bits 27;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP1 @'h204 {
+    field addrmap_bank_b0 @0 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_bank_b1 @8 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_14_15 @14 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_bank_b2 @16 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP2 @'h208 {
+    field addrmap_col_b2 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b3 @8 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_13_15 @13 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b4 @16 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b5 @24 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP3 @'h20c {
+    field addrmap_col_b6 @0 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b7 @8 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_13_15 @13 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b8 @16 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_21_23 @21 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b9 @24 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_29_31 @29 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP4 @'h210 {
+    field addrmap_col_b10 @0 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_col_b11 @8 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_13_30 @13 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field col_addr_shift @31 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+  }
+  register ADDRMAP5 @'h214 {
+    field addrmap_row_b0 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b1 @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b2_10 @16 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b11 @24 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP6 @'h218 {
+    field addrmap_row_b12 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b13 @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b14 @16 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b15 @24 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_28_28 @28 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field lpddr34_3gb_6gb_12gb @29 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+  }
+  register ADDRMAP7 @'h21c {
+    field addrmap_row_b16 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b17 @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_12_31 @12 {
+       bits 20;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP8 @'h220 {
+    field addrmap_bg_b0 @0 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_bg_b1 @8 {
+       bits 6;
+       access rw;
+       reset 6'h0;
+    }
+    field Reserved_14_31 @14 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP9 @'h224 {
+    field addrmap_row_b2 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b3 @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b4 @16 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b5 @24 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP10 @'h228 {
+    field addrmap_row_b6 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b7 @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b8 @16 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_20_23 @20 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field addrmap_row_b9 @24 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADDRMAP11 @'h22c {
+    field addrmap_row_b10 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_31 @4 {
+       bits 28;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ODTCFG @'h240 {
+    field Reserved_0_1 @0 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_odt_delay @2 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_odt_hold @8 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_odt_delay @16 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field Reserved_21_23 @21 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_odt_hold @24 {
+       bits 4;
+       access rw;
+       reset 4'h4;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ODTMAP @'h244 {
+    field rank0_wr_odt @0 {
+       bits 2;
+       access rw;
+       reset 2'h1;
+    }
+    field Reserved_2_3 @2 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rank0_rd_odt @4 {
+       bits 2;
+       access rw;
+       reset 2'h1;
+    }
+    field Reserved_6_7 @6 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rank1_wr_odt @8 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rank1_rd_odt @12 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field Reserved_14_31 @14 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SCHED @'h250 {
+    field dis_opt_wrecc_collision_flush @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field prefer_write @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field pageclose @2 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_3_6 @3 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field autopre_rmw @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field lpr_num_entries @8 {
+       bits 6;
+       access rw;
+       reset 6'h20;
+    }
+    field Reserved_14_14 @14 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field lpddr4_opt_act_timing @15 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field go2critical_hysteresis @16 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field rdwr_idle_gap @24 {
+       bits 7;
+       access rw;
+       reset 7'h0;
+    }
+    field Reserved_31_31 @31 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SCHED1 @'h254 {
+    field pageclose_timer @0 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PERFHPR1 @'h25c {
+    field hpr_max_starve @0 {
+       bits 16;
+       access rw;
+       reset 16'h1;
+    }
+    field Reserved_16_23 @16 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field hpr_xact_run_length @24 {
+       bits 8;
+       access rw;
+       reset 8'hf;
+    }
+  }
+  register PERFLPR1 @'h264 {
+    field lpr_max_starve @0 {
+       bits 16;
+       access rw;
+       reset 16'h7f;
+    }
+    field Reserved_16_23 @16 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field lpr_xact_run_length @24 {
+       bits 8;
+       access rw;
+       reset 8'hf;
+    }
+  }
+  register PERFWR1 @'h26c {
+    field w_max_starve @0 {
+       bits 16;
+       access rw;
+       reset 16'h7f;
+    }
+    field Reserved_16_23 @16 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field w_xact_run_length @24 {
+       bits 8;
+       access rw;
+       reset 8'hf;
+    }
+  }
+  register DQMAP0 @'h280 {
+    field dq_nibble_map_0_3 @0 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_4_7 @8 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_8_11 @16 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_12_15 @24 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+  }
+  register DQMAP1 @'h284 {
+    field dq_nibble_map_16_19 @0 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_20_23 @8 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_24_27 @16 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field dq_nibble_map_28_31 @24 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+  }
+  register DQMAP5 @'h294 {
+    field dis_dq_rank_swap @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBG0 @'h300 {
+    field dis_wc @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dis_collision_page_opt @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_5_5 @5 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dis_max_rank_rd_opt @6 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_max_rank_wr_opt @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBG1 @'h304 {
+    field dis_dq @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field dis_hif @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_2_31 @2 {
+       bits 30;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBGCAM @'h308 {
+    field dbg_hpr_q_depth @0 {
+       bits 7;
+       access ro;
+       reset 7'h0;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dbg_lpr_q_depth @8 {
+       bits 7;
+       access ro;
+       reset 7'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dbg_w_q_depth @16 {
+       bits 7;
+       access ro;
+       reset 7'h0;
+    }
+    field Reserved_23_23 @23 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field dbg_stall @24 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field dbg_rd_q_empty @25 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field dbg_wr_q_empty @26 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_27_27 @27 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_data_pipeline_empty @28 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_data_pipeline_empty @29 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_30_31 @30 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBGCMD @'h30c {
+    field rank0_refresh @0 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field rank1_refresh @1 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_2_3 @2 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field zq_calib_short @4 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ctrlupd @5 {
+       bits 1;
+       access w1s;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_6_31 @6 {
+       bits 26;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBGSTAT @'h310 {
+    field rank0_refresh_busy @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rank1_refresh_busy @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_2_3 @2 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field zq_calib_short_busy @4 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ctrlupd_busy @5 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_6_31 @6 {
+       bits 26;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DBGCAM1 @'h318 {
+    field dbg_wrecc_q_depth @0 {
+       bits 7;
+       access ro;
+       reset 7'h0;
+    }
+    field Reserved_7_31 @7 {
+       bits 25;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SWCTL @'h320 {
+    field sw_done @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SWSTAT @'h324 {
+    field sw_done_ack @0 {
+       bits 1;
+       access ro;
+       reset 1'h1;
+    attributes { NO_REG_TESTS 1 }
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SWCTLSTATIC @'h328 {
+    field sw_static_unlock @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCPARCFG0 @'h330 {
+    field oc_parity_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field oc_parity_type @1 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_2_19 @2 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field par_addr_slverr_en @20 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field par_waddr_err_intr_en @21 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field par_waddr_err_intr_clr @22 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field par_raddr_err_intr_en @23 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field par_raddr_err_intr_clr @24 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field par_waddr_err_intr_force @25 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field par_raddr_err_intr_force @26 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCPARSTAT0 @'h338 {
+    field par_waddr_err_intr_0 @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_waddr_err_intr_1 @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_waddr_err_intr_2 @2 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_waddr_err_intr_3 @3 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_waddr_err_intr_4 @4 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_5_15 @5 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field par_raddr_err_intr_0 @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_raddr_err_intr_1 @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_raddr_err_intr_2 @18 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_raddr_err_intr_3 @19 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_raddr_err_intr_4 @20 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCECCCFG0 @'h358 {
+    field ocecc_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ocecc_uncorrected_err_intr_en @4 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ocecc_wdata_slverr_en @5 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field ocecc_uncorrected_err_intr_clr @6 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field ocecc_uncorrected_err_intr_force @7 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_8_12 @8 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ocecc_rdata_slverr_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_14_31 @14 {
+       bits 18;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCECCCFG1 @'h35c {
+    field ocecc_poison_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ocecc_poison_egen_mr_rd_0 @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ocecc_poison_egen_mr_rd_0_byte_num @2 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field ocecc_poison_egen_xpi_rd_out @7 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ocecc_poison_port_num @8 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field ocecc_poison_egen_mr_rd_1 @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ocecc_poison_egen_mr_rd_1_byte_num @13 {
+       bits 5;
+       access rw;
+       reset 5'h0;
+    }
+    field ocecc_poison_egen_xpi_rd_0 @18 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field ocecc_poison_ecc_corr_uncorr @19 {
+       bits 2;
+       access rw;
+       reset 2'h2;
+    }
+    field ocecc_poison_pgen_rd @21 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_22_22 @22 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ocecc_poison_pgen_mr_ecc @23 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_24_31 @24 {
+       bits 8;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCECCSTAT0 @'h360 {
+    field ocecc_uncorrected_err @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_1_16 @1 {
+       bits 16;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ocecc_err_ddrc_mr_rd @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_18_18 @18 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field par_err_mr_ecc @19 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field par_err_rd @20 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCECCSTAT1 @'h364 {
+    field ocecc_err_xpi_wr_in_0 @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_wr_in_1 @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_wr_in_2 @2 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_wr_in_3 @3 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_wr_in_4 @4 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_5_15 @5 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field ocecc_err_xpi_rd_0 @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_rd_1 @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_rd_2 @18 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_rd_3 @19 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field ocecc_err_xpi_rd_4 @20 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCECCSTAT2 @'h368 {
+    field ocecc_err_ddrc_mr_rd_byte_num @0 {
+       bits 32;
+       access ro;
+       reset 32'h0;
+    }
+  }
+  register POISONCFG @'h36c {
+    field wr_poison_slverr_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_poison_intr_en @4 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_poison_intr_clr @8 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_9_15 @9 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_poison_slverr_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_17_19 @17 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_poison_intr_en @20 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_21_23 @21 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_poison_intr_clr @24 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_25_31 @25 {
+       bits 7;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register POISONSTAT @'h370 {
+    field wr_poison_intr_0 @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_poison_intr_1 @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_poison_intr_2 @2 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_poison_intr_3 @3 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_poison_intr_4 @4 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_5_15 @5 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_poison_intr_0 @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_poison_intr_1 @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_poison_intr_2 @18 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_poison_intr_3 @19 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_poison_intr_4 @20 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ADVECCINDEX @'h374 {
+    field ecc_syndrome_sel @0 {
+       bits 3;
+       access rw;
+       reset 3'h0;
+    }
+    field ecc_err_symbol_sel @3 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field ecc_poison_beats_sel @5 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_9_31 @9 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCPOISONPAT0 @'h37c {
+    field ecc_poison_data_31_0 @0 {
+       bits 32;
+       access rw;
+       reset 32'h0;
+    }
+  }
+  register ECCPOISONPAT2 @'h384 {
+    field ecc_poison_data_71_64 @0 {
+       bits 8;
+       access rw;
+       reset 8'h0;
+    }
+    field Reserved_8_31 @8 {
+       bits 24;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register ECCAPSTAT @'h388 {
+    field ecc_ap_err @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register REGPARCFG @'h3c0 {
+    field reg_par_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field reg_par_err_intr_en @1 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field reg_par_err_intr_clr @2 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field reg_par_err_intr_force @3 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field reg_par_poison_en @8 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_9_31 @9 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register REGPARSTAT @'h3c4 {
+    field reg_par_err_intr @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCCAPCFG @'h3e0 {
+    field occap_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_15 @1 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_arb_intr_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field occap_arb_intr_clr @17 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_arb_intr_force @18 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_19_23 @19 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_arb_cmp_poison_seq @24 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_arb_cmp_poison_parallel @25 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_arb_cmp_poison_err_inj @26 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field occap_arb_raq_poison_en @27 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_28_31 @28 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCCAPSTAT @'h3e4 {
+    field Reserved_0_15 @0 {
+       bits 16;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_arb_err_intr @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_arb_cmp_poison_complete @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_arb_cmp_poison_seq_err @24 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_arb_cmp_poison_parallel_err @25 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCCAPCFG1 @'h3e8 {
+    field occap_ddrc_data_intr_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field occap_ddrc_data_intr_clr @1 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_data_intr_force @2 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_3_7 @3 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_data_poison_seq @8 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_data_poison_parallel @9 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_data_poison_err_inj @10 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_ctrl_intr_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field occap_ddrc_ctrl_intr_clr @17 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_ctrl_intr_force @18 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_19_23 @19 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_ctrl_poison_seq @24 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_ctrl_poison_parallel @25 {
+       bits 1;
+       access w1c;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field occap_ddrc_ctrl_poison_err_inj @26 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register OCCAPSTAT1 @'h3ec {
+    field occap_ddrc_data_err_intr @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_ddrc_data_poison_complete @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_2_7 @2 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_data_poison_seq_err @8 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_ddrc_data_poison_parallel_err @9 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_10_15 @10 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_ctrl_err_intr @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_ddrc_ctrl_poison_complete @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_18_23 @18 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field occap_ddrc_ctrl_poison_seq_err @24 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field occap_ddrc_ctrl_poison_parallel_err @25 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register DERATESTAT @'h3f0 {
+    field derate_temp_limit_intr @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    attributes { NO_REG_BIT_BASH_TEST 1 }
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+}
+block DWC_ddr_umctl2_map_UMCTL2_MP {
+  endian little;
+  bytes 4;
+  register PSTAT @'h4 {
+    field rd_port_busy_0 @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_port_busy_1 @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_port_busy_2 @2 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_port_busy_3 @3 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field rd_port_busy_4 @4 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_5_15 @5 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_busy_0 @16 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_port_busy_1 @17 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_port_busy_2 @18 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_port_busy_3 @19 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field wr_port_busy_4 @20 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCCFG @'h8 {
+    field go2critical_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_3 @1 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field pagematch_limit @4 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_5_7 @5 {
+       bits 3;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field bl_exp_mode @8 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_9_31 @9 {
+       bits 23;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGR_0 @'hc {
+    field rd_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rdwr_ordered_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGW_0 @'h10 {
+    field wr_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCTRL_0 @'h98 {
+    field port_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS0_0 @'h9c {
+    field rqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS1_0 @'ha0 {
+    field rqos_map_timeoutb @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_timeoutr @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS0_0 @'ha4 {
+    field wqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       constraint valid { value < 14; }
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_level2 @8 {
+       bits 4;
+       access rw;
+       constraint valid { value < 15; }
+       reset 4'he;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region2 @24 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS1_0 @'ha8 {
+    field wqos_map_timeout1 @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_timeout2 @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGR_1 @'hbc {
+    field rd_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rdwr_ordered_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGW_1 @'hc0 {
+    field wr_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCTRL_1 @'h148 {
+    field port_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS0_1 @'h14c {
+    field rqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS1_1 @'h150 {
+    field rqos_map_timeoutb @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_timeoutr @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS0_1 @'h154 {
+    field wqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       constraint valid { value < 14; }
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_level2 @8 {
+       bits 4;
+       access rw;
+       constraint valid { value < 15; }
+       reset 4'he;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region2 @24 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS1_1 @'h158 {
+    field wqos_map_timeout1 @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_timeout2 @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGR_2 @'h16c {
+    field rd_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rdwr_ordered_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGW_2 @'h170 {
+    field wr_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCTRL_2 @'h1f8 {
+    field port_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS0_2 @'h1fc {
+    field rqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS1_2 @'h200 {
+    field rqos_map_timeoutb @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_timeoutr @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS0_2 @'h204 {
+    field wqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       constraint valid { value < 14; }
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_level2 @8 {
+       bits 4;
+       access rw;
+       constraint valid { value < 15; }
+       reset 4'he;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region2 @24 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS1_2 @'h208 {
+    field wqos_map_timeout1 @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_timeout2 @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGR_3 @'h21c {
+    field rd_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rdwr_ordered_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGW_3 @'h220 {
+    field wr_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCTRL_3 @'h2a8 {
+    field port_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS0_3 @'h2ac {
+    field rqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS1_3 @'h2b0 {
+    field rqos_map_timeoutb @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_timeoutr @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS0_3 @'h2b4 {
+    field wqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       constraint valid { value < 14; }
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_level2 @8 {
+       bits 4;
+       access rw;
+       constraint valid { value < 15; }
+       reset 4'he;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region2 @24 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS1_3 @'h2b8 {
+    field wqos_map_timeout1 @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_timeout2 @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGR_4 @'h2cc {
+    field rd_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rd_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field rd_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_15_15 @15 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rdwr_ordered_en @16 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_17_31 @17 {
+       bits 15;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGW_4 @'h2d0 {
+    field wr_port_priority @0 {
+       bits 10;
+       access rw;
+       reset 10'h0;
+    }
+    field Reserved_10_11 @10 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wr_port_aging_en @12 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_urgent_en @13 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field wr_port_pagematch_en @14 {
+       bits 1;
+       access rw;
+       reset 1'h1;
+    }
+    field Reserved_15_31 @15 {
+       bits 17;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCTRL_4 @'h358 {
+    field port_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_1_31 @1 {
+       bits 31;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS0_4 @'h35c {
+    field rqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_15 @4 {
+       bits 12;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       reset 2'h0;
+    }
+    field Reserved_22_31 @22 {
+       bits 10;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGQOS1_4 @'h360 {
+    field rqos_map_timeoutb @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field rqos_map_timeoutr @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS0_4 @'h364 {
+    field wqos_map_level1 @0 {
+       bits 4;
+       access rw;
+       constraint valid { value < 14; }
+       reset 4'h0;
+    }
+    field Reserved_4_7 @4 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_level2 @8 {
+       bits 4;
+       access rw;
+       constraint valid { value < 15; }
+       reset 4'he;
+    }
+    field Reserved_12_15 @12 {
+       bits 4;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region0 @16 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_18_19 @18 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region1 @20 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_22_23 @22 {
+       bits 2;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_region2 @24 {
+       bits 2;
+       access rw;
+       constraint valid { value < 2; }
+       reset 2'h0;
+    }
+    field Reserved_26_31 @26 {
+       bits 6;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register PCFGWQOS1_4 @'h368 {
+    field wqos_map_timeout1 @0 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_11_15 @11 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field wqos_map_timeout2 @16 {
+       bits 11;
+       access rw;
+       reset 11'h0;
+    }
+    field Reserved_27_31 @27 {
+       bits 5;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SBRCTL @'hb2c {
+    field scrub_en @0 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field scrub_during_lowpower @1 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field scrub_mode @2 {
+       bits 1;
+       access rw;
+       reset 1'h0;
+    }
+    field Reserved_3_3 @3 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field scrub_burst @4 {
+       bits 3;
+       access rw;
+       reset 3'h1;
+    }
+    field Reserved_7_7 @7 {
+       bits 1;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+    field scrub_interval @8 {
+       bits 13;
+       access rw;
+       reset 13'hff;
+    }
+    field Reserved_21_31 @21 {
+       bits 11;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SBRSTAT @'hb30 {
+    field scrub_busy @0 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field scrub_done @1 {
+       bits 1;
+       access ro;
+       reset 1'h0;
+    }
+    field Reserved_2_31 @2 {
+       bits 30;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SBRWDATA0 @'hb34 {
+    field scrub_pattern0 @0 {
+       bits 32;
+       access rw;
+       reset 32'h0;
+    }
+  }
+  register SBRSTART0 @'hb40 {
+    field sbr_address_start_mask_0 @0 {
+       bits 32;
+       access rw;
+       reset 32'h0;
+    }
+  }
+  register SBRSTART1 @'hb44 {
+    field sbr_address_start_mask_1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_31 @4 {
+       bits 28;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register SBRRANGE0 @'hb48 {
+    field sbr_address_range_mask_0 @0 {
+       bits 32;
+       access rw;
+       reset 32'h0;
+    }
+  }
+  register SBRRANGE1 @'hb4c {
+    field sbr_address_range_mask_1 @0 {
+       bits 4;
+       access rw;
+       reset 4'h0;
+    }
+    field Reserved_4_31 @4 {
+       bits 28;
+       access ro;
+       attributes {NO_REG_TESTS 1}
+    }
+  }
+  register UMCTL2_VER_NUMBER @'hbf8 {
+    field ver_number @0 {
+       bits 32;
+       access ro;
+       reset 32'h3339302a;
+    }
+  }
+  register UMCTL2_VER_TYPE @'hbfc {
+    field ver_type @0 {
+       bits 32;
+       access ro;
+       reset 32'h67612a2a;
+    }
+  }
+}
+
+
+system DWC_ddr_umctl2 {
+  block DWC_ddr_umctl2_axi_0_AXI_block @'h0;
+  block DWC_ddr_umctl2_axi_1_AXI_block @'h0;
+  block DWC_ddr_umctl2_axi_2_AXI_block @'h0;
+  block DWC_ddr_umctl2_axi_3_AXI_block @'h0;
+  block DWC_ddr_umctl2_axi_4_AXI_block @'h0;
+  bytes 4;
+  block DWC_ddr_umctl2_map_UMCTL2_REGS @'h0;
+  block DWC_ddr_umctl2_map_UMCTL2_MP @'h3f8;
+}
+
