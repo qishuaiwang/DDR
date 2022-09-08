@@ -1,0 +1,102 @@
+===============================================================================
+!!!! IMPORTANT !!!! 
+===============================================================================
+For information on how to use PhyInit refer to the DWC DDRPHY PhyInit App Note
+provided in the documentation package.
+
+===============================================================================
+What is PhyInit program?
+===============================================================================
+
+The purpose of the PhyInit program is to allow the user to generate a 
+customized PHY initialization sequence specific to the user's system 
+configuration.  The user will provide a set of configuration inputs to the
+program and it will output a PHY initialization sequence specific to the inputs
+provided.  The user can choose to execute or skip the training firmware in the
+initialization sequence. 
+
+Detailed information on PhyInit Software features and usage are provided in 
+DWC DDRPHY PhyInit App Note.  It is recommended the user be familiar with 
+DesignWare Cores PHY Utility Block (PUB) data book section on Clocks, Reset,
+initialization.
+
+===============================================================================
+PhyInit Quick Setup Guide
+===============================================================================
+The following instruction is designed to quickly setup PhyInit to program the 
+PHY for a basic simple setup with SkipTraining in zero board delay system.
+
+===============================================================================
+1. Enter user Inputs ( Section 3.2 of PhyInit App Note)
+===============================================================================
+Edit the content of ./<protocol>/dwc_ddrphy_phyinit_setDefault.c according to
+your specific configuration. The file is comprised of user input fields and the 
+associated values divided into 3 categories:
+
+  1. userInputBasic    - these are inputs that the user must enter information 
+                         specific to their configuration.  User must replace the
+                         default values in the field with their specific
+                         settings.
+  
+  2. userInputAdvanced - these are optionally inputs. User can choose to enter 
+                         new values or leave the fields at the default values.
+  
+  3. userInputSim      - these are inputs that the user shall enter if execution
+                         of training firmware skipped.  If training firmware is 
+                         executed, user can leave the fields at default.
+
+A detailed description of each user input field can be found in this file:
+
+   ./<protocol>/src/dwc_ddrphy_phyinit_struct.h
+
+===============================================================================
+2. Compile and Run
+===============================================================================
+Call the make target associated with your protocol to compile and run PhyInit:
+
+>> cd <protocol> 
+>> make FIRMWARE_PATH=<Absolute path to firmware release folder> PUB=<PHY RTL major revision>
+
+NOTE: PhyInit looks for the firmware message block definition in
+ <FIRMWARE_PATH>/<protocol>/mnPmuSramMsgBlock_<protocol>.h. Ensure this path is
+provided correctly in order to compile PhyInit. The specified PUB major
+revision must match with PHY RTL major revision (set PUB=1 for all PUB 1.x revisions,
+set PUB=2 for all PUB 2.x revisions).
+ 
+===============================================================================
+3. Read Outputs 
+===============================================================================
+The output from the PhyInit program is a text file located in 
+<protocol>/output/*.txt that documents the PHY initialization sequence. It 
+contains comments that describe each step of the sequence and APB write commands
+to PHY registers. The text files are Verilog syntax compatible.
+
+Each dwc_ddrphy_apb_wr(addr, data) specifies the address of the register and 
+data to be programmed. The user must implement their own version of 
+dwc_ddrphy_apb_wr() to perform APB writes to PHY register.
+
+It is important to perform the register programing in sequence and relative to 
+other system events as described in each text file. The steps in the output file
+correspond to the steps documented in the PHY Initialization section of the
+PUB Databook. More information on each sequence and more advanced topics are
+provided in the PhyInit App Note.
+
+As an example the register writes along with the initialization sequence of events
+for SkipTraining in zero board delay systems can be found in:
+   ./<protocol>/output/dwc_ddrphy_phyinit_skip_train.txt
+
+===============================================================================
+Additional Notes
+===============================================================================
+- If running training firmware for multiple p-states, the user must change the 
+  PHY input clock to the target frequency before executing the firmware for the 
+  next PState.  Refer to Step E in PHY Initialization of PUB Databook.
+
+- To remove output files, type "make clean"
+
+- All source code resides in <protocol>/src and <protocol>/userCustom/ 
+  directories
+
+- The top-level file to generate phyinit executable is: 
+  <protocol>/src/dwc_ddrphy_phyinit_main.c
+

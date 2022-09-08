@@ -1,0 +1,1 @@
+$DESIGNWARE_HOME/bin/dw_vip_setup -add lpddr_agent_svt lpddr_controller_agent_svt lpddr4_env_svt lpddr5_env_svt lpddr_controller_agent_svt lpddr4_controller_env_svt lpddr5_controller_env_svt

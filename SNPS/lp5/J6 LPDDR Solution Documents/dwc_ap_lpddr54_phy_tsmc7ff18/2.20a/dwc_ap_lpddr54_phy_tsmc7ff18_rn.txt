@@ -1,0 +1,2355 @@
+Copyright 2021 Synopsys, Inc.
+This Synopsys IP and all associated documentation are proprietary to
+Synopsys, Inc. and may only be used pursuant to the terms and conditions
+of a written license agreement with Synopsys, Inc. All other use,
+reproduction, modification, or distribution of the Synopsys IP or the
+associated documentation is strictly prohibited.
+------------------------------------------------------------------
+
+LPDDR54 PHY for TSMC 7FF 1.8V
+ 
+Release 2.20a
+May 13, 2021
+
+
+------------------------------------------------------------------
+
+Controller Interoperability Testing
+-----------------------------------
+This release does NOT interoperate with the Synopsys uMCTL2, uMCTL2P, or uPCTL2 DDR Controllers. 
+Contact Synopsys for the latest LPDDR5/4/4X Controller availability and Interoperability information.
+
+
+------------------------------------------------------------------
+
+Additional Info
+---------------
+This release contains additional documentation related to the Automotive Grade 2 qualifications.
+
+
+------------------------------------------------------------------
+
+Special notes
+-------------
+
+Update includes EW views for PDK 1.3. The NS views have GDS and timing model views updated to align with the EW design methodology.  
+Views up to MTOP and including LVF timing models that do not include foundry OCV derates.
+
+
+------------------------------------------------------------------
+
+Documentation
+-------------
+
+- Added:    	Certificate_DesignWare_AP_LPDDR5-4-4X_PHY.pdf
+				dwc_ap_lpddr54_phy_tsmc7ff18_aec_reliability_report.pdf
+				dwc_lpddr54_phy_firmware_ate_application_note.pdf
+				dwc_lpddr54_phy_firmware_diagnostic_app_note.pdf
+				dwc_lpddr54_phy_lbist_application_note.pdf
+				dwc_lpddr54_phy_occ_application_note.pdf
+				dwc_lpddr54_phy_phyinit_overview_appnote.pdf
+				dwc_lpddr54_phy_training_firmware_application_note.pdf
+				dwc_lpddr54_phy_ctb_verification_application_note.pdf
+
+	     
+- Updated:  	HSPICE_model_app_note_lpddr54.pdf
+				dwc_ap_lpddr54_phy_tsmc7ff18_databook.pdf
+				dwc_lpddr54_phy_ig.pdf
+				dwc_lpddr54_phy_signal_integrity_application_note.pdf
+			
+			
+-No Changes:	P3C60001.pdf
+				SG Quality Manual.pdf
+				dwc_ap_lpddr54_phy_tsmc7ff18_DFMEA.xlsx
+				dwc_ap_lpddr54_phy_tsmc7ff18_FMEDA.xlsx			
+				dwc_ap_lpddr54_phy_tsmc7ff18_safety_manual.pdf			
+				dwc_lpddr54_phy_pub_databook.pdf
+
+-Changed name	dwc_lpddr54_phy_pub_databook_1.02a_patch3.pdf			
+							
+
+
+------------------------------------------------------------------
+
+SE_NS
+
+Version 3.20a
+May 07, 2021
+
+Changes from version 3.11a
+(mandatory)
+
+- Updated GDS TAG
+
+------------------------------------------------
+
+Version 3.11a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Included new HSPICE model SS/-40 both EW + NS views.
+
+------------------------------------------------
+
+Version 3.10a
+Nov 26, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Updated NS GDS and timing views to align with EW methodology.
+
+
+------------------------------------------------------------------
+
+SE_EW
+
+Version 3.20a
+May 07, 2021
+
+Changes from version 3.11a
+(mandatory)
+
+- Fixed vflag DRC and enhance top via structure for VDD
+
+
+------------------------------------------------------------------
+
+SEC_NS
+
+Version 3.11a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Included new HSPICE model SS/-40 both EW + NS views.
+
+------------------------------------------------
+
+Version 3.10a
+Nov 26, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Updated NS GDS and timing views to align with EW methodology.
+
+
+------------------------------------------------------------------
+
+SEC_EW
+
+Version 3.11a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Included new HSPICE model SS/-40 both EW + NS views.
+
+
+------------------------------------------------------------------
+
+DIFF_NS
+
+Version 3.20a
+May 07, 2021
+
+Changes from version 3.11a
+(mandatory)
+
+- Updated GDS TAG
+
+------------------------------------------------
+
+Version 3.11a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Included new HSPICE model SS/-40 both EW + NS views.
+
+------------------------------------------------
+
+Version 3.10a
+Nov 26, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Updated NS GDS and timing views to align with EW methodology.
+
+
+------------------------------------------------------------------
+
+DIFF_EW
+
+Version 3.20a
+May 07, 2021
+
+Changes from version 3.11a
+(mandatory)
+
+- Fixed DRC LUP issue
+
+
+------------------------------------------------------------------
+
+MASTER_NS
+
+Version 3.20a
+Mar 24, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+
+- Provide more flexible Pclk routing
+- Added new HSPICE SS/-40 models in both EW + NS views.
+
+------------------------------------------------
+
+Version 3.10a
+Nov 26, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Updated NS GDS and timing views to align with EW methodology.
+
+
+------------------------------------------------------------------
+
+MASTER_EW
+
+Version 3.20a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Provide more flexible Pclk routing
+- Added new HSPICE SS/-40 models in both EW + NS views.
+
+
+------------------------------------------------------------------
+
+UTILITY_BLOCKS
+
+Version 3.20a
+Mar 11, 2021
+
+Changes from version 3.10a
+(mandatory)
+
+- Provide more flexibility for routing in both EW + NS views.
+
+------------------------------------------------
+
+Version 3.10a
+Dec 07, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Added new EW views for PDK 1.3. 
+- Updated NS GDS and timing views to align with EW methodology and fix abutment issue in utility blocks.
+
+
+
+------------------------------------------------------------------
+
+REPEATER_BLOCKS 
+
+Version 3.10a
+Nov 26, 2020
+
+Changes from version 3.00a
+(mandatory)
+
+- Added new EW views for PDK 1.3. 
+- Updated NS GDS and timing views to align with EW methodology.
+
+
+------------------------------------------------------------------
+
+CTB
+
+Version C-2020.11-SP1
+January 27, 2021
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_Q-2020.06
+  - lpddr_svt_Q-2020.06
+
+- Update to support both Coretool and Pub design for upf test cases.
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4        demo_basic(training mode)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+  LPDDR4/LPDDR5 demo_ate
+- Supported features
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+  Support LPDDR4 training FW
+  Support LPDDR5 training FW
+  Support ATE tests
+  Support prefix in coretool flow
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+VCS:             Q-2019.06-SP2
+Verdi:           Q-2019.06-SP2
+vip:dfi_svt      Q-2020.06
+vip:lpddr_svt    Q-2020.06
+
+Required Versions
+--------------------
+- Phyinit   : rel_vC-2020.11
+- Firmware  : rel_vC-2020.11
+- PUB       : rel_v2.10a/ rel_v1.10a / rel_v1.05a / rel_v1.05b/
+              rel_v1.03a / rel_v1.02a_patch3/ rel_v1.02a_patch2 /
+              rel_v1.01a 
+- CoreKit   : rel_v2.10a/ rel_v1.10a/ rel_v1.05a / rel_v1.05b / 
+              rel_v1.03b / rel_v1.03a / rel_v1.01a 
+- Hard Macros Family: Type B 
+                      Type A for PUB 1.01a only
+
+Supported combination of soft-components:
+--------------------
+CTB                   Phyinit         Firmware        PUB                           HardMacro type/version
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v2.10a                    hard_macro_family_b/rev0_75b
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.10a                    hard_macro_family_b/rev0_75b
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.05b                    hard_macro_family_b/rev0_75a        
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.05a                    hard_macro_family_b/rev0_75a      
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.03b                    hard_macro_family_b/rev0_75a        
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.03a                    hard_macro_family_b/rev0_75a  
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.02a_patch3             hard_macro_family_b/rev0_74a_patch1_sp1|rev0_74a_patch2_sp2              
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.02a_patch2             hard_macro_family_b/rev0_74a_patch1_sp1             
+rel_vC-2020.11-SP1        rel_vC-2020.11  rel_vC-2020.11  rel_v1.01a                    hard_macro_family_a/rev0_71a_patch2
+
+------------------------------------------------------------------
+
+Version C-2020.11
+November 27, 2020
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_Q-2020.06
+  - lpddr_svt_Q-2020.06
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4        demo_basic(training mode)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+  LPDDR4/LPDDR5 demo_ate
+- Supported features
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+  Support LPDDR4 training FW
+  Support LPDDR5 training FW
+  Support ATE tests
+  Support prefix in coretool flow
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+VCS:             Q-2019.06-SP2
+Verdi:           Q-2019.06-SP2
+vip:dfi_svt      Q-2020.06
+vip:lpddr_svt    Q-2020.06
+
+Required Versions
+--------------------
+- Phyinit   : rel_vC-2020.11
+- Firmware  : rel_vC-2020.11
+- PUB       : rel_v2.10a/ rel_v1.10a / rel_v1.05a / rel_v1.05b/
+              rel_v1.03a / rel_v1.02a_patch3/ rel_v1.02a_patch2 /
+              rel_v1.01a 
+- CoreKit   : rel_v2.10a/ rel_v1.10a/ rel_v1.05a / rel_v1.05b / 
+              rel_v1.03b / rel_v1.03a / rel_v1.01a 
+- Hard Macros Family: Type B 
+                      Type A for PUB 1.01a only
+
+Supported combination of soft-components:
+--------------------
+CTB             Phyinit         Firmware        PUB                           HardMacro type/version
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v2.10a                    hard_macro_family_b/rev0_75b
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.10a                    hard_macro_family_b/rev0_75b
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.05b                    hard_macro_family_b/rev0_75a        
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.05a                    hard_macro_family_b/rev0_75a      
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.03b                    hard_macro_family_b/rev0_75a        
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.03a                    hard_macro_family_b/rev0_75a  
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.02a_patch3             hard_macro_family_b/rev0_74a_patch1_sp1|rev0_74a_patch2_sp2              
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.02a_patch2             hard_macro_family_b/rev0_74a_patch1_sp1             
+rel_vC-2020.11  rel_vC-2020.11  rel_vC-2020.11  rel_v1.01a                    hard_macro_family_a/rev0_71a_patch2
+
+------------------------------------------------------------------
+Version A-2020.09
+September 30, 2020
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_Q-2020.06
+  - lpddr_svt_Q-2020.06
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4        demo_basic(training mode)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+  LPDDR4/LPDDR5 demo_ate
+- Supported features
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+  Support LPDDR4 training FW
+  Support LPDDR5 training FW
+  Support ATE tests
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+    Synopsys VCS (Verilog Simulation)
+        - 2019.06-SP2
+    Synopsys Verdi (Verilog HW Debug)
+        - 2019.06-SP2
+    Synopsys DesignWare (VIP Models)
+        - # Using svt version 
+            dfi_svt_Q-2020.06
+            lpddr_svt_Q-2020.06
+
+Required Versions
+--------------------
+- Phyinit   : rel_vA-2020.09
+- Firmware  : rel_vA-2020.09
+- PUB       : rel_v1.10a/ rel_v1.05a / rel_v1.05b/ rel_v1.02a_patch3/ rel_v1.02a_patch2
+- CoreKit   : rel_v1.10a/ rel_v1.05a / rel_v1.05b
+- Hard Macros Family: Type B
+
+Supported combination of soft-components:
+--------------------
+CTB             Phyinit         Firmware        PUB                HardMacro type/version
+rel_vA-2020.09  rel_vA-2020.09  rel_vA-2020.09  rel_v1.10a         hard_macro_family_b/rev0_75b_patch1
+rel_vA-2020.09  rel_vA-2020.09  rel_vA-2020.09  rel_v1.05b         hard_macro_family_b/rev0_75a        
+rel_vA-2020.09  rel_vA-2020.09  rel_vA-2020.09  rel_v1.05a         hard_macro_family_b/rev0_75a         
+rel_vA-2020.09  rel_vA-2020.09  rel_vA-2020.09  rel_v1.02a_patch3  hard_macro_family_b/rev0_74a_patch1_sp1|rev0_74a_patch2_sp2              
+rel_vA-2020.09  rel_vA-2020.09  rel_vA-2020.09  rel_v1.02a_patch2  hard_macro_family_b/rev0_74a_patch1_sp1        
+
+------------------------------------------------------------------
+Version A-2020.06-SP1
+Aug 27th 2020
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_Q-2020.06
+  - lpddr_svt_Q-2020.06
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4        demo_basic(training mode)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+  LPDDR4/LPDDR5 demo_ate
+- Supported features
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+  Support LPDDR4 training FW
+  Support LPDDR5 training FW
+  Support ATE tests
+
+Known Issues
+-------------
+LPDDR4 devinit and training need to disable RxClkTrack in PUB 1.02a_patch3 because of training FW limitation.
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+    Synopsys VCS (Verilog Simulation)
+        - 2019.06-SP2
+    Synopsys Verdi (Verilog HW Debug)
+        - 2019.06-SP2
+    Synopsys DesignWare (VIP Models)
+        - # Using svt version 
+            dfi_svt_Q-2020.06
+            lpddr_svt_Q-2020.06
+
+Required Versions
+--------------------
+- Phyinit   : rel_vA-2020.06
+- Firmware  : rel_vA-2020.06
+- PUB       : rel_v1.05a / rel_v1.05b/ rel_v1.02a_patch3
+- CoreKit   : rel_v1.05a / rel_v1.05b
+- Hard Macros Family: Type B
+
+------------------------------------------------------------------
+Version A-2020.06
+July 3th 2020
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_O-2019.06
+  - lpddr_svt_O-2019.06
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4        demo_basic(training mode)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+  LPDDR4/LPDDR5 demo_ate
+- Supported features
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+  Support LPDDR4 training FW
+  Support ATE tests
+- Not supported
+  LPDDR5 training FW
+
+Known Issues
+-------------
+LPDDR4 devinit and training need to disable RxClkTrack in PUB 1.02a_patch3 because of training FW limitation.
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+    Synopsys VCS (Verilog Simulation)
+        - 2019.06-SP2
+    Synopsys Verdi (Verilog HW Debug)
+        - 2019.06-SP2
+    Synopsys DesignWare (VIP Models)
+        - # Using svt version 
+            dfi_svt_O-2019.06
+            lpddr_svt_O-2019.06
+
+Minimum Required Versions
+---------------------------
+- Phyinit   : rel_vA-2020.06
+- Firmware  : rel_vA-2020.06
+- PUB       : rel_v1.05a / rel_v1.02a_patch3
+- CoreKit   : rel_v1.05a
+- Hard Macros Family: Type B
+
+------------------------------------------------------------------
+Version A-2020.02-BETA-SP1
+March 3, 2020
+
+Preliminary Release
+
+Note: This is a preliminary release.  This release MUST NOT be used for final production release.
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_P-2019.06
+  - lpddr_svt_P-2019.06
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+- Supported features
+  Support 32 legal build of RTL defines files for LPDDR4 tests
+  Support 16 legal build of RTL defines files for LPDDR5 tests
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+    Synopsys VCS (Verilog Simulation)
+        -  2019.06-SP2
+    Synopsys Verdi (Verilog HW Debug)
+        -  2019.06-SP2 
+    Synopsys DesignWare (VIP Models)
+        - # Using svt version 
+            dfi_svt_P-2019.06
+            lpddr_svt_P-2019.06
+    Synopsys CoreTools (Verilog PUB Cfg)
+        -  2019.06-SP4 
+ 
+
+Minimum Required Versions
+---------------------------
+- Phyinit   : A-2020-02-BETA
+- Firmware  : A-2020-02-BETA
+- CoreKit   : 1.03b
+- Hard Macros Family: Type B
+
+------------------------------------------------------------------
+Version A-2020.02-BETA
+February 14, 2020
+
+Preliminary Release
+
+Note: This is a preliminary release.  This release MUST NOT be used for final production release.
+
+Special Notes
+--------------
+- This testbench has been validated with tool versions and PHY component versions
+  listed below. The testbench may not operate properly if used with versions other
+  than identified.
+  
+- This testbench requires the following Verification IP (VIP):
+  - dfi_svt_O-2018.12
+  - lpddr_svt_O-2018.12
+
+Supported test cases and features
+-------------
+- Supported test cases(skip-train)
+  LPDDR4/LPDDR5 demo_basic(mission mode write/read)
+  LPDDR4/LPDDR5 demo_lp(DFI low power)
+  LPDDR4/LPDDR5 demo_lp(frequency change)
+  LPDDR4/LPDDR5 demo_lp(I/O retention)
+- Supported features
+  Support 32 legal build of RTL defines files for LPDDR4 tests
+  Support 16 legal build of RTL defines files for LPDDR5 tests
+  Support x16 device for LPDDR4/LPDDR5 
+  Support for LPDDR4 in 1:2/1:4 ratio up to LPDDR4-4267
+  Support for LPDDR5 in 1:2/1:4 CK:WCK mode up to LPDDR5-6400 
+  Support DM/DBI
+
+EDA Support
+-------------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+    Synopsys VCS (Verilog Simulation)
+        -  2018.09-SP1
+    Synopsys Verdi (Verilog HW Debug)
+        -  2018.09-SP1
+    Synopsys DesignWare (VIP Models)
+        - # Using svt version 
+            dfi_svt_O-2018.12
+            lpddr_svt_O-2018.12
+
+Minimum Required Versions
+---------------------------
+- Phyinit   : A-2020-02-BETA
+- Firmware  : A-2020-02-BETA
+- PUB       : 1.03a
+- Hard Macros Family: Type B
+
+
+------------------------------------------------------------------
+
+FIRMWARE_ATE
+
+Version C-2020.11
+November 20, 2020
+
+Changes from Version A-2020.09
+(mandatory)
+
+Bug Fixes
+----------
+- STAR 3410226: AC Loopback stuck-at failures should result in the AC Loopback test reporting a fail
+- STAR 3410286: AC Loopback run with AcLoopMinLoopPwr=1 on a dual-channel single-rank PHY was not performing stuck-at testing on SeSlice=0 in Channel=1
+- STAR 3461101: In data-loopback-1D/2D, ensure that for data-rates above 4276Mbps, the TX/RX FIFOs are not corrupted
+
+Enhancements
+-------------
+- ATE FW Revision Code: 2020_1100
+- Added support for PUB 2.10a
+- If the Impedance Calibration test is run with ContinuousCal=1, subsequent tests will issue a ZQUpdate just before they drive traffic, which ensures the drivers have the updated codes.
+- In LCDL Linearity test, changing LcdlPassPercent by +/-1 now corresponds to an error bar change of +/-0.05%, instead of the previous +/-1%.
+- LCDL Linearity now gracefully handles the situation where the ring oscillators fail to terminate within the expected time.
+- RxReplica Calibration test now saves the RxReplica path-phases and RxReplica LCDL 1UI lock codes to the results section of the message block.
+- During AC-Loopback testing, if an illegal argument error occurs, all outputs are now initialized with 0xA5.
+- During AC Loopback, the SEC and DIFF slices are no longer simultaneously active during testing.
+- Improved the quality of the WCK slice EYEs (during Data Loopback 1D and DCA Loopback) by using only the TxWck LCDL to sweep the tested delays. Previously, a combination of the TxWck LCDL and the receive strobe were used.
+- The DCA Loopback test now only sweeps the full delay range for the first tested DCA fine/coarse setting. All subsequently tested DCA fine/coarse settings only sweep a 3UI window around the passing region.
+- During the DCA Loopback test, ensure WCK DCA outputs don't glitch when stopping WCK traffic.
+- Burn-In test now configures the CSRs AcVrefDac[0..3] based on the message block input 'AcVrefDac'. Previously, user had to manually program these CSRs.
+
+Limitations
+------------
+- STAR 3456121: Selecting data-loopback-1D and data-loopback-2D in TestsToRun at the same time will result in data-loopback-2D failing. A fix is in development.
+                  - Workaround: only select one data-loopback test type to run at a time.
+
+
+Supported Versions
+-------------------------
+   - PUB: 1.x, 2.x
+
+
+------------------------------------------------------------------
+
+FIRMWARE_DIAG
+
+Version C-2020.11
+November 30, 2020
+
+=====================================================
+Diagnostic Firmware C-2020.11 Release Notes:
+=====================================================
+
+Changes from version A-2020.09
+(mandatory)
+
+Bug Fixes
+---------
+ 
+Enhancements
+------------
+Training Firmware:
+ - PMU Revision : 0x200B
+
+Known Issues
+-----------------
+
+
+Current Compatible Versions
+-------------------------
+- PUB: 1.x/2.x
+- Phyinit: 
+   o rel_vC-2020.11
+- CTB: 
+   o rel_vC-2020.11
+   
+
+------------------------------------------------------------------
+
+FIRMWARE_TRAINING
+
+Version C-2020.11
+November 30, 2020
+
+=====================================================
+Training Firmware C-2020.11 Release Notes:
+=====================================================
+
+Changes from version A-2020.09
+(mandatory)
+
+Bug Fixes
+---------
+  STAR ID  Description                                                        Status
+---------  -----------------------------------------------------------------  ----------
+  3459406  LP5 RxDfe eyes are clipped at 6400 MT/s                            Fixed
+  3459402  X8Mode not functional                                              Fixed
+  3444708  Eye compounding x-anchor offset is incorrect for DFE history mode  Fixed
+  3432652  End of training CSR programming incorrect -- PllBypass             Fixed
+  3425812  PRECHARGE not allowed in RDQS_t training mode                      Fixed
+  3425264  WECC data is not optimized in 2D algorithm                       Validating*
+  3423744  DMI/DBI required to enabled during RDQS_t training                 Fixed
+  3423694  Upper byte DCM data collection is missed in ByteMode               Fixed
+  3420607  LP5 - nWR not correctly set                                        Fixed
+  3420335  JEDEC violation for WCK:CK setting during Write Leveling Training  Fixed
+  3418176  PptCtlStatic not restored at end of Diag                           Fixed
+  3408594  TrainedVref* message block fields are not being populated          Fixed
+  3405021  WCK toggle missing prior to DCM                                    Fixed
+  3404919  LP5 - PDE Sent during VRCG High                                    Fixed
+  3403164  Devinit clock stop timing violation                                Fixed
+  3402851  NOP command sent in tCKFSPX time                                   Fixed
+  3402698  NOP command sent in tMRW/tMRD time                                 Fixed
+  3402275  ZQ Latch missing from devinit                                      Fixed
+  3399886  RxEn misaligned -- Data Rate < 667 Mbps                            Fixed
+  3387359  Mission mode instability when command based ZQCal used for LP5     Fixed
+  3357116  RxReplicaPathPhase[4:0] missing from PSSram save                   Fixed
+-------------------------
+*Validating - Issue is expected to be fixed. Validation efforts are on-going.
+
+
+Enhancements
+------------
+  - Documentation - Minimum Training Steps
+  - Removed TrainedPHY*DCA from MsgBlock
+  - Ensure ODT settings are the same in Fine and Coarse WrLvl
+  - Write Leveling Coarse done in FSP1 to avoid deadlock
+  - PHYDCA algorithm enhancements
+  - Remove Activates from LPDDR4 Coarse write leveling [tRAS]
+
+Training Firmware:
+ - PMU Revision : 0x200B
+
+Known Issues
+-----------------
+
+
+Current Compatible Versions
+-------------------------
+- PUB: 1.x/2.x
+- Phyinit: 
+   o rel_vC-2020.11
+- CTB: 
+   o rel_vC-2020.11
+
+
+------------------------------------------------------------------
+
+PHYINIT
+
+Version C-2020.11
+-----------------
+November 20, 2020
+
+Changes from version A-2020.09 and B-2020.09
+(recommended)
+
+This version of PHYINIT supports:
+
+Enhancements:
+-------------
+- A single PHYINIT release supports all PUB revisions. Users are required to specify the "PUB=<MAJOR_REVISION>" (set PUB=1 for all PUB 1.x revisions, set PUB=2 for all PUB 2.x revisions), along with the "FIRMWARE_PATH" setting.
+  For example,    
+  + make PUB=1 FIRMWARE_PATH=...
+  + make PUB=2 FIRMWARE_PATH=...
+- Add a new user custom function dwc_ddrphy_phyinit_userCustom_wait() to help meeting timing requirement for register MicroContMuxSel. Please refer to PUB databook for details.
+- Incremental retraining (PPT2) is now available as an experimental feature with the newer PUB RTL revision (PUB 2.10a):
+  + Adjust PPT2 MPC_WRITE_FIFO to MPC_READ_FIFO timing. (LPDDR4)
+  + Update PPT2 Write Latency and Write-to-Read timing. (LPDDR4)
+- Allow different per-rank settings when restoring MR17 (LPDDR5) and MR22 (LPDDR4) during frequency changes.
+- Restore different uppper byte and lower byte settings for MR12 in x8 mode, during frequency changes. (LPDDR5)
+- Update PLL bypass scheme for 1:2 frequency ratio to allow the fastest data rates using a lower bypass clock frequency. This is aligned with newer PUB databook.
+- Set RxReplica Short calibration Range-A and Range-B to equal value to avoid debug feature misfire when doing Re-Lock only and FlashCopy.
+
+Bug fixes:
+----------
+- STAR 3465182: Fix PLL Bypass frequency threshold to be Frequency Ratio dependent. (LPDDR5)
+- STAR 3422413: Fix incorrectly declared array sizes in file "dwc_ddrphy_phyinit_progCsrSkipTrain.c" to avoid buffer overrun issues corrupting the stack.
+- STAR 3465195: PHY sends DES instead of NOP after MRWs to comply with JEDEC spec tMRD requirement. (LPDDR5)
+
+Input Changes:
+--------------
+- Change PHYINIT user input RxClkTrackEn default value to be 0.
+
+Limitations:
+------------
+- The minimum supported size of the PState SRAM is 1024 entries per PState.
+- The only supported value of NumDbytesPerCh is 2.
+- tinit_start is out of specified range when restoring the Mode Registers on a PState change.
+- Incremental retraining (PPT2) works with the following restriction:
+  + The Maximum Runtime of 500ns is valid only when all pstates use only WL(setA) definition, not WL(setB) definition.
+
+Known issues:
+-------------
+- Analog PLL settings are not final (PllCtrl3: PlForceCal, PllEnCal), no impact on digital simulations.
+- The CalCompVrefDAC[6:0] setting is not final.
+- In RDQS strobe-less mode, I/O PAD goes 'X' (LPDDR5, PUB=1)
+
+Compiler Version:
+-----------------
+Compiler version used during the QA testing of this release.
+- gcc 4.7.2
+
+Current Compatible Versions 
+------------------------- 
+- PHY PUB:  1.x and 2.x
+- Firmware: C-2020.11
+- CTB:      C-2020.11
+
+
+------------------------------------------------------------------------------ 
+Version A-2020.09
+-----------------
+September 25, 2020
+
+Changes from version A-2020.06 
+(recommended)
+
+This version of PhyInit supports:
+
+Enhancements:
+-------------
+- Reduce PLL relock time from 10us to 2us
+- Update some of the user input descriptions to improve clarity
+- Support new dfi_frequency encodings dedicated to enter/exit LP2 state
+
+Bug fixes:
+----------
+- Fix clock stop behavior to ensure both CK_C and CK_T stop at the same time
+- Fix programming of RxDiffSeVrefDACDIFF0 to avoid rounding error that affects Single Ended Mode
+- Adjust the RxClk delay setup in SkipTrain to avoid a possible underflow
+- Fix CSR write order to DfiClkAcLnDis and PClkAcLnDis to improve power savings
+- Move programming of PwrOkDlyCtrl CSR from step C to progCsrSkipTrain to eliminate a race condition
+- Fix PPT DQ drift compensation when there is different drift in different ranks and different channels 
+- Set the frequency threshold according to the highest data rate for disabling PPT
+- Stop CK during ZCAL update to avoid a CK glitch
+
+Input Changes:
+--------------
+- Added RelockOnlyCntrl advanced input to control the behavior of Relock-Only frequency change
+- Added SkipFlashCopy advanced input to skip copy of initial trained data during Relock-Only frequency change
+- Change back user input EnRxDqsTracking to be per-PState
+
+Limitations:
+------------
+- "SkipFlashCopy" feature can only be enabled when operating above 667 Mbps
+- New LP2 encoding is only supported if "SkipFlashCopy" feature is enabled and user input "RelockOnlyCntrl" is set to 0
+- User input "EnRxDqsTracking" is reserved for future use
+- The minimum supported size of the PState SRAM is 1024 entries per PState
+- The only supported value of NumDbytesPerCh is 2
+- tinit_start is out of specified range when restoring the Mode Registers on a PState change and when using skip_retrain_enhancement=1
+- User input "SkipRetrainEnhancement" is reserved
+
+Known issues:
+-------------
+- In RDQS strobe-less mode, I/O PAD goes 'X' (LPDDR5)
+- Analog PLL settings not final (PllCtrl3: PlForceCal, PllEnCal), no impact on digital simulations
+- The CalCompVrefDAC[6:0] setting is not final
+- The same SoC ODT setting for MR17 (LPDDR5) / MR22 (LPDDR4) is used for both ranks
+
+Compiler Version:
+-----------------
+Compiler version used during the QA testing of this release.
+- gcc 4.7.2
+
+Current Compatible Versions 
+------------------------- 
+- PHY PUB:  1.x
+- Firmware: A-2020.09
+- CTB:      A-2020.09
+
+
+------------------------------------------------------------------------------
+Version A-2020.06
+-----------------
+June 30, 2020
+
+Changes from version A-2020.03-T-53919
+(recommended)
+
+This version of PhyInit supports:
+
+Enhancements:
+-------------
+- Restore trained Mode Registers during PState change
+  + MR12, 14 (LPDDR4)
+  + MR12, 14, 15, 24, 30 (LPDDR5)
+- Restore MR22 on a PState change (LPDDR4).
+- Restore trained CSR values from PState SRAM on PState change.
+- Move vrefDac initialization to PhyInit.
+- Add userControlData structure in PhyInit to allow carrying external configuration data.
+- Setting RL, WL, nWR, CKR based on Frequency and DfiFreqRatio. (LPDDR5)
+- Make it easier in setDefaults() to set common Mode Register fields differently per PState.
+- Remove the 2D training option and output from PhyInit since there is only one Firmware binary.
+- Clean up some calls to strcmp() in the calcMb() PhyInit function.
+- Update the documentation for technology specific CSRs.
+- Enable DFE mode if DFE training step is enabled or MR24 is set.
+- Improvements to Tx and Odt impedance support for VOH = VDDQ_DRAM/2.5 mode. (LPDDR4)
+
+Bug fixes:
+----------
+- Address JEDEC Clock stop violation during TxRdPtrInit Clock Stop Cycle
+  + Distinguish between Freq. Change(FC) and LP2 enter/Exit.
+  + Add RelockOnlyCntrl user input to allow mapping of LP2 Enter/Exit to 'Relock Only' encoding.
+  + New LP2 Enter/Exit sequence where PHY sends PDE command and tristate CK_t/c. (LPDDR5)
+- Add missing phyctx in some of the userCustom files.
+- Fix bitshift for DFE (MR24) in setDefault. (LPDDR5)
+- Fix RxClk delay setup in SkipTrain.
+- Fix Vref programming for data lane 8.
+- Fix programming of RZN drive strength.
+
+Input Changes:
+--------------
+- Add RelockOnlyCntrl, to map new LP2 Enter/Exit sequence to Relock-Only encoding.
+- Add advanced user input RxDfeMode. 
+- Add input to disable JTAG/TDR access to PHY registers in Mission Mode.
+- Add advanced user input PhyVrefCode since it is removed from message block.
+- Add user input for Deep Sleep Mode support, to meet JEDEC timing requirement "tXDSM_XP". (LPDDR5)
+- Change PmuClockDiv user input to be per-PState.
+- Add TxImpedanceCs to program TxImpedance SE1 register.
+- Align to the Firmware Message Block fields, some were added, removed or renamed.
+
+Limitations:
+------------
+- The new LP2 Enter/Exit sequence (DFI frequency encoding 0x8/0x9), available using RelockOnlyCntrl=0, are not supported in this release.
+- User input EnRxDqsTracking is reserved for future use.
+- The minimum supported size of the PState SRAM is 1024 entries per PState.
+- tinit_start is out of specified range when restoring the Mode Registers on a PState change and when using skip_retrain_enhancement=1.
+- The only supported value of NumDbytesPerCh is 2.
+
+Known issues:
+-------------
+- Analog PLL settings not final (PllCtrl3: PlForceCal, PllEnCal), no impact on digital simulations
+- The CalCompVrefDAC[6:0] setting is under review and may not be final
+- The same setting for MR17 is used for both ranks (LPDDR5)
+
+Compiler Version:
+-----------------
+Compiler version used during the QA testing of this release.
+- gcc 4.7.2
+ 
+Current Compatible Versions
+-------------------------
+- PHY PUB:  1.0xx
+- Firmware: A-2020.06
+- CTB:      A-2020.06
+
+
+------------------------------------------------------------------------------
+Version A-2020.03-T-53919
+-------------------------
+March 23, 2020
+
+Preliminary Release:
+(recommended)
+
+This version of PhyInit supports:
+
+Enhancements:
+-------------
+- Update PhyInit API: added phyctx parameter to user custom functions where it was missing
+- Update Phyinit API: use struct type instead of void* for phyctx
+- Prevent Phyinit from loading an empty INCV firmware file
+- Updated the PhyInit examples
+- Moved the programming of HwtLpCsEnA/B to step I
+- Program TxDcaMode in the DBYTE after training (LPDDR5)
+
+Bug fixes:
+----------
+- Fixed PIE code to meet tFC_long JEDEC constraint
+- Fixed programming of PllX4Mode to be set to the correct value
+- Initialize MR24 properly in setDefault()
+- Fix programming of RxClkDly CSR in skipTrain()
+- Fix the loading of firmware images, to avoid writing the DCCM when loading ICCM
+- Fix WCK timing parameters in step C used by Firmware for DBI (LPDDR5)
+- Update PHYINT to NOT issue PDE during frequency change, to comply with current JEDEC (LPDDR5)
+
+Input Changes:
+--------------
+- Align to the Firmware Message Block fields, some were added, removed or renamed
+
+Limitations:
+------------
+- User input EnRxDqsTracking is reserved for future use
+- The minimum supported size of the PState SRAM is 1024 entries per PState
+- tinit_start is out of specified range when restoring the Mode Registers on a PState change
+- The only supported value of NumDbytesPerCh is 2
+
+Known issues:
+-------------
+- Analog PLL settings not final (PllCtrl3: PlForceCal, PllEnCal), no impact on digital simulations
+- The CalCompVrefDAC[6:0] setting is under review and may not be final
+- The same setting for MR17 is used for both ranks (LPDDR5)
+
+Compiler Version:
+-----------------
+Compiler version used during the QA testing of this release.
+- gcc 4.7.2
+ 
+Current Compatible Versions
+-------------------------
+- PHY PUB:  1.01a/1.02a/1.03a
+- Firmware: A-2020.03-T-53545
+- CTB:      TBD
+
+
+------------------------------------------------------------------------------
+Version A-2020.02-BETA
+----------------------
+February 13, 2020
+
+Preliminary Release:
+(recommended)
+
+This version of PhyInit supports:
+
+Enhancements:
+-------------
+- Disable unused slices to save power based on user inputs
+- Reorganize ACSM program to reduce memory utilization
+- Add checking to make sure retraining is disabled in single-ended mode
+- Add debugging information about PState SRAM in PhyInit when running out of space
+- Removed some of the references to the 2D Training Firmware structures
+- Restore more Mode Registers during frequency change (implementation not complete)
+- Some minor documentation fixes/updates
+- Program DxWrPipeEn and DxRdPipeEn to help with PHY timing closure
+
+Bug fixes:
+----------
+- Fix retraining sequence to de-assert ACSMRun properly when sending PDX command (LPDDR5)
+- Issue PDX before PDE when entering LP2 in case DRAM was already in PDE (LPDDR5)
+- Fix retraining sequence to keep WCK toggling in Always On Mode (LPDDR5)
+- Fix retraining sequence to extend WCK toggling to cover BL/n_max (LPDDR5)
+- Add support for selecting set B for tWCKENL_WR when configuring WCK (LPDDR5)
+- Many fixes in Mode Register bit packing for LPDDR5
+- RxClk tracking fixes, use wider calibration range during boot
+- Force clocks to differential mode during boot before training firmware is executed
+- Add, change and properly initialize some of the firmware Message Block defaults
+- Bug fix to properly handle the stub firmware incv images (empty files)
+
+Input Changes:
+--------------
+- Align to the Firmware Message Block fields, some were added, removed or renamed
+
+Limitations:
+------------
+- User input EnRxDqsTracking is reserved for future use
+- The minimum supported size of the PState SRAM is 1024 entries per PState
+- tinit_start is out of specified range when restoring the Mode Registers on a PState change
+- The only supported value of NumDbytesPerCh is 2
+
+Compiler Version:
+-----------------
+Compiler version used during the QA testing of this release.
+- gcc 4.7.2
+ 
+Minimum Required Versions
+-------------------------
+- PHY PUB:  1.03a
+- Firmware: A-2020.02-BETA
+- CTB:      A-2020-02-BETA
+
+
+------------------------------------------------------------------
+
+PHY_TOP
+
+Version 1.02a_patch4
+January 06, 2021
+
+Changes from version 1.02a_patch3
+(recommended)
+
+Enhancements:
+-------------------------
+- added PHYTOP UPF files
+- added SpyGlass files
+- improved constraint files to handle special nets
+
+PHY_TOP Pin Changes:
+-------------------------
+- No pin changes
+
+Hardware Configuration Parameter Changes
+----------------------------------------
+- No change
+
+
+EDA Support
+-----------
+This section lists the EDA tools and versions used during the QA testing of
+this release.
+
+Design Compiler: O-2018.06-SP5
+VCS:             O-2018.09-SP1
+Formality:       O-2018.06-SP5
+PrimeTime:       O-2018.06-SP5
+vip:ddr_svt:     O-2018.12
+vip:dfi_svt:     O-2018.12
+
+
+Minimum Required Versions
+-------------------------
+- Firmware: A-2019.08-BETA
+- Phyinit:  A-2019.08-BETA
+
+
+------------------------------------------------------------------
+
+PUB
+
+Version 1.02a_patch3
+June 4, 2020
+
+- No Changes
+
+
+------------------------------------------------------------------
+
+Special notes
+-------------
+
+PLEASE NOTE THAT THE HIGH R RESISTOR OPTIONAL DEVICE IS REQUIRED FOR THE IP DESIGN.
+TSMC REQUIRES THIS TO BE STATED ON THE TAPE-IN FORMS (MT TAPEOUT FORM) FOR THE MASK
+TO BE PROCESSED PROPERLY. EVEN THOUGH ALL THE LAYERS ARE CORRECTLY PRESENT IN THE GDS,
+THIS IS NOT SUFFICIENT TO PROCESS THE RESISTOR CORRECTLY DURING MANUFACTURING.
+THIS IS AN IMPORTANT STEP AS THERE IS NO OTHER CHECK FOR IT TO FLAG IT.
+
+IP_TIGHTEN_DENSITY switch settings, present in DRC decks, used by Synopsys are
+different than TSMC recommended values. Application note on Solvnet to be referred
+for details (https://solvnet.synopsys.com/retrieve/038760.html). The article also
+details how the IP_TIGHTEN_DENSITY switches in the TSMC DRC decks can be used when
+checking IP to prevent density violations because of density window placement at
+the chip level.
+
+STARs fixed in this release include:
+9001571951 - updated PHY datebook; see revision history
+9001569412 - updated PHY databook; see revision history
+3567964    - updated MASTER PClk routing
+3475907    - updated MASTER ATPG views to include techrevision version
+3473242    - updated PHY datebook; see revision history
+3471344    - updated NS Utility blocks
+3467718    - updated NS DIFF block HSPICE views
+3457735    - updated NS SEC IBIS views
+3408885    - updated PHY datebook; see revision history
+3361663    - updated PHY datebook; see revision history
+3352519    - updated NS LEF files
+3321616    - updated PHY databook; see revision history
+3165920    - updated PHY databook; see revision history
+
+
+------------------------------------------------------------------
+Metal stacks
+------------
+13M_1X_h_1Xa_v_1Ya_h_5Y_vhvhv_2Yy2R
+
+
+------------------------------------------------------------------
+
+Package contents
+----------------
+
+doc
+
+macro
+constraints            - Constraints functions
+example                - Synthesis example script and chip top level
+interface              - Verilog header file
+ipxact		       	   - XML representation of register map
+rtl                    - RTL verilog files
+spyglass               - CDC files
+upf                    - PG mapping files
+
+pub
+interface              - Verilog header file
+rtl                    - RTL verilog files
+
+ctb
+gatesim_script         - Example functional gate level simulation scripts
+sim                    - Example simulation run scripts
+testbench              - Behavioral model simulation test environment
+upf                    - PG mapping files
+
+firmware               - pub firmware images for supported SDRAM types
+
+phyinit
+software               - PHY initialization C code
+
+se_ns
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+ibis_ami               - IBIS AMI models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+se_ew
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+ibis_ami               - IBIS AMI models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+sec_ns
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+sec_ew
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+diff_ns
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+diff_ew
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+master_ns
+atpg		           - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre      	       - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+master_ew
+atpg                   - Scan netlists and reports
+behavior               - Behavioral models of sub-blocks
+calibre                - Calibre verification reports
+gate_level_netlist     - Gate level netlist
+gds                    - GDSII layout databases, layers table
+hspice                 - Spice model
+ibis                   - IBIS models
+icv                    - ICV verification reports
+include                - Verilog include files
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl                    - RTL verilog files
+timing                 - Timing libraries
+upf                    - PG mapping files
+
+
+utility_blocks
+behavior               - Behavioral models
+calibre                - Calibre verification reports
+gds                    - GDSII layout databases, layers table
+icv                    - ICV verification reports
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+timing                 - Timing libraries
+
+repeater_blocks
+behavior               - Behavioral models
+calibre                - Calibre verification reports
+gds                    - GDSII layout databases, layers table
+icv                    - ICV verification reports
+interface              - Verilog header file
+lef                    - LEF files
+netlist                - CDL netlist for LVS
+rtl	                   - RTL verilog files
+timing                 - Timing libraries
+
+
+------------------------------------------------------------------
+
+Devices used
+------------
+Please refer to the PHY databook
+
+
+------------------------------------------------------------------
+
+Tools and versions
+------------------
+vcs     : 2019.06-SP2
+verdi	: 2019.06-SP2
+dc      : 2018.06-SP5
+fm      : 2018.06-SP5
+pt   	: 2018.06-SP5
+
+
+------------------------------------------------------------------
+
+Design Rules   : TSMC 7 NM CMOS LOGIC DESIGN RULES (N7)
+Document       : T-N07-CL-DR-001
+Version        : 1.3
+Date           : 2019-06-11
+
+
+Hspice Models  : TSMC 7 NM CMOS LOGIC FIN FET HKMG 0.75/1.8V SPICE MODEL
+Document       : T-N07-CL-SP-001
+Version        : 1.2_2p3
+Date           : 2020-07-10
+
+
+------------------------------------------------------------------
+
+Decks
+-----
+
+ICV ANT:	  			ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001_ANT.13_1a.encrypt
+ICV DRC:      			ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a
+ICV DRC_Auto: 			ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_045_PATCH.11_1a
+ICV DFM:      			ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_DFMScoring_002.10a.encrypt
+ICV LVS:      			DFM_LVS_RC_ICV_N7_1p13M_1X1Xa1Ya5Y2Yy2R_ALRDL.1.2a
+CALIBRE ANT:  			CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001_ANT.13_1a.encrypt.enc
+CALIBRE DRC:  			CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a.enc
+CALIBRE LVS:  			DFM_LVS_CCI_CALIBRE_N7_1p13M_1X1Xa1Ya5Y2Yy2R_ALRDL.1.2a
+CALIBRE DFM:  			CLN7FF_DFMScoring_13M_1X1Xa1Ya5Y2Yy2R_002.10_1a.encrypt.enc
+CALIBRE DRCAUTOMATIVE:  CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_045_PATCH.11_1a.enc
+
+------------------------------------------------------------------
+
+ICV ANT deck switches and changes
+--------------------------------------
+
+// -------------------- ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001_ANT.13_1a.encrypt (v1.3_1a) -------------------------------- //
+// ------------------------------------------------------------------------------------ //
+
+
+#define AP_28K_THICKNESS                  /* Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip) */ 
+
+
+------------------------------------------------------------------
+
+ICV DRC deck switches and changes
+--------------------------------------
+
+// -------- ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a (v1.3_1a_wi_patch_ver1.3_1a) ------------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+
+
+//********************************
+// FOR ICV density/delta-V Report 
+//********************************
+//#define ICV_REPORT_DENSITY   	// Turn off to disable *.density report generation
+//#define ICV_DV_REPORT   	// Turn on to enable generation of seperate delta-voltage report
+
+//#define SNPSINDESIGN 		// Only for ICC-ICV indesign flow
+//#define USE_ICC2 		// Only for ICC-ICV indesign flow
+//#define EXTENDED_LAYERS 	// Only for ICC-ICV indesign flow
+//#define SNPS_M2_HORIZONTAL	// Only for ICC-ICV indesign flow
+//#define SNPS_M3_HORIZONTAL	// Only for ICC-ICV indesign flow
+
+
+//#define EXT_DV // Turn on to enable external DV
+
+#define SELECTABLE_VIOLATION_COMMENTS
+#define SELECTABLE_VIOLATION_NAMES
+
+
+// OPTION FOR RET NMDPC EMULATION
+//=========================
+//#define RET_NMDPC_EMULATION_ENABLE      /* Turn on to enable RET NMDPC EMULATION */ 
+
+// OPTION FOR CHIP/IP LEVEL 
+//==========================
+//#define FULL_CHIP                         /* Turn on for chip level design */ 
+//#define WITH_SEALRING                     /* Turn on if sealring is assembled in chip  */ 
+#define CHECK_LOW_DENSITY                 /* Turn on to check OD/PO/Metal local low density.  */ 
+
+// OPTION FOR FBEOL
+//=================================
+#define WITH_POLYIMIDE                    /* Turn off when process without Polyimide */ 
+#define WITH_APRDL                        /* Turn on if AP_RDL is applied */ 
+#define AP_28K_THICKNESS                  /* Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip) */ 
+//#define SHDMIM_RULE_CHECK               /* Turn on to check on SHDMIM rules */ 
+//#define SHDMIM                            /* Turn on to check related MIM.AP.* rules */ 
+//#define LEAD_FREE                       /* For lead-free bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define EUTECTIC                        /* For eutectic bump, turn on to forbid MIM in the chip corner/edge region */ 
+#define CU_BUMP                           /* For Cu bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define CU_ROUND_BUMP                   /* For Cu round bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define U_BUMP                          /* For U bump, turn on to forbid MIM in the chip corner/edge region */ 
+
+// OPTION FOR CHECKING METHODOLOGY
+//=================================
+//#define G0_MASK_HINT                    /* Turn on to randomly assign color for G0 rule mask hint (just to help layout fixing) */ 
+#define USE_IO_VOLTAGE_ON_CORE_TO_IO_NET    /* Turn on to check all I/O net. */ 
+//#define USE_SD_VOLTAGE_ON_CORE_TO_IO_NET    /* Turn on to use S/D voltage on net without voltage text/marker and connect to IO & core MOS simultaneously */ 
+//#define SKIP_CELL_BOUNDARY              /* Turn on to skip CPO.O.1 and PO.EX.3 boundary check in cell level. */ 
+//#define LUP_FILTER                      /* Turn on to filter out LUP false error if PWR/GND pad do not connect to NWSTRAP/PWSTRAP  */ 
+#define ALL_AREA_IO                       /* Turn on to treat all IO as AAIO for LUP.10/LUP.13/LUP.14 checking */ 
+//#define DISCONNECT_ALL_RESISTOR         /* Turn on to disconnect all resistors between pad and device for Latch-Up rule check. */ 
+//#define CONNECT_ALL_RESISTOR            /* Turn on to connect all resistors between pad and device for Latch-Up rule check. */ 
+#define DEFINE_PAD_BY_TEXT              /* Turn on to recognize IO PAD by following text   */ 
+//d879 lpddr54 pin version 6.07//
+PAD_TEXT : const list of string =   { "IOPAD", "IOPADC", "IOPADT", "AOBS", "BP_ZN", "BP_RET_L", "BP_MEMRESET_L", "BP_ATO", "BP_DTO", "BP_DFI0_CA0", "BP_DFI0_CA1", "BP_DFI0_CA2", "BP_DFI0_CA3", "BP_DFI0_CA4", "BP_DFI0_CA5", "BP_DFI0_CA6", "BP_DFI0_CA7", "BP_DFI0_LP4CKE_LP5CS0", "BP_DFI0_LP4CKE_LP5CS1", "BP_DFI0_CK_T", "BP_DFI0_CK_C", "BP_DFI0_B0_DQ0", "BP_DFI0_B0_DQ1", "BP_DFI0_B0_DQ2", "BP_DFI0_B0_DQ3", "BP_DFI0_B0_DQ4", "BP_DFI0_B0_DQ5", "BP_DFI0_B0_DQ6", "BP_DFI0_B0_DQ7", "BP_DFI0_B0_DMI", "BP_DFI0_B0_DQS_T", "BP_DFI0_B0_DQS_C", "BP_DFI0_B0_WCK_T", "BP_DFI0_B0_WCK_C", "BP_DFI0_B1_WCK_T", "BP_DFI0_B1_WCK_C", "BP_DFI0_B1_DQ0", "BP_DFI0_B1_DQ1", "BP_DFI0_B1_DQ2", "BP_DFI0_B1_DQ3", "BP_DFI0_B1_DQ4", "BP_DFI0_B1_DQ5", "BP_DFI0_B1_DQ6", "BP_DFI0_B1_DQ7", "BP_DFI0_B1_DMI", "BP_DFI0_B1_DQS_T", "BP_DFI0_B1_DQS_C", "BP_DFI1_CA0", "BP_DFI1_CA1", "BP_DFI1_CA2", "BP_DFI1_CA3", "BP_DFI1_CA4", "BP_DFI1_CA5", "BP_DFI1_CA6", "BP_DFI1_CA7", "BP_DFI1_LP4CKE_LP5CS0", "BP_DFI1_LP4CKE_LP5CS1", "BP_DFI1_CK_T", "BP_DFI1_CK_C", "BP_DFI1_B0_DQ0", "BP_DFI1_B0_DQ1", "BP_DFI1_B0_DQ2", "BP_DFI1_B0_DQ3", "BP_DFI1_B0_DQ4", "BP_DFI1_B0_DQ5", "BP_DFI1_B0_DQ6", "BP_DFI1_B0_DQ7", "BP_DFI1_B0_DMI", "BP_DFI1_B0_DQS_T", "BP_DFI1_B0_DQS_C", "BP_DFI1_B0_WCK_T", "PA", "BP_PWROK" };   /* pin name of PAD */ 
+VDD_TEXT : const list of string =  { "VDD", "VDDQ", "VDD_SE", "VDD_SEC", "VDD_DIFF", "VDD_HM1", "VDD_HM2", "VDD_HM3", "VDD_HM4", "VDDQ_HM1", "VDDQ_HM2", "VDDQ_HM3", "VDDQ_HM4", "VDDQ_SE", "VDDQ_SEC", "VDDQ_DIFF", "VDDQ_GPIO", "VDD2_HM4", "VDD2_SEC", "VDD2_DIFF", "VDD2_GPIO", "vp", "vph", "VDD2H", "VAA_VDD2H" };   /* pin name of VDD */ 
+VSS_TEXT : const list of string = { "VSS", "gd" };    /* pin name of VSS */ 
+//#define CHECK_FLOATING_GATE_BY_TEXT     /* Turn on to avoid PO.R.19 false error from empty IP by following text */ 
+#define CHECK_FLOATING_GATE_BY_PRIMARY_TEXT    /* Turn on to check PO.R.19 in cell level and avoid false error by following primary text */ 
+IP_PIN_TEXT : const list of string = { "*" };    /* pin name of IP */ 
+#ifdef DEFINE_PAD_BY_TEXT 
+   LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME_" };    /* low noise signal pins */ 
+   MED_LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME1_" };    /* MED_low noise signal pins */ 
+   MED_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME2_" };    /* MED noise signal pins */ 
+   HIGH_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME4_" };    /* HIGH noise noise signal pins */ 
+   ULTRA_LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME5_" };    /* ultra low noise signal pins */ 
+#endif
+//#define GUIDELINE_ESD_CDM7A             /* Turn on to check GUIDELINE_ESD_CDM7A rules */ 
+//#define GUIDELINE_ESD_CDM9A             /* Turn on to check GUIDELINE_ESD_CDM9A rules */ 
+//#define GUIDELINE_ESD_CDM14A            /* Turn on to check GUIDELINE_ESD_CDM14A rules */ 
+#define IP_LEVEL_LUP_CHECK              /* LUP015U, LUP075U, LUP_150U to recognize OD injector checking window for IP level LUP rule check */ 
+#define LUP_MASK_HINT                     /* Turn on to output RDB file for LUP OD injector and window of mask hint */ 
+#define LUP_SANITY_CHECK                /* Turn on to check LUP.WARN.5 */ 
+#define ESDLU_IP_TIGHTEN_DENSITY        /* Turn on to check LUP2.2/LUP2.3 Tighten rule in IP Level */ 
+//#define SHDMIM_KOZ_AP_SPACE_5um         /* Turn on to check related MIM rules */ 
+//#define SHDMIM_KOZ_AP_SPACE_5um_IP      /* Turn on to check related MIM rules */ 
+//#define Multi_VOLTAGE_BIN_WITHIN_CHIP     /* Turn on for multi voltage bin check */ 
+//#define SINGLE_VOLTAGE_BIN_WITHIN_CHIP    /* Turn on for single voltage bin check */ 
+#define SINGLE_VOLTAGE_BIN_0D96           /* Turn on for 0.96 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D32         /* Turn on for 1.32 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D65         /* Turn on for 1.65 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D8          /* Turn on for 1.8 single voltage check */ 
+
+// COD RELATED OPTION
+//====================
+#define COD_RULE_CHECK                    /* Turn off to not to check COD rules in cell level */ 
+//#define COD_MASK_HINT                   /* Turn on to output related COD_H/COD_V patterns for hint (just to help layout fixing) */ 
+//#define COD_RULE_CHECK_ONLY             /* Turn on to only check the COD rules only  */ 
+
+// OPTION FOR PATTERN TREATMENT RULES 
+//===================================
+#define PATTERN_TREATMENT_SANITY_RULE     /* Turn on to check Pattern-treatment rules */ 
+
+// OPTION FOR RULE GROUP
+//======================
+#define FRONT_END                         /* Turn on to check Front-End rules */ 
+#define BACK_END                          /* Turn on to check Back-End rules */ 
+#define prBoundary_FIN                    /* Turn on to check prBoundary rules in FEOL cell for global fin alignment after APR tool auto placement   */ 
+#define prBoundary_COD                    /* Turn on to check prBoundary rules in FEOL cell for COD utility handling after cell abutment */ 
+#define DVIAxR3_For_NonFlipChip           /* DVIAx.R.3 is must for Flip-Chip PAD application and also strongly recommended for Non Flip-Chip PAD */ 
+#define GUIDELINE_ESD                     /* Turn on to check ESD protection guidelines */ 
+#define GUIDELINE_ANALOG                  /* Turn on to check Analog guidelines */ 
+CELLSFORRRULEANALOG : list of string = {"*"};    /* include cell in Analog Guidelines (AN.R.20mg) check (default is empty) */ 
+EXCLCELLSFORRRULEANALOG : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Analog and Guidelines (AN.R.20mg) check */ 
+#define G0_RULE_CHECK                     /* Turn off to unselect G0 rules */ 
+//#define G0_RULE_CHECK_ONLY              /* Turn on to only select G0 rules */ 
+#define TP_CHECK                          /* Turn off to skip T0 check, only for dummy purpose */ 
+#define VOLTAGE_RULE_CHECK                /* Turn off to unselect voltage-dependent rules */ 
+//#define VOLTAGE_RULE_CHECK_ONLY         /* Turn on to only select voltage-dependent rules */ 
+#define ESD_LUP_RULE_CHECK                /* Turn off to unselect ESD/LUP rules */ 
+//#define ESD_LUP_RULE_CHECK_ONLY         /* Turn on to only select ESD/LUP rules */ 
+#define SRAM_SANITY_DRC                   /* Turn off to unselect SRAM sanity rules */ 
+//#define SRAM_SANITY_DRC_ONLY            /* Turn on to only select SRAM sanity rules */ 
+//#define DENSITY_RULE_CHECK_ONLY         /* Turn on to only select denstiy rules */ 
+
+// OPTION FOR CHIP/IP BOUNDARY
+//============================
+#define UseprBoundary                   /* Turn on to specify chip boundary by prBoundary(108;0) layer */ 
+//#define ChipWindowUsed                  /* Turn on to specify chip boundary directly by following variables   */ 
+XLB : double = 0.0;                  /* x-coordinate of left-bottom corner for user defined chip window  */ 
+YLB : double = 0.0;                  /* y-coordinate of left-bottom corner for user defined chip window  */ 
+XRT : double = 1000.0;               /* x-coordinate of right-top corner for user defined chip window   */ 
+YRT : double = 1000.0;               /* y-coordinate of right-top corner for user defined chip window  */ 
+
+// The following variables are for Mask Field Utilization Check. Please change it if using different value. 
+SCRIBELINEX : double = 180.0;        /* Width of scribe_line X (um) for Mask Field Utilization (MFU) */ 
+SCRIBELINEY : double = 180.0;        /* Width of scribe_line Y (um) for Mask Field Utilization (MFU) */ 
+
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#define DUMMY_PRE_CHECK                   /* Turn on to predict density/empty region error before dummy insertion (assume the fill result is perfect) */ 
+//#define DUMMY_PRE_CHECK_TIGHTEN         /* Turn on to predict density/empty region error before dummy insertion (assume the fill result is not perfect)  */ 
+#define IP_TIGHTEN_DENSITY              /* Turn on to tighten local density check in IP/macro/block level  */ 
+#define IP_TIGHTEN_BOUNDARY             /* Turn on to tighten empty space check around IP boundary to avoid empty space error after IP abutment */ 
+
+// OPTION SETUP OF DFM RULES
+//===============================
+//#define DFM                             /* Turn on to check DFM rules */ 
+//#define DFM_ONLY                        /* Turn on to check DFM rules only */ 
+CELLSFORRRULERECOMMENDED : list of string = {"*"};    /* include cell in Recommendations check */ 
+CELLSFORRRULEGUIDELINE : list of string = {"*"};    /* include cell in Guidleline check */ 
+EXCLCELLSFORRRULERECOMMENDED : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Recommendations check */ 
+EXCLCELLSFORRRULEGUIDELINE : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Guidleline check */ 
+
+// Select by DFM category 
+#define Recommended                       /* Turn on to check Recommendations */ 
+#define Guideline                         /* Turn on to check Guidelines */ 
+
+// Select by DFM Grouping
+#define First_priority                    /* Turn on to check DFM rules of first priority group  */ 
+#define Manufacturing_concern             /* Turn on to check DFM rules of manufacturing-concern group */ 
+#define Device_performace                 /* Turn on to check DFM rules of device performance group */ 
+#define Dummy_health                      /* Turn on to check DFM rules of dummy health group */ 
+
+#ifdef IP_TIGHTEN_DENSITY 
+   DENSITY_STEP_RATIOA : double = 1 / 100; 
+   DENSITY_WINDOW_RATIOA : double = 1; 
+   DENSITY_DELTAA : double = 1 / 100; 
+   DENSITY_STEP_RATIOB : double = 1 / 100; 
+   DENSITY_DELTAB : double = 1 / 100; 
+   DENSITY_DELTAC : double = 0; 
+#else
+   DENSITY_STEP_RATIOA : double = 1 / 2; 
+   DENSITY_WINDOW_RATIOA : double = 1; 
+   DENSITY_DELTAA : double = 0; 
+   DENSITY_STEP_RATIOB : double = 1 / 2; 
+   DENSITY_DELTAB : double = 0; 
+   DENSITY_DELTAC : double = 0; 
+#endif
+ 
+
+
+------------------------------------------------------------------
+
+ICV DRC_Auto deck switches and changes
+--------------------------------------
+
+// --------ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a+ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_045_PATCH.11_1a ------------- //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+//********************************
+// FOR ICV density/delta-V Report 
+//********************************
+//#define ICV_REPORT_DENSITY   	// Turn off to disable *.density report generation
+//#define ICV_DV_REPORT   	// Turn on to enable generation of seperate delta-voltage report
+
+//#define SNPSINDESIGN 		// Only for ICC-ICV indesign flow
+//#define USE_ICC2 		// Only for ICC-ICV indesign flow
+//#define EXTENDED_LAYERS 	// Only for ICC-ICV indesign flow
+//#define SNPS_M2_HORIZONTAL	// Only for ICC-ICV indesign flow
+//#define SNPS_M3_HORIZONTAL	// Only for ICC-ICV indesign flow
+
+
+//#define EXT_DV // Turn on to enable external DV
+
+#define SELECTABLE_VIOLATION_COMMENTS
+#define SELECTABLE_VIOLATION_NAMES
+
+
+// OPTION FOR RET NMDPC EMULATION
+//=========================
+//#define RET_NMDPC_EMULATION_ENABLE      /* Turn on to enable RET NMDPC EMULATION */ 
+
+// OPTION FOR CHIP/IP LEVEL 
+//==========================
+//#define FULL_CHIP                         /* Turn on for chip level design */ 
+//#define WITH_SEALRING                     /* Turn on if sealring is assembled in chip  */ 
+#define CHECK_LOW_DENSITY                 /* Turn on to check OD/PO/Metal local low density.  */ 
+
+// OPTION FOR FBEOL
+//=================================
+#define WITH_POLYIMIDE                    /* Turn off when process without Polyimide */ 
+#define WITH_APRDL                        /* Turn on if AP_RDL is applied */ 
+#define AP_28K_THICKNESS                  /* Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip) */ 
+//#define SHDMIM_RULE_CHECK               /* Turn on to check on SHDMIM rules */ 
+//#define SHDMIM                            /* Turn on to check related MIM.AP.* rules */ 
+//#define LEAD_FREE                       /* For lead-free bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define EUTECTIC                        /* For eutectic bump, turn on to forbid MIM in the chip corner/edge region */ 
+#define CU_BUMP                           /* For Cu bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define CU_ROUND_BUMP                   /* For Cu round bump, turn on to forbid MIM in the chip corner/edge region */ 
+//#define U_BUMP                          /* For U bump, turn on to forbid MIM in the chip corner/edge region */ 
+
+// OPTION FOR CHECKING METHODOLOGY
+//=================================
+//#define G0_MASK_HINT                    /* Turn on to randomly assign color for G0 rule mask hint (just to help layout fixing) */ 
+#define USE_IO_VOLTAGE_ON_CORE_TO_IO_NET    /* Turn on to check all I/O net. */ 
+//#define USE_SD_VOLTAGE_ON_CORE_TO_IO_NET    /* Turn on to use S/D voltage on net without voltage text/marker and connect to IO & core MOS simultaneously */ 
+//#define SKIP_CELL_BOUNDARY              /* Turn on to skip CPO.O.1 and PO.EX.3 boundary check in cell level. */ 
+//#define LUP_FILTER                      /* Turn on to filter out LUP false error if PWR/GND pad do not connect to NWSTRAP/PWSTRAP  */ 
+#define ALL_AREA_IO                       /* Turn on to treat all IO as AAIO for LUP.10/LUP.13/LUP.14 checking */ 
+//#define DISCONNECT_ALL_RESISTOR         /* Turn on to disconnect all resistors between pad and device for Latch-Up rule check. */ 
+//#define CONNECT_ALL_RESISTOR            /* Turn on to connect all resistors between pad and device for Latch-Up rule check. */ 
+#define DEFINE_PAD_BY_TEXT              /* Turn on to recognize IO PAD by following text   */ 
+//d879 lpddr54 pin version 6.07//
+PAD_TEXT : const list of string =   { "IOPAD", "IOPADC", "IOPADT", "AOBS", "BP_ZN", "BP_RET_L", "BP_MEMRESET_L", "BP_ATO", "BP_DTO", "BP_DFI0_CA0", "BP_DFI0_CA1", "BP_DFI0_CA2", "BP_DFI0_CA3", "BP_DFI0_CA4", "BP_DFI0_CA5", "BP_DFI0_CA6", "BP_DFI0_CA7", "BP_DFI0_LP4CKE_LP5CS0", "BP_DFI0_LP4CKE_LP5CS1", "BP_DFI0_CK_T", "BP_DFI0_CK_C", "BP_DFI0_B0_DQ0", "BP_DFI0_B0_DQ1", "BP_DFI0_B0_DQ2", "BP_DFI0_B0_DQ3", "BP_DFI0_B0_DQ4", "BP_DFI0_B0_DQ5", "BP_DFI0_B0_DQ6", "BP_DFI0_B0_DQ7", "BP_DFI0_B0_DMI", "BP_DFI0_B0_DQS_T", "BP_DFI0_B0_DQS_C", "BP_DFI0_B0_WCK_T", "BP_DFI0_B0_WCK_C", "BP_DFI0_B1_WCK_T", "BP_DFI0_B1_WCK_C", "BP_DFI0_B1_DQ0", "BP_DFI0_B1_DQ1", "BP_DFI0_B1_DQ2", "BP_DFI0_B1_DQ3", "BP_DFI0_B1_DQ4", "BP_DFI0_B1_DQ5", "BP_DFI0_B1_DQ6", "BP_DFI0_B1_DQ7", "BP_DFI0_B1_DMI", "BP_DFI0_B1_DQS_T", "BP_DFI0_B1_DQS_C", "BP_DFI1_CA0", "BP_DFI1_CA1", "BP_DFI1_CA2", "BP_DFI1_CA3", "BP_DFI1_CA4", "BP_DFI1_CA5", "BP_DFI1_CA6", "BP_DFI1_CA7", "BP_DFI1_LP4CKE_LP5CS0", "BP_DFI1_LP4CKE_LP5CS1", "BP_DFI1_CK_T", "BP_DFI1_CK_C", "BP_DFI1_B0_DQ0", "BP_DFI1_B0_DQ1", "BP_DFI1_B0_DQ2", "BP_DFI1_B0_DQ3", "BP_DFI1_B0_DQ4", "BP_DFI1_B0_DQ5", "BP_DFI1_B0_DQ6", "BP_DFI1_B0_DQ7", "BP_DFI1_B0_DMI", "BP_DFI1_B0_DQS_T", "BP_DFI1_B0_DQS_C", "BP_DFI1_B0_WCK_T", "PA", "BP_PWROK" };   /* pin name of PAD */ 
+VDD_TEXT : const list of string =  { "VDD", "VDDQ", "VDD_SE", "VDD_SEC", "VDD_DIFF", "VDD_HM1", "VDD_HM2", "VDD_HM3", "VDD_HM4", "VDDQ_HM1", "VDDQ_HM2", "VDDQ_HM3", "VDDQ_HM4", "VDDQ_SE", "VDDQ_SEC", "VDDQ_DIFF", "VDDQ_GPIO", "VDD2_HM4", "VDD2_SEC", "VDD2_DIFF", "VDD2_GPIO", "vp", "vph", "VDD2H", "VAA_VDD2H" };   /* pin name of VDD */ 
+VSS_TEXT : const list of string = { "VSS", "gd" };    /* pin name of VSS */ 
+//#define CHECK_FLOATING_GATE_BY_TEXT     /* Turn on to avoid PO.R.19 false error from empty IP by following text */ 
+#define CHECK_FLOATING_GATE_BY_PRIMARY_TEXT    /* Turn on to check PO.R.19 in cell level and avoid false error by following primary text */ 
+IP_PIN_TEXT : const list of string = { "*" };    /* pin name of IP */ 
+#ifdef DEFINE_PAD_BY_TEXT 
+   LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME_" };    /* low noise signal pins */ 
+   MED_LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME1_" };    /* MED_low noise signal pins */ 
+   MED_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME2_" };    /* MED noise signal pins */ 
+   HIGH_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME4_" };    /* HIGH noise noise signal pins */ 
+   ULTRA_LOW_NOISE_PAD_TEXT : const list of string = { "_NULL_TEXT_NAME5_" };    /* ultra low noise signal pins */ 
+#endif
+//#define GUIDELINE_ESD_CDM7A             /* Turn on to check GUIDELINE_ESD_CDM7A rules */ 
+//#define GUIDELINE_ESD_CDM9A             /* Turn on to check GUIDELINE_ESD_CDM9A rules */ 
+//#define GUIDELINE_ESD_CDM14A            /* Turn on to check GUIDELINE_ESD_CDM14A rules */ 
+#define IP_LEVEL_LUP_CHECK              /* LUP015U, LUP075U, LUP_150U to recognize OD injector checking window for IP level LUP rule check */ 
+#define LUP_MASK_HINT                     /* Turn on to output RDB file for LUP OD injector and window of mask hint */ 
+#define LUP_SANITY_CHECK                /* Turn on to check LUP.WARN.5 */ 
+#define ESDLU_IP_TIGHTEN_DENSITY        /* Turn on to check LUP2.2/LUP2.3 Tighten rule in IP Level */ 
+//#define SHDMIM_KOZ_AP_SPACE_5um         /* Turn on to check related MIM rules */ 
+//#define SHDMIM_KOZ_AP_SPACE_5um_IP      /* Turn on to check related MIM rules */ 
+//#define Multi_VOLTAGE_BIN_WITHIN_CHIP     /* Turn on for multi voltage bin check */ 
+//#define SINGLE_VOLTAGE_BIN_WITHIN_CHIP    /* Turn on for single voltage bin check */ 
+#define SINGLE_VOLTAGE_BIN_0D96           /* Turn on for 0.96 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D32         /* Turn on for 1.32 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D65         /* Turn on for 1.65 single voltage check */ 
+//#define SINGLE_VOLTAGE_BIN_1D8          /* Turn on for 1.8 single voltage check */ 
+
+// COD RELATED OPTION
+//====================
+#define COD_RULE_CHECK                    /* Turn off to not to check COD rules in cell level */ 
+//#define COD_MASK_HINT                   /* Turn on to output related COD_H/COD_V patterns for hint (just to help layout fixing) */ 
+//#define COD_RULE_CHECK_ONLY             /* Turn on to only check the COD rules only  */ 
+
+// OPTION FOR PATTERN TREATMENT RULES 
+//===================================
+#define PATTERN_TREATMENT_SANITY_RULE     /* Turn on to check Pattern-treatment rules */ 
+
+// OPTION FOR RULE GROUP
+//======================
+#define FRONT_END                         /* Turn on to check Front-End rules */ 
+#define BACK_END                          /* Turn on to check Back-End rules */ 
+#define prBoundary_FIN                    /* Turn on to check prBoundary rules in FEOL cell for global fin alignment after APR tool auto placement   */ 
+#define prBoundary_COD                    /* Turn on to check prBoundary rules in FEOL cell for COD utility handling after cell abutment */ 
+#define DVIAxR3_For_NonFlipChip           /* DVIAx.R.3 is must for Flip-Chip PAD application and also strongly recommended for Non Flip-Chip PAD */ 
+#define GUIDELINE_ESD                     /* Turn on to check ESD protection guidelines */ 
+#define GUIDELINE_ANALOG                  /* Turn on to check Analog guidelines */ 
+CELLSFORRRULEANALOG : list of string = {"*"};    /* include cell in Analog Guidelines (AN.R.20mg) check (default is empty) */ 
+EXCLCELLSFORRRULEANALOG : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Analog and Guidelines (AN.R.20mg) check */ 
+#define G0_RULE_CHECK                     /* Turn off to unselect G0 rules */ 
+//#define G0_RULE_CHECK_ONLY              /* Turn on to only select G0 rules */ 
+#define TP_CHECK                          /* Turn off to skip T0 check, only for dummy purpose */ 
+#define VOLTAGE_RULE_CHECK                /* Turn off to unselect voltage-dependent rules */ 
+//#define VOLTAGE_RULE_CHECK_ONLY         /* Turn on to only select voltage-dependent rules */ 
+#define ESD_LUP_RULE_CHECK                /* Turn off to unselect ESD/LUP rules */ 
+//#define ESD_LUP_RULE_CHECK_ONLY         /* Turn on to only select ESD/LUP rules */ 
+#define SRAM_SANITY_DRC                   /* Turn off to unselect SRAM sanity rules */ 
+//#define SRAM_SANITY_DRC_ONLY            /* Turn on to only select SRAM sanity rules */ 
+//#define DENSITY_RULE_CHECK_ONLY         /* Turn on to only select denstiy rules */ 
+
+// OPTION FOR CHIP/IP BOUNDARY
+//============================
+#define UseprBoundary                   /* Turn on to specify chip boundary by prBoundary(108;0) layer */ 
+//#define ChipWindowUsed                  /* Turn on to specify chip boundary directly by following variables   */ 
+XLB : double = 0.0;                  /* x-coordinate of left-bottom corner for user defined chip window  */ 
+YLB : double = 0.0;                  /* y-coordinate of left-bottom corner for user defined chip window  */ 
+XRT : double = 1000.0;               /* x-coordinate of right-top corner for user defined chip window   */ 
+YRT : double = 1000.0;               /* y-coordinate of right-top corner for user defined chip window  */ 
+
+// The following variables are for Mask Field Utilization Check. Please change it if using different value. 
+SCRIBELINEX : double = 180.0;        /* Width of scribe_line X (um) for Mask Field Utilization (MFU) */ 
+SCRIBELINEY : double = 180.0;        /* Width of scribe_line Y (um) for Mask Field Utilization (MFU) */ 
+
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#define DUMMY_PRE_CHECK                   /* Turn on to predict density/empty region error before dummy insertion (assume the fill result is perfect) */ 
+//#define DUMMY_PRE_CHECK_TIGHTEN         /* Turn on to predict density/empty region error before dummy insertion (assume the fill result is not perfect)  */ 
+#define IP_TIGHTEN_DENSITY              /* Turn on to tighten local density check in IP/macro/block level  */ 
+#define IP_TIGHTEN_BOUNDARY             /* Turn on to tighten empty space check around IP boundary to avoid empty space error after IP abutment */ 
+
+// OPTION SETUP OF DFM RULES
+//===============================
+//#define DFM                             /* Turn on to check DFM rules */ 
+//#define DFM_ONLY                        /* Turn on to check DFM rules only */ 
+CELLSFORRRULERECOMMENDED : list of string = {"*"};    /* include cell in Recommendations check */ 
+CELLSFORRRULEGUIDELINE : list of string = {"*"};    /* include cell in Guidleline check */ 
+EXCLCELLSFORRRULERECOMMENDED : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Recommendations check */ 
+EXCLCELLSFORRRULEGUIDELINE : list of string = {"_NULL_CELL_NAME_"};    /* exclude cell from Guidleline check */ 
+
+// Select by DFM category 
+#define Recommended                       /* Turn on to check Recommendations */ 
+#define Guideline                         /* Turn on to check Guidelines */ 
+
+// Select by DFM Grouping
+#define First_priority                    /* Turn on to check DFM rules of first priority group  */ 
+#define Manufacturing_concern             /* Turn on to check DFM rules of manufacturing-concern group */ 
+#define Device_performace                 /* Turn on to check DFM rules of device performance group */ 
+#define Dummy_health                      /* Turn on to check DFM rules of dummy health group */ 
+
+#ifdef IP_TIGHTEN_DENSITY 
+   DENSITY_STEP_RATIOA : double = 1 / 100; 
+   DENSITY_WINDOW_RATIOA : double = 1; 
+   DENSITY_DELTAA : double = 1 / 100; 
+   DENSITY_STEP_RATIOB : double = 1 / 100; 
+   DENSITY_DELTAB : double = 1 / 100; 
+   DENSITY_DELTAC : double = 0; 
+#else
+   DENSITY_STEP_RATIOA : double = 1 / 2; 
+   DENSITY_WINDOW_RATIOA : double = 1; 
+   DENSITY_DELTAA : double = 0; 
+   DENSITY_STEP_RATIOB : double = 1 / 2; 
+   DENSITY_DELTAB : double = 0; 
+   DENSITY_DELTAC : double = 0; 
+#endif
+
+
+------------------------------------------------------------------
+
+ICV DFM deck switches and changes
+-------------------------------------
+
+						// --------ICVN7FF_13M_1X1Xa1Ya5Y2Yy2R_DFMScoring_002.10a.encrypt (v1.0a) ------------- //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+/ OPTION FOR CHIP/IP BOUNDARY
+//============================
+#define UseprBoundary     // Turn on to specify chip boundary by prBoundary(108;0) layer
+//#define ChipWindowUsed    // Turn on to specify chip boundary directly by following variables  
+XLB : const double = 0.0; /* x-coordinate of left-bottom corner for user defined chip window */
+YLB : const double = 0.0; /* y-coordinate of left-bottom corner for user defined chip window */
+XRT : const double = 1000.0; /* x-coordinate of right-top corner for user defined chip window */
+YRT : const double = 1000.0; /* y-coordinate of right-top corner for user defined chip window */
+// The following variables are for Mask Field Utilization Check. Please change it if using different value.
+SCRIBELINEX : const double = 180.0;    // Width of scribe_line X (um) for Mask Field Utilization (MFU)
+SCRIBELINEY : const double = 180.0;    // Width of scribe_line Y (um) for Mask Field Utilization (MFU)
+
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#define OUTPUT_RISK_PATTERN // Turn on to output error flag in DB file, or only generate scoring results in a report file.
+
+
+------------------------------------------------------------------
+
+ICV LVS deck switches and changes
+--------------------------------------
+
+						// --------DFM_LVS_RC_ICV_N7_1p13M_1X1Xa1Ya5Y2Yy2R_ALRDL.1.2a (v1.2a)---------- //
+// ------------------------------------------------------------------------------------------------------------------------------------------------------- //
+
+
+//#define USER_EQUIV_FILE			// Turn on for user-specified equivalent point file flow
+#ifdef USER_EQUIV_FILE
+#include "./user.equiv"				// Set equivalent point file here
+#endif
+
+//#define unrecognized_device_checking // uncomment this line to do unrecognized device checking
+#define PICKUP_CHECK                            // comment this line to disable dummy pickup checking
+//#define RC_DFM_RULE				// Turn on for DFM LPE/RC extraction
+//#define CROSS_REFERENCE			// Turn on for source cross reference in LPE extraction.
+
+//#define FILTER_DGS_TIED_MOS			// Turn on to filter MOS with D, G and S tied together (default filter MOS with all pins tied)
+#define MATCHFLAG                               // Turn on to extract matchingflag and edgeflag for high sensitivity mismatching design
+#define WELL_TO_PG_CHECK			// Default is on. Turn on to highlight if nwell connects to ground or psub connects to power.
+#define GATE_TO_PG_CHECK			// Default is off. Turn on to highlight if a mos gate directly connects to power or ground.
+//#define PATH_CHECK				// Default is off. Turn on to highlight if
+						// (1) nodes have a path to power but no path to ground
+						// (2) nodes have a path to ground but no path to power
+						// (3) nodes have no path to power or ground
+						// (4) nodes have no path to any label net
+#define DS_TO_PG_CHECK				// Default is on. Turn on to highlight if drain connects to power and source connects to ground.
+#define FLOATING_WELL_CHECK			// Default is on. Turn on to highlight if well does not connect to power or ground. 
+						// The nwell of moscaps and nwell-resistor are excluded.
+#define LVSDMY4_CHECK                           // Default is on. Turn on to highlight if LVSDMY4 without DNW region interact NMOS.
+//#define NW_RING				// Turn on to enable NW ring to separate the node from BULK
+
+//#define MIMCAP_TYPE				// Turn on to set mimcap inserted between Mtop-1 & Mtop-2 OR comment it for Mtop & Mtop-1    
+//#define WELL_TEXT				// Turn on to enable well pin, nxwell_text and psub_text  
+//#define SKIP_PLE				// Turn on to skip DFM PLE effect( only valid when turn on DFM_RULE )
+//#define SKIP_CPO                              // Turn on to skip DFM CPO effect( only valid when turn on DFM_RULE )
+#define FILTER_PODE				// Turn on to filter PODE device at LVS comparison stage
+//#define extract_dnwpsub               	// Turn on to extract parasitic dnw/psub diode "dnwpsub"
+//#define extract_pwdnw                 	// Turn on to extract parasitic pwell/dnw diode "pwdnw"
+//#define extract_pnwdio                	// Turn on to extract parasitic nw-psub diode "pnwdio" (the model name is nwdio)
+//#define LVS_REDUCE_PARALLEL_MOS		// Turn on to enable FIN MOS parallel merge at LVS comparison stage
+//#define LVS_REDUCE_PARALLEL_MIMCAP		// Turn on to enable MIMCAP parallel merge at LVS comparison stage
+
+//#define LVS_REDUCE_SPLIT_GATES                // Turn on this switch to enable MOS SPLIT GATE reduction
+//#define SKIP_ODSE				// Turn on to skip od_space_effect
+//#define SKIP_MBE				// Turn on to skip metal boundary effect
+//#define FLICKER_CORNER_EXTRACTION             // uncomment this line to enable flicker corner extraction. 
+//#define SELF_HEATING_EFFECT_EXTRACTION        // uncomment this line to enable self heating effect extraction.
+//#define COLOR_AWARE_CHECK   
+// Default is off. Turn on to do the metal color-aware checking.
+
+color_file : string = "net_color_file";		// Set net color file
+color_report : string = "color.report";         // Set color report
+
+
+//d879 lpddr54, pin version 6.07//
+
+POWER_NAME : const list of string =  { "VDD", "VDDQ", "VDD_SE", "VDD_SEC", "VDD_DIFF", "VDD_HM1", "VDD_HM2", "VDD_HM3", "VDD_HM4", "VDDQ_HM1", "VDDQ_HM2", "VDDQ_HM3", "VDDQ_HM4", "VDDQ_SE", "VDDQ_SEC", "VDDQ_DIFF", "VDDQ_GPIO", "VDD2_HM4", "VDD2_SEC", "VDD2_DIFF", "VDD2_GPIO", "vp", "vph", "VDD2H", "VAA_VDD2H" };   /* pin name of VDD */ 
+GROUND_NAME : const list of string = { "VSS", "gd" };    /* pin name of VSS */ 
+
+
+------------------------------------------------------------------
+
+CALIBRE ANT deck switches and changes
+--------------------------------------
+
+// -------- CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001_ANT.13_1a.encrypt.enc (v1.3_1a) ------------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+#DEFINE AP_28K_THICKNESS	// Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip)
+
+------------------------------------------------------------------
+
+CALIBRE DRC deck switches and changes
+--------------------------------------
+
+// -------- CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a.enc (v1.3_1a_with patch 1.3_1a) ------------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+
+// OPTION FOR CHIP/IP LEVEL 
+//==========================
+//#DEFINE FULL_CHIP           // Turn on for chip level design
+//#DEFINE WITH_SEALRING       // Turn on if sealring is assembled in chip 
+#DEFINE CHECK_LOW_DENSITY   // Turn on to check OD/PO/Metal local low density. 
+// OPTION FOR FBEOL
+//=================================
+#DEFINE WITH_POLYIMIDE      // Turn off when process without Polyimide
+#DEFINE WITH_APRDL          // Turn on if AP_RDL is applied
+#DEFINE AP_28K_THICKNESS    // Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip)
+//#DEFINE SHDMIM_RULE_CHECK // Turn on to check on SHDMIM rules
+//#DEFINE SHDMIM              // Turn on to check related MIM.AP.* rules
+//#DEFINE LEAD_FREE         // For lead-free bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE EUTECTIC          // For eutectic bump, turn on to forbid MIM in the chip corner/edge region
+#DEFINE CU_BUMP             // For Cu bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE CU_ROUND_BUMP     // For Cu round bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE U_BUMP            // For U bump, turn on to forbid MIM in the chip corner/edge region
+// OPTION FOR CHECKING METHODOLOGY
+//=================================
+//#DEFINE G0_MASK_HINT                     // Turn on to randomly assign color for G0 rule mask hint (just to help layout fixing)
+#DEFINE USE_IO_VOLTAGE_ON_CORE_TO_IO_NET // Turn on to check all I/O net.
+//#DEFINE SKIP_CELL_BOUNDARY               // Turn on to skip CPO.O.1 and PO.EX.3 boundary check in cell level.
+#DEFINE ALL_AREA_IO                // Turn on to treat all IO as AAIO for LUP.10/LUP.13/LUP.14 checking
+#DEFINE DEFINE_PAD_BY_TEXT // Turn on to recognize IO PAD by following text  
+VARIABLE PAD_TEXT  "IOPAD" "IOPADC" "IOPADT" "AOBS" "BP_ZN" "BP_RET_L" "BP_MEMRESET_L" "BP_ATO" "BP_DTO" "BP_DFI0_CA0" "BP_DFI0_CA1" "BP_DFI0_CA2" "BP_DFI0_CA3" "BP_DFI0_CA4" "BP_DFI0_CA5" "BP_DFI0_CA6" "BP_DFI0_CA7" "BP_DFI0_LP4CKE_LP5CS0" "BP_DFI0_LP4CKE_LP5CS1" "BP_DFI0_CK_T" "BP_DFI0_CK_C" "BP_DFI0_B0_DQ0" "BP_DFI0_B0_DQ1" "BP_DFI0_B0_DQ2" "BP_DFI0_B0_DQ3" "BP_DFI0_B0_DQ4" "BP_DFI0_B0_DQ5" "BP_DFI0_B0_DQ6" "BP_DFI0_B0_DQ7" "BP_DFI0_B0_DMI" "BP_DFI0_B0_DQS_T" "BP_DFI0_B0_DQS_C" "BP_DFI0_B0_WCK_T" "BP_DFI0_B0_WCK_C" "BP_DFI0_B1_WCK_T" "BP_DFI0_B1_WCK_C" "BP_DFI0_B1_DQ0" "BP_DFI0_B1_DQ1" "BP_DFI0_B1_DQ2" "BP_DFI0_B1_DQ3" "BP_DFI0_B1_DQ4" "BP_DFI0_B1_DQ5" "BP_DFI0_B1_DQ6" "BP_DFI0_B1_DQ7" "BP_DFI0_B1_DMI" "BP_DFI0_B1_DQS_T" "BP_DFI0_B1_DQS_C" "BP_DFI1_CA0" "BP_DFI1_CA1" "BP_DFI1_CA2" "BP_DFI1_CA3" "BP_DFI1_CA4" "BP_DFI1_CA5" "BP_DFI1_CA6" "BP_DFI1_CA7" "BP_DFI1_LP4CKE_LP5CS0" "BP_DFI1_LP4CKE_LP5CS1" "BP_DFI1_CK_T" "BP_DFI1_CK_C" "BP_DFI1_B0_DQ0" "BP_DFI1_B0_DQ1" "BP_DFI1_B0_DQ2" "BP_DFI1_B0_DQ3" "BP_DFI1_B0_DQ4" "BP_DFI1_B0_DQ5" "BP_DFI1_B0_DQ6" "BP_DFI1_B0_DQ7" "BP_DFI1_B0_DMI" "BP_DFI1_B0_DQS_T" "BP_DFI1_B0_DQS_C" "BP_DFI1_B0_WCK_T" "PA" "BP_PWROK"       // pin name of PAD
+VARIABLE VDD_TEXT   "VDD" "VDDQ" "VDD_SE" "VDD_SEC" "VDD_DIFF" "VDD_HM1" "VDD_HM2" "VDD_HM3" "VDD_HM4" "VDDQ_HM1" "VDDQ_HM2" "VDDQ_HM3" "VDDQ_HM4" "VDDQ_SE" "VDDQ_SEC" "VDDQ_DIFF" "VDDQ_GPIO" "VDD2_HM4" "VDD2_SEC" "VDD2_DIFF" "VDD2_GPIO" "vp" "vph" "VDD2H" "VAA_VDD2H"   // pin name of VDD
+VARIABLE VSS_TEXT  "VSS" "gd"    // pin name of VSS
+//#DEFINE CHECK_FLOATING_GATE_BY_TEXT           // Turn on to avoid PO.R.19 false error from empty IP by following text
+#DEFINE CHECK_FLOATING_GATE_BY_PRIMARY_TEXT   // Turn on to check PO.R.19 in cell level and avoid false error by following primary text
+VARIABLE IP_PIN_TEXT  "?"    // pin name of IP
+#IFDEF DEFINE_PAD_BY_TEXT 
+VARIABLE LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME_"        // low noise signal pins
+VARIABLE MED_LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME1_"   // MED_low noise signal pins
+VARIABLE MED_NOISE_PAD_TEXT  "_NULL_TEXT_NAME2_"       // MED noise signal pins
+VARIABLE HIGH_NOISE_PAD_TEXT  "_NULL_TEXT_NAME4_"       // HIGH noise noise signal pins
+VARIABLE ULTRA_LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME5_"   // ultra low noise signal pins
+#ENDIF
+//#DEFINE GUIDELINE_ESD_CDM7A  // Turn on to check GUIDELINE_ESD_CDM7A rules
+//#DEFINE GUIDELINE_ESD_CDM9A  // Turn on to check GUIDELINE_ESD_CDM9A rules
+//#DEFINE GUIDELINE_ESD_CDM14A // Turn on to check GUIDELINE_ESD_CDM14A rules
+#DEFINE IP_LEVEL_LUP_CHECK       // LUP015U, LUP075U, LUP_150U to recognize OD injector checking window for IP level LUP rule check
+#DEFINE CALIBRE_MP_D21_PARTITION_ENABLE 54901041
+#DEFINE LUP_MASK_HINT              // Turn on to output RDB file for LUP OD injector and window of mask hint
+#DEFINE LUP_SANITY_CHECK         // Turn on to check LUP.WARN.5
+#DEFINE ESDLU_IP_TIGHTEN_DENSITY // Turn on to check LUP2.2/LUP2.3 Tighten rule in IP Level
+#DEFINE CALIBRE_TP_ENABLE 6850580
+#DEFINE Multi_VOLTAGE_BIN_WITHIN_CHIP // Turn on for multi voltage bin check
+//#DEFINE SINGLE_VOLTAGE_BIN_WITHIN_CHIP // Turn on for single voltage bin check
+#DEFINE SINGLE_VOLTAGE_BIN_0D96 // Turn on for 0.96 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D32 // Turn on for 1.32 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D65 // Turn on for 1.65 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D8 // Turn on for 1.8 single voltage check
+// COD RELATED OPTION
+//====================
+#DEFINE COD_RULE_CHECK           // Turn off to not to check COD rules in cell level
+//#DEFINE COD_MASK_HINT          // Turn on to output related COD_H/COD_V patterns for hint (just to help layout fixing)
+//#DEFINE COD_RULE_CHECK_ONLY    // Turn on to only check the COD rules only 
+// OPTION FOR PATTERN TREATMENT RULES 
+//===================================
+#DEFINE PATTERN_TREATMENT_SANITY_RULE // Turn on to check Pattern-treatment rules
+// OPTION FOR RULE GROUP
+//======================
+#DEFINE FRONT_END           // Turn on to check Front-End rules
+#DEFINE BACK_END            // Turn on to check Back-End rules
+#DEFINE prBoundary_FIN      // Turn on to check prBoundary rules in FEOL cell for global fin alignment after APR tool auto placement  
+#DEFINE prBoundary_COD      // Turn on to check prBoundary rules in FEOL cell for COD utility handling after cell abutment
+#DEFINE DVIAxR3_For_NonFlipChip   // DVIAx.R.3 is must for Flip-Chip PAD application and also strongly recommended for Non Flip-Chip PAD
+#DEFINE GUIDELINE_ESD       // Turn on to check ESD protection guidelines
+#DEFINE GUIDELINE_ANALOG    // Turn on to check Analog guidelines
+VARIABLE CellsForRRuleAnalog "*"      // include cell in Analog Guidelines (AN.R.20mg) check (default is empty)
+VARIABLE ExclCellsForRRuleAnalog " "  // exclude cell from Analog and Guidelines (AN.R.20mg) check
+#DEFINE G0_RULE_CHECK             // Turn off to unselect G0 rules
+//#DEFINE G0_RULE_CHECK_ONLY      // Turn on to only select G0 rules
+//#DEFINE TP_CHECK                  // Turn off to skip T0 check, only for dummy purpose
+#DEFINE VOLTAGE_RULE_CHECK        // Turn off to unselect voltage-dependent rules
+//#DEFINE VOLTAGE_RULE_CHECK_ONLY // Turn on to only select voltage-dependent rules
+#DEFINE ESD_LUP_RULE_CHECK        // Turn off to unselect ESD/LUP rules
+//#DEFINE ESD_LUP_RULE_CHECK_ONLY // Turn on to only select ESD/LUP rules
+#DEFINE  SRAM_SANITY_DRC          // Turn off to unselect SRAM sanity rules
+//#DEFINE SRAM_SANITY_DRC_ONLY    // Turn on to only select SRAM sanity rules
+//#DEFINE DENSITY_RULE_CHECK_ONLY // Turn on to only select denstiy rules
+// OPTION FOR CHIP/IP BOUNDARY
+//============================
+#DEFINE UseprBoundary     // Turn on to specify chip boundary by prBoundary(108;0) layer
+//#DEFINE ChipWindowUsed    // Turn on to specify chip boundary directly by following variables  
+VARIABLE xLB   0.0          // x-coordinate of left-bottom corner for user defined chip window 
+VARIABLE yLB   0.0          // y-coordinate of left-bottom corner for user defined chip window 
+VARIABLE xRT   1000.0       // x-coordinate of right-top corner for user defined chip window  
+VARIABLE yRT   1000.0       // y-coordinate of right-top corner for user defined chip window 
+// The following variables are for Mask Field Utilization Check. Please change it if using different value. 
+VARIABLE ScribeLineX    180.0    // Width of scribe_line X (um) for Mask Field Utilization (MFU)
+VARIABLE ScribeLineY    180.0    // Width of scribe_line Y (um) for Mask Field Utilization (MFU)
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#DEFINE DUMMY_PRE_CHECK            // Turn on to predict density/empty region error before dummy insertion (assume the fill result is perfect)
+//#DEFINE DUMMY_PRE_CHECK_TIGHTEN  // Turn on to predict density/empty region error before dummy insertion (assume the fill result is not perfect) 
+#DEFINE IP_TIGHTEN_DENSITY       // Turn on to tighten local density check in IP/macro/block level 
+// OPTION SETUP OF DFM RULES
+//===============================
+//#DEFINE DFM               // Turn on to check DFM rules
+//#DEFINE DFM_ONLY          // Turn on to check DFM rules only
+VARIABLE CellsForRRuleRecommended "*"      // include cell in Recommendations check
+VARIABLE CellsForRRuleGuideline "*"        // include cell in Guidleline check
+VARIABLE ExclCellsForRRuleRecommended " "  // exclude cell from Recommendations check
+VARIABLE ExclCellsForRRuleGuideline " "    // exclude cell from Guidleline check
+// Select by DFM category 
+#DEFINE Recommended        // Turn on to check Recommendations
+#DEFINE Guideline          // Turn on to check Guidelines
+// Select by DFM Grouping
+#DEFINE First_priority         // Turn on to check DFM rules of first priority group 
+#DEFINE Manufacturing_concern  // Turn on to check DFM rules of manufacturing-concern group
+#DEFINE Device_performace      // Turn on to check DFM rules of device performance group
+#DEFINE Dummy_health           // Turn on to check DFM rules of dummy health group
+
+------------------------------------------------------------------
+
+CALIBRE LVS deck switches and changes
+--------------------------------------
+
+// -------- DFM_LVS_CCI_CALIBRE_N7_1p13M_1X1Xa1Ya5Y2Yy2R_ALRDL.1.2a (v1.2a)  ------------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+#define LVS_DECK   //uncomment this line when this deck would be used as a LVS command file
+//#define CCI_DFM_RULE   //uncomment this line when this deck would be used as a DFM CCI command file
+//#define SKIP_ODSE  //uncomment this line to skip od_space_effect
+//#define SKIP_MBE   //uncomment this line to skip metal boundary effect
+//#define FILTER_DGS_TIED_MOS // uncomment this line to filter MOS with D, G and S tied together (default filter MOS with all pins tied)
+#define WELL_TO_PG_CHECK 
+// Default is on. Turn on to highlight if nwell connects to ground or psub connects to power.
+#define GATE_TO_PG_CHECK 
+// Default is off. Turn on to highlight if a mos gate directly connects to power or ground.
+//#define PATH_CHECK 
+// Default is off. Turn on to highlight if
+//(1) nodes have a path to power but no path to ground
+//(2) nodes have a path to ground but no path to power
+//(3) nodes have no path to power or ground
+//(4) nodes have no path to any label net
+#define DS_TO_PG_CHECK 
+// Default is on. Turn on to highlight if drain connects to power and source connects to ground.
+#define FLOATING_WELL_CHECK 
+// Default is on. Turn on to highlight if well does not connect to power or ground. 
+//The nwell of moscaps and nwell-resistor are excluded.
+#define LVSDMY4_CHECK   
+// Default is on. Turn on to highlight if LVSDMY4 without DNW region interact NMOS.
+//#define COLOR_AWARE_CHECK   
+// Default is off. Turn on to do the metal color-aware checking.
+VARIABLE NET_COLOR_INPUT_FILE            "net_color_file"
+VARIABLE NET_COLOR_REPORT_FILE           "color.rpt"
+VARIABLE NET_COLOR_RDB_FILE              "color.rdb"
+VARIABLE NET_COLOR_IGNORE_MISSING_LAYERS "NO"
+VARIABLE NET_COLOR_IGNORE_TERMINAL_MISS_LOWEST_COLOR_LAYER "NO"
+#DECRYPT %+8~H+<E+G!Y0:*"2`@R\+'@8`7QREN/XN.3CMBI2^0`\W]!#WJK]$)B7]-!EE6]Y>(_9%!!!"
+)I5?"K1>1#/<\AK[ZZAOC!!!"@8F903IXMG,K8)`9"LRDH?[3$CRVTJ5I3=S30$GZU7=W+Y\V)?>G>B/HMWQQL'W_![5F0=Z-R18%TS[[S2`1C1!!"
+^71&*R\PK;@UO;+CI$/-<Q!!">8!CKPC,1SS``N;RD3@YIR.</`1ZVS^/B"%5":B?0?)!#
+#ENDCRYPT
+//#define NW_RING	//uncomment this line to enable the NW ring to separate the node from BULK
+// POWER and GROUND name string variable setting
+// d879 3.10a lpddr54 pin version 6.07
+VARIABLE POWER_NAME "VDD" "VDDQ" "VDD_SE" "VDD_SEC" "VDD_DIFF" "VDD_HM1" "VDD_HM2" "VDD_HM3" "VDD_HM4" "VDDQ_HM1" "VDDQ_HM2" "VDDQ_HM3" "VDDQ_HM4" "VDDQ_SE" "VDDQ_SEC" "VDDQ_DIFF" "VDDQ_GPIO" "VDD2_HM4" "VDD2_SEC" "VDD2_DIFF" "VDD2_GPIO" "vp" "vph" "VDD2H" "VAA_VDD2H"
+VARIABLE GROUND_NAME "VSS" "gd"
+
+//#########################################################################
+//# ENVIRONMENT SETTING                              
+//#########################################################################
+//  RC_BLOCKING SETTING
+LAYOUT CELL LIST pcells "crtmom_2t*" "crtmom_mx_4t*" "crtmom_wo*" "crtmom_wo_mx*" "crtmom_wo_rf*" "moscap_rf*" "moscap_rf18*" "moscap_rf18_nw*" "moscap_rf_nw*" 
+#IFDEF CCI_DFM_RULE
+PEX PRESERVE CELL LIST pcells
+#ENDIF
+//#define unrecognized_device_checking // uncomment this line to do unrecognized device checking
+#define PICKUP_CHECK            // comment this line to disable dummy pickup checking
+//#define MIMCAP_TYPE           // uncomment this line to set mimcap inserted between Mtop-1 & Mtop-2 OR comment it for Mtop & Mtop-1
+//#define WELL_TEXT             // uncomment this line to enable well pin, nxwell_text and psub_text  
+//#define SKIP_PLE              // uncomment this line to skip DFM PLE effect( only valid when turn on DFM_LPE )
+//#define SKIP_CPO              // uncomment this line to skip LDE CPO effect
+#define FILTER_PODE             // comment this line to compare pode device
+#define MATCHFLAG               // Turn on to extract matchingflag and edgeflag for high sensitivy mismatching design
+// n-well approximity parameter       
+// These values are provided by SCLP/TSMC, may be changed in the future
+#DECRYPT %+8~H+<E+G!Y0:*"2`@R\+'@8`7QREN/XN.3CMBI2^0`\W]!#WJK]$)B7]-!EE6]Y>(_9%!!!"
+/Z"?D^DQKI*;UT(E<DN:-1!!"HVJ".VT^E`KJ4JB;]@T>C!CC=;7I,DGU=).^+SSC\Q6<0X+>V=%,MD@.!^6_2/E8Y6#0BAT-J7T-2?`>&)1-_!!!"
+_G2`FSF!CFR</5^+%?0\*!!!"#?4XP/`$&)KKPE;VXP&\V,L\E,#?4@P%Y-L$%"(ZYY9VZ8C,B5M*OO?^^6L:'_4H!
+$SNWLC6PEWF>7YY8P!ZFEA!!"^"6PP4,M?AX:!(CX3,Y(*L,AT2RF-B9O#RZ]I_H@HQ>0*0(K51WT5\@Y01S3O-=A!
+#ENDCRYPT
+//LVS HEAP DIRECTORY "/tmp"
+//#define extract_dnwpsub  // Turn on to extract parasitic dnw/psub diode
+//#define extract_pwdnw    // Turn on to extract parasitic pwell/dnw diode
+//#define extract_pnwdio   // Turn on to extract parasitic nw-psub diode
+//#define LVS_REDUCE_PARALLEL_MOS       // Turn on this switch to enable MOS parallel reduction
+//#define LVS_REDUCE_PARALLEL_MIMCAP    // Turn on this switch to enable MIMCAP parallel reduction
+//#define LVS_REDUCE_SPLIT_GATES        // Turn on this switch to enable MOS SPLIT GATE reduction
+//#define FLICKER_CORNER_EXTRACTION        // uncomment this line to enable flicker noise corner extraction. 
+//#define SELF_HEATING_EFFECT_EXTRACTION   // uncomment this line to enable self heating effect extraction. 
+
+
+------------------------------------------------------------------
+
+CALIBRE DFM deck switches and changes
+--------------------------------------
+
+// -------- CLN7FF_DFMScoring_13M_1X1Xa1Ya5Y2Yy2R_002.10_1a.encrypt.enc (v1.0_1a) ------------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+/  ==========================
+//#DEFINE FULL_CHIP           // Turn on for chip level design
+//#DEFINE WITH_SEALRING       // Turn on if sealring is assembed in chip 
+// OPTION FOR CHIP/IP BOUNDARY
+//============================
+#DEFINE UseprBoundary     // Turn on to specify chip boundary by prBoundary(108;0) layer
+//#DEFINE ChipWindowUsed    // Turn on to specify chip boundary directly by following variables  
+VARIABLE xLB   0.0	    // x-coordinate of left-bottom corner for user defined chip window 
+VARIABLE yLB   0.0  	    // y-coordinate of left-bottom corner for user defined chip window 
+VARIABLE xRT   1000.0	    // x-coordinate of right-top corner for user defined chip window  
+VARIABLE yRT   1000.0	    // y-coordinate of right-top corner for user defined chip window 
+// The following variables are for Mask Field Utilization Check. Please change it if using different value. 
+VARIABLE ScribeLineX    180.0    // Width of scribe_line X (um) for Mask Field Utilization (MFU)
+VARIABLE ScribeLineY    180.0    // Width of scribe_line Y (um) for Mask Field Utilization (MFU)
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#DEFINE OUTPUT_RISK_PATTERN // Turn on to output error flag in DB file, or only generate scoring results in a report file.
+#DEFINE CALIBRE_TP_ENABLE 6850580
+#DEFINE CALIBRE_MP_D21_PARTITION_ENABLE 54901041
+
+------------------------------------------------------------------
+
+CALIBRE DRCAUTOMATIVE deck switches and changes
+--------------------------------------
+
+// -------- CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_001.13_1a.encrypt.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_057_PATCH.13_1a.enc+CLN7FF_13M_1X1Xa1Ya5Y2Yy2R_045_PATCH.11_1a.enc ---------- //
+// --------------------------------------------------------------------------------------------------------------------- //
+
+
+// OPTION FOR CHIP/IP LEVEL 
+//==========================
+//#DEFINE FULL_CHIP           // Turn on for chip level design
+//#DEFINE WITH_SEALRING       // Turn on if sealring is assembled in chip 
+#DEFINE CHECK_LOW_DENSITY   // Turn on to check OD/PO/Metal local low density. 
+// OPTION FOR FBEOL
+//=================================
+#DEFINE WITH_POLYIMIDE      // Turn off when process without Polyimide
+#DEFINE WITH_APRDL          // Turn on if AP_RDL is applied
+#DEFINE AP_28K_THICKNESS    // Turn off for 14.5K AP-RDL(Wire-Bond), turn on for 28K AP-RDL(Flip-Chip)
+//#DEFINE SHDMIM_RULE_CHECK // Turn on to check on SHDMIM rules
+//#DEFINE SHDMIM              // Turn on to check related MIM.AP.* rules
+//#DEFINE LEAD_FREE         // For lead-free bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE EUTECTIC          // For eutectic bump, turn on to forbid MIM in the chip corner/edge region
+#DEFINE CU_BUMP             // For Cu bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE CU_ROUND_BUMP     // For Cu round bump, turn on to forbid MIM in the chip corner/edge region
+//#DEFINE U_BUMP            // For U bump, turn on to forbid MIM in the chip corner/edge region
+// OPTION FOR CHECKING METHODOLOGY
+//=================================
+//#DEFINE G0_MASK_HINT                     // Turn on to randomly assign color for G0 rule mask hint (just to help layout fixing)
+#DEFINE USE_IO_VOLTAGE_ON_CORE_TO_IO_NET // Turn on to check all I/O net.
+//#DEFINE SKIP_CELL_BOUNDARY               // Turn on to skip CPO.O.1 and PO.EX.3 boundary check in cell level.
+#DEFINE ALL_AREA_IO                // Turn on to treat all IO as AAIO for LUP.10/LUP.13/LUP.14 checking
+#DEFINE DEFINE_PAD_BY_TEXT // Turn on to recognize IO PAD by following text  
+VARIABLE PAD_TEXT  "IOPAD" "IOPADC" "IOPADT" "AOBS" "BP_ZN" "BP_RET_L" "BP_MEMRESET_L" "BP_ATO" "BP_DTO" "BP_DFI0_CA0" "BP_DFI0_CA1" "BP_DFI0_CA2" "BP_DFI0_CA3" "BP_DFI0_CA4" "BP_DFI0_CA5" "BP_DFI0_CA6" "BP_DFI0_CA7" "BP_DFI0_LP4CKE_LP5CS0" "BP_DFI0_LP4CKE_LP5CS1" "BP_DFI0_CK_T" "BP_DFI0_CK_C" "BP_DFI0_B0_DQ0" "BP_DFI0_B0_DQ1" "BP_DFI0_B0_DQ2" "BP_DFI0_B0_DQ3" "BP_DFI0_B0_DQ4" "BP_DFI0_B0_DQ5" "BP_DFI0_B0_DQ6" "BP_DFI0_B0_DQ7" "BP_DFI0_B0_DMI" "BP_DFI0_B0_DQS_T" "BP_DFI0_B0_DQS_C" "BP_DFI0_B0_WCK_T" "BP_DFI0_B0_WCK_C" "BP_DFI0_B1_WCK_T" "BP_DFI0_B1_WCK_C" "BP_DFI0_B1_DQ0" "BP_DFI0_B1_DQ1" "BP_DFI0_B1_DQ2" "BP_DFI0_B1_DQ3" "BP_DFI0_B1_DQ4" "BP_DFI0_B1_DQ5" "BP_DFI0_B1_DQ6" "BP_DFI0_B1_DQ7" "BP_DFI0_B1_DMI" "BP_DFI0_B1_DQS_T" "BP_DFI0_B1_DQS_C" "BP_DFI1_CA0" "BP_DFI1_CA1" "BP_DFI1_CA2" "BP_DFI1_CA3" "BP_DFI1_CA4" "BP_DFI1_CA5" "BP_DFI1_CA6" "BP_DFI1_CA7" "BP_DFI1_LP4CKE_LP5CS0" "BP_DFI1_LP4CKE_LP5CS1" "BP_DFI1_CK_T" "BP_DFI1_CK_C" "BP_DFI1_B0_DQ0" "BP_DFI1_B0_DQ1" "BP_DFI1_B0_DQ2" "BP_DFI1_B0_DQ3" "BP_DFI1_B0_DQ4" "BP_DFI1_B0_DQ5" "BP_DFI1_B0_DQ6" "BP_DFI1_B0_DQ7" "BP_DFI1_B0_DMI" "BP_DFI1_B0_DQS_T" "BP_DFI1_B0_DQS_C" "BP_DFI1_B0_WCK_T" "PA" "BP_PWROK"       // pin name of PAD
+VARIABLE VDD_TEXT   "VDD" "VDDQ" "VDD_SE" "VDD_SEC" "VDD_DIFF" "VDD_HM1" "VDD_HM2" "VDD_HM3" "VDD_HM4" "VDDQ_HM1" "VDDQ_HM2" "VDDQ_HM3" "VDDQ_HM4" "VDDQ_SE" "VDDQ_SEC" "VDDQ_DIFF" "VDDQ_GPIO" "VDD2_HM4" "VDD2_SEC" "VDD2_DIFF" "VDD2_GPIO" "vp" "vph" "VDD2H" "VAA_VDD2H"   // pin name of VDD
+VARIABLE VSS_TEXT  "VSS" "gd"    // pin name of VSS
+//#DEFINE CHECK_FLOATING_GATE_BY_TEXT           // Turn on to avoid PO.R.19 false error from empty IP by following text
+#DEFINE CHECK_FLOATING_GATE_BY_PRIMARY_TEXT   // Turn on to check PO.R.19 in cell level and avoid false error by following primary text
+VARIABLE IP_PIN_TEXT  "?"    // pin name of IP
+#IFDEF DEFINE_PAD_BY_TEXT 
+VARIABLE LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME_"        // low noise signal pins
+VARIABLE MED_LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME1_"   // MED_low noise signal pins
+VARIABLE MED_NOISE_PAD_TEXT  "_NULL_TEXT_NAME2_"       // MED noise signal pins
+VARIABLE HIGH_NOISE_PAD_TEXT  "_NULL_TEXT_NAME4_"       // HIGH noise noise signal pins
+VARIABLE ULTRA_LOW_NOISE_PAD_TEXT  "_NULL_TEXT_NAME5_"   // ultra low noise signal pins
+#ENDIF
+//#DEFINE GUIDELINE_ESD_CDM7A  // Turn on to check GUIDELINE_ESD_CDM7A rules
+//#DEFINE GUIDELINE_ESD_CDM9A  // Turn on to check GUIDELINE_ESD_CDM9A rules
+//#DEFINE GUIDELINE_ESD_CDM14A // Turn on to check GUIDELINE_ESD_CDM14A rules
+#DEFINE IP_LEVEL_LUP_CHECK       // LUP015U, LUP075U, LUP_150U to recognize OD injector checking window for IP level LUP rule check
+#DEFINE CALIBRE_MP_D21_PARTITION_ENABLE 54901041
+#DEFINE LUP_MASK_HINT              // Turn on to output RDB file for LUP OD injector and window of mask hint
+#DEFINE LUP_SANITY_CHECK         // Turn on to check LUP.WARN.5
+#DEFINE ESDLU_IP_TIGHTEN_DENSITY // Turn on to check LUP2.2/LUP2.3 Tighten rule in IP Level
+#DEFINE CALIBRE_TP_ENABLE 6850580
+#DEFINE Multi_VOLTAGE_BIN_WITHIN_CHIP // Turn on for multi voltage bin check
+//#DEFINE SINGLE_VOLTAGE_BIN_WITHIN_CHIP // Turn on for single voltage bin check
+#DEFINE SINGLE_VOLTAGE_BIN_0D96 // Turn on for 0.96 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D32 // Turn on for 1.32 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D65 // Turn on for 1.65 single voltage check
+//#DEFINE SINGLE_VOLTAGE_BIN_1D8 // Turn on for 1.8 single voltage check
+// COD RELATED OPTION
+//====================
+#DEFINE COD_RULE_CHECK           // Turn off to not to check COD rules in cell level
+//#DEFINE COD_MASK_HINT          // Turn on to output related COD_H/COD_V patterns for hint (just to help layout fixing)
+//#DEFINE COD_RULE_CHECK_ONLY    // Turn on to only check the COD rules only 
+// OPTION FOR PATTERN TREATMENT RULES 
+//===================================
+#DEFINE PATTERN_TREATMENT_SANITY_RULE // Turn on to check Pattern-treatment rules
+// OPTION FOR RULE GROUP
+//======================
+#DEFINE FRONT_END           // Turn on to check Front-End rules
+#DEFINE BACK_END            // Turn on to check Back-End rules
+#DEFINE prBoundary_FIN      // Turn on to check prBoundary rules in FEOL cell for global fin alignment after APR tool auto placement  
+#DEFINE prBoundary_COD      // Turn on to check prBoundary rules in FEOL cell for COD utility handling after cell abutment
+#DEFINE DVIAxR3_For_NonFlipChip   // DVIAx.R.3 is must for Flip-Chip PAD application and also strongly recommended for Non Flip-Chip PAD
+#DEFINE GUIDELINE_ESD       // Turn on to check ESD protection guidelines
+#DEFINE GUIDELINE_ANALOG    // Turn on to check Analog guidelines
+VARIABLE CellsForRRuleAnalog "*"      // include cell in Analog Guidelines (AN.R.20mg) check (default is empty)
+VARIABLE ExclCellsForRRuleAnalog " "  // exclude cell from Analog and Guidelines (AN.R.20mg) check
+#DEFINE G0_RULE_CHECK             // Turn off to unselect G0 rules
+//#DEFINE G0_RULE_CHECK_ONLY      // Turn on to only select G0 rules
+//#DEFINE TP_CHECK                  // Turn off to skip T0 check, only for dummy purpose
+#DEFINE VOLTAGE_RULE_CHECK        // Turn off to unselect voltage-dependent rules
+//#DEFINE VOLTAGE_RULE_CHECK_ONLY // Turn on to only select voltage-dependent rules
+#DEFINE ESD_LUP_RULE_CHECK        // Turn off to unselect ESD/LUP rules
+//#DEFINE ESD_LUP_RULE_CHECK_ONLY // Turn on to only select ESD/LUP rules
+#DEFINE  SRAM_SANITY_DRC          // Turn off to unselect SRAM sanity rules
+//#DEFINE SRAM_SANITY_DRC_ONLY    // Turn on to only select SRAM sanity rules
+//#DEFINE DENSITY_RULE_CHECK_ONLY // Turn on to only select denstiy rules
+// OPTION FOR CHIP/IP BOUNDARY
+//============================
+#DEFINE UseprBoundary     // Turn on to specify chip boundary by prBoundary(108;0) layer
+//#DEFINE ChipWindowUsed    // Turn on to specify chip boundary directly by following variables  
+VARIABLE xLB   0.0          // x-coordinate of left-bottom corner for user defined chip window 
+VARIABLE yLB   0.0          // y-coordinate of left-bottom corner for user defined chip window 
+VARIABLE xRT   1000.0       // x-coordinate of right-top corner for user defined chip window  
+VARIABLE yRT   1000.0       // y-coordinate of right-top corner for user defined chip window 
+// The following variables are for Mask Field Utilization Check. Please change it if using different value. 
+VARIABLE ScribeLineX    180.0    // Width of scribe_line X (um) for Mask Field Utilization (MFU)
+VARIABLE ScribeLineY    180.0    // Width of scribe_line Y (um) for Mask Field Utilization (MFU)
+// OPTION FOR DENSITY/EMPTY ERROR PREVENTION 
+//==========================================
+#DEFINE DUMMY_PRE_CHECK            // Turn on to predict density/empty region error before dummy insertion (assume the fill result is perfect)
+//#DEFINE DUMMY_PRE_CHECK_TIGHTEN  // Turn on to predict density/empty region error before dummy insertion (assume the fill result is not perfect) 
+#DEFINE IP_TIGHTEN_DENSITY       // Turn on to tighten local density check in IP/macro/block level 
+// OPTION SETUP OF DFM RULES
+//===============================
+//#DEFINE DFM               // Turn on to check DFM rules
+//#DEFINE DFM_ONLY          // Turn on to check DFM rules only
+VARIABLE CellsForRRuleRecommended "*"      // include cell in Recommendations check
+VARIABLE CellsForRRuleGuideline "*"        // include cell in Guidleline check
+VARIABLE ExclCellsForRRuleRecommended " "  // exclude cell from Recommendations check
+VARIABLE ExclCellsForRRuleGuideline " "    // exclude cell from Guidleline check
+// Select by DFM category 
+#DEFINE Recommended        // Turn on to check Recommendations
+#DEFINE Guideline          // Turn on to check Guidelines
+// Select by DFM Grouping
+#DEFINE First_priority         // Turn on to check DFM rules of first priority group 
+#DEFINE Manufacturing_concern  // Turn on to check DFM rules of manufacturing-concern group
+#DEFINE Device_performace      // Turn on to check DFM rules of device performance group
+#DEFINE Dummy_health           // Turn on to check DFM rules of dummy health group
+
+
+Used Virtual connect names
+
+//..........................d879 2.20a virtual connect names................................//
+
+//For master
+VIRTUAL CONNECT NAME "VSS" "VDD" "VDD2H" "VrefDacRefOut" "VDDQ" "PwrOkVDD2In" "BP_DTO" "PwrOkVDDIn" "VAA_VDD2H" "VrefDacRefIn" "BP_PWROK" "BP_ZN" "BP_ATO" "BP_MEMRESET_L" "IOPAD" "AOBS" "VrefDacRef" "bump"
+
+//For DIFF 
+VIRTUAL CONNECT NAME "VDD" "VDDQ" "VSS" "PClkIn" "RxDataRcvC" "RxDataRcvT" "RxStrobeT" "RxStrobeC" "IOPAD" "IOPADC" "IOPADT" "PwrOkVDD" "VDD_TIEHI" "out" "bump"
+
+//For SEC
+VIRTUAL CONNECT NAME "VSS" "VDD" "VDD2H" "PClkIn" "IOPAD" "PwrOkVDD" "PwrOkVDD2"
+
+//For SE
+VIRTUAL CONNECT NAME "VDD" "VDDQ" "VSS" "IOPAD"
+
+//For utility_blocks
+VIRTUAL CONNECT NAME "VDD" "VDD2H" "VDDQ" "VSS" "VAA_VDD2H" 
+
+//For repeater blocks
+VIRTUAL CONNECT NAME "VDD" "VDDQ" "VSS" "PclkOut0" "PclkIn0" "PwrOkVDDin" "PwrOkVDDout" "TieHigh" "TieLow" "PclkOut1" "PclkIn1"
+
+
+------------------------------------------------------------------
+
+PVT corners
+-----------
+Core VDD (P/V/T)
+SS/0.675V/-40C,0C,125C
+FF/0.825V/-40C,0C,125C
+TT/0.75V/25C
+
+

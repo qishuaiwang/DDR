@@ -1,0 +1,3926 @@
+#!/usr/local/bin/bash
+
+cmd_opts_file="undefined"
+run_arg=""
+dump="NONE"
+gen_fw=0
+lp4x_mode=0
+sim_only=0
+ate="revision_check"
+cfg="lp54cs2dq18ch2"
+pub_version="undefined"
+vdefine="undefined"
+test="demo_basic"
+user_test="undefined"
+dram="lpddr4"
+ate_clockingmode="lpddr5"
+ate_tests_to_run=13f
+dimm="udimm"
+if [ $CORETOOLS ]; then
+  corekit=$CORETOOLS
+else
+  corekit=0
+fi
+prefix=""
+prefix_string=""
+skip_train=1;
+tphy_dqs2dq=312;
+freq0=800;
+freq1=800;
+freq2=800;
+freq3=800;
+freq_ratio0=2;
+freq_ratio1=2;
+freq_ratio2=2;
+freq_ratio3=2;
+pll_bypass0=0;
+pll_bypass1=0;
+pll_bypass2=0;
+pll_bypass3=0;
+apb_freq=500;
+tdr_freq=50;
+rank=1;
+num_rank=1;
+pstates=1;
+seqCtrl=1;
+MRLCalcAdj=0;
+hdtCtrl=c8;
+dfi_mode=3;
+hard_macro="D"
+hard_macro_ver="undefined"
+clean=0;
+batch=0;
+debug=0;
+lp_mode=0;
+burn_in_time=0;
+dmem_rd=0;
+dmem_start_address=0;
+dmem_end_address=0;
+masis_dmem_rd=0;
+masis_short=0;
+mem_dump=0;
+prt_off=1;
+disable2d=1;
+rdbi0=0;
+rdbi1=0;
+rdbi2=0;
+rdbi3=0;
+wdbi0=0;
+wdbi1=0;
+wdbi2=0;
+wdbi3=0;
+dm0=0;
+dm1=0;
+dm2=0;
+dm3=0;
+svt_dfi=1;
+code_cov_en=0
+fun_cov_en=0
+jtag=0;
+ret_en=0;
+enable_glitch_checker=0;
+fsp_disable=0;
+dis_retrain=0
+wdqsext=0;
+disable_pmu_ecc=0;
+default_c=0
+override_c="undefined"
+cust_vdefines="undefined"
+emul=0
+no_v2vx=0
+emul_bubble=0
+emul_b2bnum=1
+data_cmpr_dis="undefined"
+wr_only="undefined"
+rd_only="undefined"
+b2b_wr="undefined"
+b2b_rd="undefined"
+b2b="undefined"
+b2b_em="undefined"
+padlbk="undefined"
+bubble="undefined"
+wr2rd="undefined"
+rd2wr="undefined"
+check_gatesim_path="undefined"
+gatesim="undefined"
+sdf="undefined"
+corner="ff"
+pvt="undefined"
+mtm_spec="min"
+multi_metal_stack="undefined"
+ac_ew_use="undefined"
+dbyte_ew_use="undefined"
+master_ew_use="undefined"
+delay_set=480
+compile_only=0
+rand_pvt=0
+skip_unsupport_check=0
+long=0
+powersim=0
+device_idle=0
+power_ac_pattern=0
+power_data_pattern=0
+device_idle=0
+split_fsdb=0
+dsm=0
+upf=0
+xprop=0
+inject_x=0
+uvm1_1=0
+dis_dxodt=0
+dis_acodt=0
+simvlog="simv.log"
+timeout=1000000
+wck_free0=1;
+wck_free1=1;
+wck_free2=1;
+wck_free3=1;
+bypass_mode="undefined";
+dump_bt="undefined"
+dump_et="undefined"
+dis_viollog=0
+#add for back door accelerate
+bkdoor=0
+#add back door for ATE
+ate_bkdoor=0
+#add for save restart checkpoint
+save_restart_checkpoint="undefined"
+save_restart_checkpoint_level="undefined"
+zeroloop_report=0
+gzip_sdf=0
+quickboot=0
+#delay adding in analog circuit simulation model
+#SDF GateSim only
+#----------------------------------------------- 
+delay_value_rxac=75
+
+#add for csr_test
+svt_apb=0
+ipxact_file="undefined"
+
+#add for warm_reset
+warm_reset=0
+
+#add fot ATE
+ATE_MB_CFG=0;
+ATE_CSR_CFG=0;
+ATE_MB_CFG_file="$CTB_HOME/testbench/inc/ate/ate_mb_cust_setting.sv"
+ATE_CSR_CFG_file="$CTB_HOME/testbench/inc/ate/ate_csr_cust_setting.sv"
+
+#user custom vcs_options
+user_customized_compile_opts_file="undefined"
+user_customized_sim_opts_file="undefined"
+
+# Process Arguments
+#---------------------------------------------
+runtc_args="$*"
+if [ -e cmd_opts_file.f ]; then
+   rm -f cmd_opts_file.f
+fi
+for i; do
+  case $i in
+    cof=*)
+      cmd_opts_file=`echo -e $i |sed -n -e 's/cof=//p'`
+      echo -e "[runtc] INFO: runtc command options file specified as: $cmd_opts_file"
+      if [ -e "$cmd_opts_file" ]; then
+         cat $cmd_opts_file > cmd_opts_file.f
+      else
+         echo -e "[runtc] ERROR: runtc option cof specified but $cmd_opts_file not exist"
+         exit 0
+      fi
+      shift;;
+    uccof=*)
+      user_customized_compile_opts_file=`echo -e $i | sed -n -e 's/uccof=//p'`
+      echo -e "[runtc] INFO: runtc user-customized compile options file specified as: $user_customized_compile_opts_file"
+      if [ ! -e "$user_customized_compile_opts_file" ]; then
+        echo -e "[runtc] ERROR: runtc user-customized compile options uccof specified but $user_customized_compile_opts_file not exist"
+        exit 0
+      else
+        grep -q '[^[:space:]]' $user_customized_compile_opts_file
+        tmp=$?
+        if [ tmp = 1 ]; then
+          echo "File is empty!"
+          exit 0
+        else
+          echo -e "$i" >> cmd_opts_file.f
+        fi
+      fi
+      shift;;
+    ucsof=*)
+      user_customized_sim_opts_file=`echo -e $i | sed -n -e 's/ucsof=//p'`
+      echo -e "[runtc] INFO: runtc user-customized simulation options file specified as: $user_customized_sim_opts_file"
+      if [ ! -e "$user_customized_sim_opts_file" ]; then
+        echo -e "[runtc] ERROR: runtc user-customized simulation options ucsof specified but $user_customized_sim_opts_file not exist"
+        exit 0
+      else
+        grep -q '[^[:space:]]' $user_customized_sim_opts_file
+        tmp=$?
+        if [ tmp = 1 ]; then
+          echo "File is empty!"
+          exit 0
+        else
+          echo -e "$i" >> cmd_opts_file.f
+        fi
+      fi
+      shift;;
+    *)
+      echo -e "$i " | tee -a cmd_opts_file.f
+      shift;;
+  esac
+done
+if [ -e fw.log ]; then
+   rm -f fw.log
+fi
+#for i; do
+while read i
+do
+  case $i in
+    -help) 
+       echo -e " runtc [-fw] [-c] [-train] [-upf] [-xprop] [inject_x] [-clean] [cfg=<hw_config_name>] [dram=lpddr5/lpddr4] [ate_clockingmode=lpddr5/lpddr4] [dump=NONE/VPD/FSDB] tc=<test_name>
+  cof=<cmd_opts_file>     : User-defined command options file. If specified, all command options should be defined in the file.
+  cfg=<cfg_name>          : {*Must*} Hardware configuration name, such as: cfg=lp54cs1dq36ch2.              
+  tc=<test_name>          : {*Must*} Test case name. Tests are defined as a directories under the /ctb/tc.  Required argument.
+  utc=<user_test_name>    : User-defined test case name. Tests are defined as a directories under the /ctb/tc/user_test.
+  dram=<dram type>        : {*Must for non-ATE cases*} SDRAM standard name.
+  ate_clockingmode=<ate_clockingmode type>: {*Must for ATE cases*} protocol name.
+  ate_tests_to_run=<TestsToRun>: Hex, control with the sections run in ATE MASIS tests. default: 13f
+                                 TestsToRun[0]     = DMEM / IMEM revision check
+                                 TestsToRun[1]     = Impedance Calibration
+                                 TestsToRun[2]     = PLL Lock
+                                 TestsToRun[3]     = LCDL Linearity
+                                 TestsToRun[4]     = Address / Command Loopback
+                                 TestsToRun[5]     = Data Loopback 1D
+                                 TestsToRun[6]     = Data Loopback 2D
+                                 TestsToRun[7]     = Burn-In
+                                 TestsToRun[8]     = RxReplica Calibration
+                                 TestsToRun[9]     = DCA Loopback
+                                 TestsToRun[15:10] = Reserved (must be written to 0)
+  dimm=<dimm type>        : {*Must for DDR cases*} DIMM type: nodimm, udimm, rdimm, lrdimm. Default: udimm
+  skip_train=<0|1|2>      : {*Must for non-ATE cases*} 0 - training, 1 - skip training, 2 - DevInit.
+  freq0=<freq of P0>      : DRAM working frequency of Pstate 0, unit MHz. Default: 800
+  freq1=<freq of P1>      : DRAM working frequency of Pstate 1, unit MHz. Default: 800
+  freq2=<freq of P2>      : DRAM working frequency of Pstate 2, unit MHz. Default: 800
+  freq3=<freq of P3>      : DRAM working frequency of Pstate 3, unit MHz. Default: 800
+  freq_ratio0=<0|1|2>     : Freq ratio of Pstate0, 0 - 1:1, 1 - 1:2, 2 - 1:4. Default: 2 - 1:4
+  freq_ratio1=<0|1|2>     : Freq ratio of Pstate1, 0 - 1:1, 1 - 1:2, 2 - 1:4. Default: 2 - 1:4
+  freq_ratio2=<0|1|2>     : Freq ratio of Pstate2, 0 - 1:1, 1 - 1:2, 2 - 1:4. Default: 2 - 1:4
+  freq_ratio3=<0|1|2>     : Freq ratio of Pstate3, 0 - 1:1, 1 - 1:2, 2 - 1:4. Default: 2 - 1:4
+  -pll_bypass0            : Pclk come from bypass_clk in Pstste 0
+  -pll_bypass1            : Pclk come from bypass_clk in Pstste 1
+  -pll_bypass2            : Pclk come from bypass_clk in Pstste 2
+  -pll_bypass3            : Pclk come from bypass_clk in Pstste 3
+  apb_freq=<freq of apb>  : APB clock frequency, unit MHz. Default: 500
+  tdr_freq=<freq of tdr>  : TDR clock frequency, unit MHz. Default: 50
+  rank=<1|2|4>            : Total rank number in one channel. Default 1.
+  pstates=<1|2|3|4>       : Total number of PStates. Default 1.
+  seqCtrl=<SequenceCtrl>  : Hex, control which training steps are executed. Default : 1
+  MRLCalcAdj=<MRLCalcAdj> : Hex, adjust intermediate DFIMRL values . Default : 0
+  hdtCtrl=<HdtCtrl>       : Hex, control the mailbox debug messages verbosity, default : c8
+  dfi_mode=<1|3|5>        : Specify dfi_mode type, default : 3
+  hard_macro=<A|B|D|E>    : {*Must*} Specify hard macro type.
+  hard_macro_ver          : specify hard macro version.
+  override_c=<path>       : Use specified overide_c file, the override_c file can't be loacated in the sim directory 
+  cust_vdefines=<path>    : Use specified VDefine file
+  -data_cmpr_dis          : disable data compare 
+  dump=<dump_name>        : Waveform dump format. Currently, either VPD or FSDB or VCD or NONE. Default: NONE
+  dump_bt=<time>          : dumping on time,  eg: 100000000fs
+  dump_et=<time>          : dumping off time, eg: 1500000000fs
+  -dis_viollog            : disable timing violation report in log to decrease simulation time for gatesim
+  debug=<0|1|2>           : Specify verbosity level: 0 - UVM_NONE(default), disable MemVIP trace;  1- UVM_MEDIUM, enable MemVIP trace; 2 - UVM_FULL.
+  corekit=<0|1>           : create coreKit workspace: 0 - no coreKit involvement, 1 - create coreKit workspace and then run simulation
+  prefix=<prefix name>    : add prefix on PUB RTL/design/defines
+  -fw                     : Run preparation step only, creating apb congifuration tasks using firmware code
+  -lp4x                   : {*Must for LPDDR4x*} Enable lp4x mode
+  -c                      : Compile verification code, do not run. Default: compile and run simulatione
+  -cc_en                  : code coverage enable
+  -fc_en                  : function coverage enable
+  -2d                     : {*Must for 2d training*} Execute 2d training when training enabled. Default don't execute 2d training.
+  -wr_only                : Only excute write access  
+  -rd_only                : Only excute read access
+  -b2b_wr                 : Only excute back to back write access
+  -b2b_rd                 : Only excute back to back read access
+  -b2b                    : excute back to back read & write access
+  -b2b_em                 : excute powersim en case: 45% read->20% idle(PHY idle)->35% write
+  -padlbk                 : excute ate ac/data pad loopback case 
+  -bubble                 : excute bubble test
+  -wr2rd                  : excute write or read operation with bubble inserter in bubble test
+  -rd2wr                  : excute read or read operation with bubble inserter in bubble test
+  -svt_dfi                : Use DFI VIP.
+  -default_c              : Use default dwc_ddrphy_phyinit_setDefault.c, no override
+  -clean                  : Cleans out simulation directory
+  -emul	                 : Runs test with +define+DWC_DDRPHY_HWEMUL option in PHY compilation for use with ZeBu emulation
+  -no_v2vx	              : Runs test without -Xhwcosimtest=v2vx -Xhdl_cosim_dut test.top.dut with ZeBu emulation,default with -Xhwcosimtest=v2vx -Xhdl_cosim_dut test.top.dut
+  emul_b2bnum             : Number of wrs/rds command under emulation reprograming. Default 1 - Single wrs/rds
+  emul_bubble             : Number of CK between burst dq when doing emulation long wrs/rds
+  -xprop                  : Enable xprop
+  -inject_x               : Inject_x prop
+  -upf                    : Enable upf flow 
+  -uvm1_1                 : add uvm 1.1 version
+  check_gatesim_path      : Check the pathes and files for gatesim exist or not for release package
+  -gatesim                : Indicate run GateSim or not
+  -sdf                    : Indicate run GateSim with SDF or not
+  corner                  : Indicate the SDF corner. ss/sspg: slow corner; tt/ttpg:typical corner; ff/ffpg: fast corner
+  pvt                     : Indicate the PVT of the SDF
+  mtm_spec                : used to specify using the maximum/minimum/typical delays in min:typ:max delay triplets
+  ac_ew_use               : Indicate the orientation of each ac wrapper.Using hex: 3 means use 2 ac wrapper and all of the slices in sub,i.g.SE,SE,DIFF are ew orientation; 0 means all of the slices are ns orientation; 
+  dbyte_ew_use            : Indicate the orientation of each dbyte wrapper. Using hex: ff means use 8 wrappers of dbyte and 8 wrappers are  all pleaced to EW oreintation and all of the slices in each dbyte wrapper are ew orientation; 000 means all of the wrappers and slices under the wrapper are ns orientation;
+  master_ew_use           : Indicate the orientation of master. 0 means NS orientation; 1 means EW orientation;                            default is "undefined".
+  delay_set               : Used for add #delay into dwc_ddrphy_top.v for SDF GateSim due to PUB(RTL)+HardMacro(netlist)
+  -jtag                   : jtag access register
+  compile                 : Used for compile only
+  rand_pvt                : used to indicate whether random the pvt condition or not when the pvt option is not set
+  lp_mode=<0|1|2|3|4|5|6> : Specify low power mode: 0 - no low power, 1 - dfi_lp_data, 2 - dfi_lp_ctl, 3 - dfi_lp_ctl + dfi_lp_data + DRAMCLKSTOP, 4 - frequency change with LP2, 5 - LP3, 6 - IO retention
+  rdbi0=<0|1>             : read dbi for Pstate0
+  rdbi1=<0|1>             : read dbi for Pstate1
+  rdbi2=<0|1>             : read dbi for Pstate2
+  rdbi3=<0|1>             : read dbi for Pstate3
+  wdbi0=<0|1>             : write dbi for Pstate0
+  wdbi1=<0|1>             : write dbi for Pstate1
+  wdbi2=<0|1>             : write dbi for Pstate2
+  wdbi3=<0|1>             : write dbi for Pstate3
+  dm0                     : dm value will toggle for Pstate0
+  dm1                     : dm value will toggle for Pstate1
+  dm2                     : dm value will toggle for Pstate2
+  dm3                     : dm value will toggle for Pstate3
+  -powersim               : Used to indicate the power simulation
+  -device_idle            : Used in powersim to set the device in idle status for long time.
+  -glitch_checker         : Used to check & report glitches
+  -skip_unsupport_check   : Used to skip checking if configuration is supported in CTB.
+  multi_metal_stack       : used to indicate metal stack should be added to netlist path in common area test.
+  gzip_sdf                : it indicate that customer use the zipped sdf file to do the SDF back annotation
+  simvlog                 : Change the simv.log name by user. Default value is simv.log
+  wck_free0               : Set wck running mode: 0 - non free running mode, 1- wck free running mode for Pstate0
+  wck_free1               : Set wck running mode: 0 - non free running mode, 1- wck free running mode for Pstate1
+  wck_free2               : Set wck running mode: 0 - non free running mode, 1- wck free running mode for Pstate2
+  wck_free3               : Set wck running mode: 0 - non free running mode, 1- wck free running mode for Pstate3
+  -dsm                    : enable enter deep sleep mode
+  -fsp_disable            : Disable FSP-OP.
+  -dis_retrain            : Disable PHY DRAM Drift compensation re-training
+  wdqsext                 : Enable Write DQS Extension feature.
+  -disable_pmu_ecc        : 0, enbale pmu ecc; 1, disable pmu ecc
+  bkdoor=<0|1|2|3>        : 0, no backdoor; 1, iccm/dccm back load; 2, iccm/dccm backdoor ; 3, csr backdoor
+  ate_bkdoor=<0|1>        : 0, no backdoor; 1, iccm/dccm back load for ATE; 
+  save_restart_checkpoint : Used to enable save & restart checkpoint 
+  save_restart_checkpoint_level: Used to classify the level of save & restart checkpoint
+  zeroloop_report         : Generates a report when a zero delay loop is detected
+  timeout                 : Set the simulation timeout by user,the unit of time is 1000 x top.dfi_clk. Default value 50000
+  -quickboot              : Enable quickboot fw
+  uccof=<user_customized_compile_opts_file> : User-customized complie options file. 
+  ucsof=<user_customized_sim_opts_file>     : User-customized simulation options file."
+       exit 0;; 
+
+    cof=*)
+       cmd_opts_file=`echo -e $i |sed -n -e 's/cof=//p'`
+       echo -e "[runtc] cmd_opts_file: $cmd_opts_file"
+       break;;
+    -fw)
+       gen_fw=1 
+       echo "[runtc] gen_fw=$gen_fw"
+       echo "[runtc] gen_fw=$gen_fw" >>fw.log
+       shift;;
+    -lp4x)
+       lp4x_mode=1 
+       echo "[runtc] lp4x_mode=$lp4x_mode"
+       echo "[runtc] lp4x_mode=$lp4x_mode" >>fw.log
+       shift;;
+    -sim)
+       sim_only=1 
+       echo "[runtc] sim_only=$sim_only"
+       echo "[runtc] sim_only=$sim_only" >>fw.log
+       shift;;
+    -upf)
+       upf=1 
+       echo -e "[runtc] upf config: $upf"
+       echo -e "[runtc] upf config: $upf" >>fw.log
+       shift;;
+    -xprop)
+       xprop=1 
+       echo -e "[runtc] xprop config: $xprop"
+       echo -e "[runtc] xprop config: $xprop" >>fw.log
+       shift;;
+    -inject_x)
+       inject_x=1 
+       echo -e "[runtc] inject_x config: $inject_x"
+       echo -e "[runtc] inject_x config: $inject_x" >>fw.log
+       shift;;
+    -uvm1_1)
+       uvm1_1=1 
+       echo -e "[runtc] uvm1_1 config: $uvm1_1"
+       echo "[runtc] uvm1_1 config: $uvm1_1" >> fw.log
+       shift;;
+    -clean)
+       clean=1 
+       shift;;
+	-svt_apb)
+		svt_apb=1
+		echo -e "[runtc] svt_apb config: $svt_apb"
+		echo -e "[runtc] svt_apb config: $svt_apb" >> fw.log
+		shift;;	   
+    -c)
+       run_arg="" 
+       shift;;
+    -cc_en)
+       code_cov_en=1 
+       echo "[runtc] code_cov_en=$code_cov_en"
+       echo "[runtc] code_cov_en=$code_cov_en" >>fw.log
+       shift;;
+    -fc_en)
+       fun_cov_en=1 
+       echo "[runtc] fun_cov_en=$fun_cov_en"
+       echo "[runtc] fun_cov_en=$fun_cov_en" >>fw.log
+       shift;;
+    -2d)
+       disable2d=0 
+       echo "[runtc] disable2d=$disable2d"
+       echo "[runtc] disable2d=$disable2d" >>fw.log
+       shift;;  
+    -pll_bypass0)
+       pll_bypass0=1
+       echo "[runtc] pll_bypass0=$pll_bypass0"
+       echo "[runtc] pll_bypass0=$pll_bypass0" >>fw.log
+       shift;; 
+    -pll_bypass1)
+       pll_bypass1=1
+       echo "[runtc] pll_bypass1=$pll_bypass1"
+       echo "[runtc] pll_bypass1=$pll_bypass1" >>fw.log
+       shift;; 
+    -pll_bypass2)
+       pll_bypass2=1
+       echo "[runtc] pll_bypass2=$pll_bypass2"
+       echo "[runtc] pll_bypass2=$pll_bypass2" >>fw.log
+       shift;; 
+    -pll_bypass3)
+       pll_bypass3=1
+       echo "[runtc] pll_bypass3=$pll_bypass3"
+       echo "[runtc] pll_bypass3=$pll_bypass3" >>fw.log
+       shift;; 
+    -rdbi0)
+       rdbi0=1
+       echo "[runtc] rdbi0=$rdbi0"
+       echo "[runtc] rdbi0=$rdbi0" >>fw.log
+       shift;;  
+    -rdbi1)
+       rdbi1=1
+       echo "[runtc] rdbi1=$rdbi1"
+       echo "[runtc] rdbi1=$rdbi1" >>fw.log
+       shift;;
+    -rdbi2)
+       rdbi2=1
+       echo "[runtc] rdbi2=$rdbi2"
+       echo "[runtc] rdbi2=$rdbi2" >>fw.log
+       shift;;
+    -rdbi3)
+       rdbi3=1
+       echo "[runtc] rdbi3=$rdbi3"
+       echo "[runtc] rdbi3=$rdbi3" >>fw.log
+       shift;;
+    -wdbi0)
+       wdbi0=1
+       echo "[runtc] wdbi0=$wdbi0"
+       echo "[runtc] wdbi0=$wdbi0" >>fw.log
+       shift;;  
+    -wdbi1)
+       wdbi1=1
+       echo "[runtc] wdbi1=$wdbi1"
+       echo "[runtc] wdbi1=$wdbi1" >>fw.log
+       shift;;
+    -wdbi2)
+       wdbi2=1
+       echo "[runtc] wdbi2=$wdbi2"
+       echo "[runtc] wdbi2=$wdbi2" >>fw.log
+       shift;;
+    -wdbi3)
+       wdbi3=1
+       echo "[runtc] wdbi3=$wdbi3" 
+       echo "[runtc] wdbi3=$wdbi3" >>fw.log
+       shift;;
+    -dm0)
+       dm0=1
+       echo "[runtc] dm0=$dm0"
+       echo "[runtc] dm0=$dm0" >>fw.log
+       shift;;  
+    -dm1)
+       dm1=1
+       echo "[runtc] dm1=$dm1"
+       echo "[runtc] dm1=$dm1" >>fw.log
+       shift;;
+    -dm2)
+       dm2=1
+       echo "[runtc] dm2=$dm2"
+       echo "[runtc] dm2=$dm2" >>fw.log
+       shift;;
+    -dm3)
+       dm3=1
+       echo "[runtc] dm3=$dm3"
+       echo "[runtc] dm3=$dm3" >>fw.log
+       shift;;
+    -svt_dfi)
+       svt_dfi=1 
+       echo "[runtc] svt_dfi=$svt_dfi"
+       echo "[runtc] svt_dfi=$svt_dfi" >>fw.log
+       shift;;    
+    -batch)
+       batch=1 
+       echo "[runtc] batch=$batch"
+       echo "[runtc] batch=$batch" >>fw.log
+       shift;;     
+    -emul)
+       emul=1 
+       echo "[runtc] emul=$emul"
+       echo "[runtc] emul=$emul" >>fw.log
+       shift;;
+    -no_v2vx)
+       no_v2vx=1 
+       echo "[runtc] no_v2vx=$no_v2vx"
+       echo "[runtc] no_v2vx=$no_v2vx" >>fw.log
+       shift;; 
+    emul_bubble=*) 
+       emul_bubble=`echo -e $i |sed -n -e 's/emul_bubble=//p'`
+       echo -e "[runtc] emul_bubble: $emul_bubble"
+       echo -e "[runtc] emul_bubble: $emul_bubble" >>fw.log
+       shift;;
+    emul_b2bnum=*) 
+       emul_b2bnum=`echo -e $i |sed -n -e 's/emul_b2bnum=//p'`
+       echo -e "[runtc] emul_b2bnum: $emul_b2bnum"
+       echo -e "[runtc] emul_b2bnum: $emul_b2bnum" >>fw.log
+       shift;;       
+    -jtag)
+       jtag=1;
+       echo "[runtc] jtag=$jtag"
+       echo "[runtc] jtag=$jtag" >>fw.log
+       shift;;       
+    -data_cmpr_dis)
+       data_cmpr_dis=1;
+       echo "[runtc] data_cmpr_dis=$data_cmpr_dis"
+       echo "[runtc] data_cmpr_dis=$data_cmpr_dis" >> fw.log
+       shift;;
+    cfg=*) 
+       cfg=`echo -e $i |sed -n -e 's/cfg=//p'`
+       echo -e "[runtc] cfg: $cfg"
+       echo -e "[runtc] cfg: $cfg" >>fw.log
+       shift;;
+    tc=*) 
+       test=`echo -e $i |sed -n -e 's/tc=//p'`
+       echo -e "[runtc] test: $test"
+       echo -e "[runtc] test: $test" >>fw.log
+       shift;;
+    corekit=*) 
+       corekit=`echo -e $i |sed -n -e 's/corekit=//p'`
+       echo -e "[runtc] corekit: $corekit"
+       shift;;
+    prefix=*) 
+       prefix=`echo -e $i |sed -n -e 's/prefix=//p'`
+       prefix_string="${prefix}_"
+       echo -e "[runtc] prefix: $prefix"
+       shift;;
+    utc=*) 
+       user_test=`echo -e $i |sed -n -e 's/utc=//p'`
+       echo -e "[runtc] user_test: $user_test"
+       echo -e "[runtc] user_test: $user_test" >>fw.log
+       shift;;
+    dram=*) 
+       dram=`echo -e $i |sed -n -e 's/dram=//p'`
+       echo -e "[runtc] dram: $dram"
+       echo -e "[runtc] dram: $dram" >>fw.log
+       shift;;
+    ate_clockingmode=*) 
+       ate_clockingmode=`echo -e $i |sed -n -e 's/ate_clockingmode=//p'`
+       echo -e "[runtc] ate_clockingmode: $ate_clockingmode"
+       echo -e "[runtc] ate_clockingmode: $ate_clockingmode" >>fw.log
+       shift;;
+    ate_tests_to_run=*) 
+       ate_tests_to_run=`echo -e $i |sed -n -e 's/ate_tests_to_run=//p'`
+       echo -e "[runtc] ate_tests_to_run: $ate_tests_to_run"
+       echo -e "[runtc] ate_tests_to_run: $ate_tests_to_run" >>fw.log
+       shift;;
+    dimm=*) 
+       dimm=`echo -e $i |sed -n -e 's/dimm=//p'`
+       echo -e "[runtc] dimm: $dimm"
+       echo -e "[runtc] dimm: $dimm" >>fw.log
+       shift;;
+    skip_train=*) 
+       skip_train=`echo -e $i |sed -n -e 's/skip_train=//p'`
+       echo -e "[runtc] skip_train: $skip_train"
+       echo -e "[runtc] skip_train: $skip_train" >>fw.log
+       shift;;
+    tphy_dqs2dq=*) 
+       tphy_dqs2dq=`echo -e $i |sed -n -e 's/tphy_dqs2dq=//p'`
+       echo -e "[runtc] tphy_dqs2dq: $tphy_dqs2dq"
+       echo -e "[runtc] tphy_dqs2dq: $tphy_dqs2dq" >>fw.log
+       shift;;
+    freq0=*) 
+       freq0=`echo -e $i |sed -n -e 's/freq0=//p'`
+       echo -e "[runtc] freq0: $freq0"
+       echo -e "[runtc] freq0: $freq0" >>fw.log
+       shift;;
+    freq1=*) 
+       freq1=`echo -e $i |sed -n -e 's/freq1=//p'`
+       echo -e "[runtc] freq1: $freq1"
+       echo -e "[runtc] freq1: $freq1" >>fw.log
+       shift;;
+    freq2=*) 
+       freq2=`echo -e $i |sed -n -e 's/freq2=//p'`
+       echo -e "[runtc] freq2: $freq2"
+       echo -e "[runtc] freq2: $freq2" >>fw.log
+       shift;;
+    freq3=*) 
+       freq3=`echo -e $i |sed -n -e 's/freq3=//p'`
+       echo -e "[runtc] freq3: $freq3"
+       echo -e "[runtc] freq3: $freq3" >>fw.log
+       shift;;
+    freq_ratio0=*) 
+       freq_ratio0=`echo -e $i |sed -n -e 's/freq_ratio0=//p'`
+       echo -e "[runtc] freq_ratio0: $freq_ratio0"
+       echo -e "[runtc] freq_ratio0: $freq_ratio0" >>fw.log
+       shift;;
+    freq_ratio1=*) 
+       freq_ratio1=`echo -e $i |sed -n -e 's/freq_ratio1=//p'`
+       echo -e "[runtc] freq_ratio1: $freq_ratio1"
+       echo -e "[runtc] freq_ratio1: $freq_ratio1" >>fw.log
+       shift;; 
+    freq_ratio3=*) 
+       freq_ratio3=`echo -e $i |sed -n -e 's/freq_ratio3=//p'`
+       echo -e "[runtc] freq_ratio3: $freq_ratio3"
+       echo -e "[runtc] freq_ratio3: $freq_ratio3" >>fw.log
+       shift;;
+    freq_ratio4=*) 
+       freq_ratio4=`echo -e $i |sed -n -e 's/freq_ratio4=//p'`
+       echo -e "[runtc] freq_ratio4: $freq_ratio4"
+       echo -e "[runtc] freq_ratio4: $freq_ratio4" >>fw.log
+       shift;; 
+    apb_freq=*) 
+       apb_freq=`echo -e $i |sed -n -e 's/apb_freq=//p'`
+       echo -e "[runtc] apb_freq: $apb_freq"
+       echo -e "[runtc] apb_freq: $apb_freq" >>fw.log
+       shift;;
+    tdr_freq=*) 
+       tdr_freq=`echo -e $i |sed -n -e 's/tdr_freq=//p'`
+       echo -e "[runtc] tdr_freq: $tdr_freq"
+       echo -e "[runtc] tdr_freq: $tdr_freq" >>fw.log
+       shift;;
+    rank=*) 
+       rank=`echo -e $i |sed -n -e 's/rank=//p'`
+       echo -e "[runtc] rank: $rank"
+       echo -e "[runtc] rank: $rank" >>fw.log
+       shift;;
+    pstates=*) 
+       pstates=`echo -e $i |sed -n -e 's/pstates=//p'`
+       echo -e "[runtc] pstates: $pstates"
+       echo -e "[runtc] pstates: $pstates" >>fw.log
+       shift;;
+    seqCtrl=*) 
+       seqCtrl=`echo -e $i |sed -n -e 's/seqCtrl=//p'`
+       echo -e "[runtc] seqCtrl: $seqCtrl"
+       echo -e "[runtc] seqCtrl: $seqCtrl" >>fw.log
+       shift;;
+    MRLCalcAdj=*) 
+       MRLCalcAdj=`echo -e $i |sed -n -e 's/MRLCalcAdj=//p'`
+       echo -e "[runtc] MRLCalcAdj: $MRLCalcAdj"
+       echo -e "[runtc] MRLCalcAdj: $MRLCalcAdj" >>fw.log
+       shift;;
+    hdtCtrl=*) 
+       hdtCtrl=`echo -e $i |sed -n -e 's/hdtCtrl=//p'`
+       echo -e "[runtc] hdtCtrl: $hdtCtrl"
+       echo -e "[runtc] hdtCtrl: $hdtCtrl" >>fw.log
+       shift;;
+    -disable_pmu_ecc)
+       disable_pmu_ecc=1
+       echo -e "[runtc] PMU ECC is Disabled"
+       echo -e "[runtc] PMU ECC is Disabled" >>fw.log
+       shift;;
+    ate=*) 
+       ate=`echo -e $i |sed -n -e 's/ate=//p'`
+       echo -e "[runtc] ate: $ate"
+       echo -e "[runtc] ate: $ate" >>fw.log
+       shift;;
+    dfi_sb=*) 
+       dfi_sb=`echo -e $i |sed -n -e 's/dfi_sb=//p'`
+       echo -e "[runtc] dfi_sb: $dfi_sb"
+       echo -e "[runtc] dfi_sb: $dfi_sb" >> fw.log
+       shift;;	
+    dfi_mode=*) 
+       dfi_mode=`echo -e $i |sed -n -e 's/dfi_mode=//p'`
+       echo -e "[runtc] dfi_mode: $dfi_mode"
+       echo -e "[runtc] dfi_mode: $dfi_mode" >>fw.log
+       shift;;
+    hard_macro=*) 
+       hard_macro=`echo -e $i |sed -n -e 's/hard_macro=//p'`
+       echo -e "[runtc] hard_macro: $hard_macro"
+       echo -e "[runtc] hard_macro: $hard_macro" >>fw.log
+       shift;;  
+    hard_macro_ver=*) 
+       hard_macro_ver=`echo -e $i |sed -n -e 's/hard_macro_ver=//p'`
+       echo -e "[runtc] hard_macro_ver: $hard_macro_ver"
+       echo -e "[runtc] hard_macro_ver: $hard_macro_ver" >>fw.log
+       shift;;    
+    dump=*) 
+       dump=`echo -e $i |sed -n -e 's/dump=//p'`
+       echo -e "[runtc] dump: $dump"
+       echo -e "[runtc] dump: $dump" >>fw.log
+       shift;;
+    debug=*) 
+       debug=`echo -e $i |sed -n -e 's/debug=//p'`
+       echo -e "[runtc] debug: $debug"
+       echo -e "[runtc] debug: $debug" >>fw.log
+       shift;;
+    lp_mode=*) 
+       lp_mode=`echo -e $i |sed -n -e 's/lp_mode=//p'`
+       echo -e "[runtc] lp_mode: $lp_mode"
+       echo -e "[runtc] lp_mode: $lp_mode" >>fw.log
+       shift;;
+    burn_in_time=*) 
+       burn_in_time=`echo -e $i |sed -n -e 's/burn_in_time=//p'`
+       echo -e "[runtc] burn_in_time: $burn_in_time"
+       echo -e "[runtc] burn_in_time: $burn_in_time" >>fw.log
+       shift;;
+    dmem_start_address=*) 
+       dmem_start_address=`echo -e $i |sed -n -e 's/dmem_start_address=//p'`
+       echo -e "[runtc] dmem_start_address: $dmem_start_address"
+       echo -e "[runtc] dmem_start_address: $dmem_start_address" >>fw.log
+       shift;;
+    dmem_end_address=*) 
+       dmem_end_address=`echo -e $i |sed -n -e 's/dmem_end_address=//p'`
+       echo -e "[runtc] dmem_end_address: $dmem_end_address"
+       echo -e "[runtc] dmem_end_address: $dmem_end_address" >>fw.log
+       shift;;
+    masis_dmem_rd=*) 
+       masis_dmem_rd=`echo -e $i |sed -n -e 's/masis_dmem_rd=//p'`
+       echo -e "[runtc] masis_dmem_rd: $masis_dmem_rd"
+       echo -e "[runtc] masis_dmem_rd: $masis_dmem_rd" >>fw.log
+       shift;;
+    dmem_rd=*) 
+       dmem_rd=`echo -e $i |sed -n -e 's/dmem_rd=//p'`
+       echo -e "[runtc] dmem_rd: $dmem_rd"
+       echo -e "[runtc] dmem_rd: $dmem_rd" >>fw.log
+       shift;;
+    -masis_short) 
+       masis_short=1
+       echo -e "[runtc] masis_short: Running ATE MASIS tests without burn-in"
+       echo -e "[runtc] masis_short: Running ATE MASIS tests without burn-in" >>fw.log
+       shift;;
+    -mem_dump) 
+       mem_dump=1
+       echo -e "[runtc] mem_dump: Dump DMEM and IMEM before testing"
+       echo -e "[runtc] mem_dump: Dump DMEM and IMEM before testing" >>fw.log
+       shift;;
+    prt_off=*) 
+       prt_off=`echo -e $i |sed -n -e 's/prt_off=//p'`
+       echo -e "[runtc] prt_off=$prt_off: Showing full log for burn_in or 2d loopback tests"
+       echo -e "[runtc] prt_off=$prt_off: Showing full log for burn_in or 2d loopback tests " >>fw.log
+       shift;;
+    override_c=*)
+       override_c=`echo -e $i |sed -n -e 's/override_c=//p'`
+       echo -e "[runtc] override_c: $override_c"
+       echo -e "[runtc] override_c: $override_c" >>fw.log
+       shift;; 
+    cust_vdefines=*)
+       cust_vdefines=`echo -e $i |sed -n -e 's/cust_vdefines=//p'`
+       echo -e "[runtc] cust_vdefines: $cust_vdefines"
+       echo -e "[runtc] cust_vdefines: $cust_vdefines" >>fw.log
+       shift;;
+    -default_c)
+       default_c=1 
+       echo -e "[runtc] default_c: use default phyinit c files"
+       echo -e "[runtc] default_c: use default phyinit c files" >>fw.log
+       shift;; 
+    -wr_only)
+       wr_only=1
+       shift;;
+    -rd_only)
+       rd_only=1
+       shift;;
+    -b2b_wr)
+       b2b_wr=1
+       shift;;
+    -b2b_rd)
+       b2b_rd=1
+       shift;;
+    -b2b)
+       b2b=1
+       shift;;
+    -b2b_em)
+       b2b_em=1
+       shift;;
+    -padlbk)
+       padlbk=1
+       shift;;
+    -bubble)
+       bubble=1
+       shift;;
+    -wr2rd)
+       wr2rd=1
+       shift;;
+    -rd2wr)
+       rd2wr=1
+       shift;;
+    -check_gatesim_path)
+       check_gatesim_path=1
+       shift;;
+    -gatesim)
+       gatesim=1
+       shift;;
+    -sdf)
+       sdf=1
+       echo -e "[runtc] SDF GateSim Running"
+       echo -e "[runtc] SDF GateSim Running" >>fw.log
+       shift;;
+    -gzip_sdf)
+       gzip_sdf=1
+       echo -e "[runtc] Choose to use the zipped SDF file"
+       echo -e "[runtc] Choose to use the zipped SDF file" >>fw.log
+       shift;;
+    ac_ew_use=*)
+       ac_ew_use=`echo -e $i |sed -n -e 's/ac_ew_use=//p'` 
+       echo -e "[runtc] ac_ew_use : $ac_ew_use"
+       echo -e "[runtc] ac_ew_use : $ac_ew_use" >>fw.log
+       shift;;
+    dbyte_ew_use=*)
+       dbyte_ew_use=`echo -e $i |sed -n -e 's/dbyte_ew_use=//p'` 
+       echo -e "[runtc] dbyte_ew_use : $dbyte_ew_use"
+       echo -e "[runtc] dbyte_ew_use : $dbyte_ew_use" >>fw.log
+       shift;;
+    master_ew_use=*)
+       master_ew_use=`echo -e $i |sed -n -e 's/master_ew_use=//p'` 
+       echo -e "[runtc] master_ew_use : $master_ew_use"
+       echo -e "[runtc] master_ew_use : $master_ew_use" >>fw.log
+       shift;;
+    corner=*)
+       corner=`echo -e $i |sed -n -e 's/corner=//p'` 
+       echo -e "[runtc] SDF corner : $corner"
+       echo -e "[runtc] SDF corner : $corner" >>fw.log
+       shift;;
+    pvt=*)
+       pvt=`echo -e $i |sed -n -e 's/pvt=//p'` 
+       echo -e "[runtc] SDF pvt : $pvt"
+       echo -e "[runtc] SDF pvt : $pvt" >>fw.log
+       shift;;
+    mtm_spec=*)
+       mtm_spec=`echo -e $i |sed -n -e 's/mtm_spec=//p'` 
+       echo -e "[runtc] SDF mtm_spec : $mtm_spec"
+       echo -e "[runtc] SDF mtm_spec : $mtm_spec" >>fw.log
+       shift;;
+    delay_set=*)
+       delay_set=`echo -e $i |sed -n -e 's/delay_set=//p'` 
+       echo -e "[runtc] SDF delay_set : $delay_set"
+       echo -e "[runtc] SDF delay_set : $delay_set" >>fw.log
+       shift;;
+    -compile)
+       compile_only=1
+       shift;;
+    -rand_pvt)
+       rand_pvt=1
+       shift;;
+    -skip_unsupport_check)
+       skip_unsupport_check=1
+       shift;;
+    -long)
+       long=1
+       shift;;
+    -powersim)
+       powersim=1
+       shift;;
+    -device_idle)
+       device_idle=1
+       shift;;
+    -split_fsdb)
+       split_fsdb=1
+       shift;;
+    -dsm)
+       dsm=1
+       shift;;
+    -glitch_checker)
+       enable_glitch_checker=1
+       echo "[runtc] enable_glitch_checker=$enable_glitch_checker"
+       echo "[runtc] enable_glitch_checker=$enable_glitch_checker" >>fw.log
+       shift;;
+    -fsp_disable)
+       fsp_disable=1
+       echo "[runtc] fsp_disable=$fsp_disable"
+       echo "[runtc] fsp_disable=$fsp_disable" >>fw.log
+       shift;;
+    -dis_retrain)
+       dis_retrain=1
+       echo "[runtc] dis_retrain=$dis_retrain"
+       echo "[runtc] dis_retrain=$dis_retrain" >>fw.log
+       shift;;
+    -wdqsext)
+       wdqsext=1
+       echo "[runtc] wdqsext=$wdqsext"
+       echo "[runtc] wdqsext=$wdqsext" >>fw.log
+       shift;;
+    dis_dxodt=*) 
+       dis_dxodt=`echo -e $i |sed -n -e 's/dis_dxodt=//p'`
+       echo -e "[runtc] dis_dxodt: $dis_dxodt"
+       echo -e "[runtc] dis_dxodt: $dis_dxodt" >>fw.log
+       shift;; 
+    dis_acodt=*) 
+       dis_acodt=`echo -e $i |sed -n -e 's/dis_acodt=//p'`
+       echo -e "[runtc] dis_acodt: $dis_acodt"
+       echo -e "[runtc] dis_acodt: $dis_acodt" >>fw.log
+       shift;; 
+    power_ac_pattern=*) 
+       power_ac_pattern=`echo -e $i |sed -n -e 's/power_ac_pattern=//p'`
+       echo -e "[runtc] power_ac_pattern: $power_ac_pattern"
+       echo -e "[runtc] power_ac_pattern: $power_ac_pattern" >>fw.log
+       shift;; 
+    power_data_pattern=*) 
+       power_data_pattern=`echo -e $i |sed -n -e 's/power_data_pattern=//p'`
+       echo -e "[runtc] power_data_pattern: $power_data_pattern"
+       echo -e "[runtc] power_data_pattern: $power_data_pattern" >>fw.log
+       shift;; 
+    -multi_metal_stack)
+       multi_metal_stack=1
+       shift;;
+    simvlog=*)
+       simvlog=`echo -e $i |sed -n -e 's/simvlog=//p'`
+       shift;;
+    wck_free0=*) 
+       wck_free0=`echo -e $i |sed -n -e 's/wck_free0=//p'`
+       echo -e "[runtc] wck_free0: $wck_free0"
+       echo -e "[runtc] wck_free0: $wck_free0" >>fw.log
+       shift;;
+    wck_free1=*) 
+       wck_free1=`echo -e $i |sed -n -e 's/wck_free1=//p'`
+       echo -e "[runtc] wck_free1: $wck_free1"
+       echo -e "[runtc] wck_free1: $wck_free1" >>fw.log
+       shift;;
+    wck_free2=*) 
+       wck_free2=`echo -e $i |sed -n -e 's/wck_free2=//p'`
+       echo -e "[runtc] wck_free2: $wck_free2"
+       echo -e "[runtc] wck_free2: $wck_free2" >>fw.log
+       shift;;
+    wck_free3=*) 
+       wck_free3=`echo -e $i |sed -n -e 's/wck_free3=//p'`
+       echo -e "[runtc] wck_free3: $wck_free3"
+       echo -e "[runtc] wck_free3: $wck_free3" >>fw.log
+       shift;;
+    bypass_mode=*) 
+       bypass_mode=`echo -e $i |sed -n -e 's/bypass_mode=//p'`
+       echo -e "[runtc] bypass_mode: $bypass_mode"
+       echo -e "[runtc] bypass_mode: $bypass_mode" >>fw.log
+       shift;; 
+    dump_bt=*) 
+       dump_bt=`echo -e $i |sed -n -e 's/dump_bt=//p'`
+       echo -e "[runtc] dump_bt: $dump_bt"
+       echo -e "[runtc] dump_bt: $dump_bt" >>fw.log
+       shift;; 
+    dump_et=*) 
+       dump_et=`echo -e $i |sed -n -e 's/dump_et=//p'`
+       echo -e "[runtc] dump_et: $dump_et"
+       echo -e "[runtc] dump_et: $dump_et" >>fw.log
+       shift;; 
+    -dis_viollog)
+       dis_viollog=1
+       shift;;
+    bkdoor=*)
+       bkdoor=`echo -e $i |sed -n -e 's/bkdoor=//p'`
+       shift;;
+    ate_bkdoor=*)
+       ate_bkdoor=`echo -e $i |sed -n -e 's/ate_bkdoor=//p'`
+       shift;;
+    -save_restart_checkpoint)
+	   save_restart_checkpoint=1
+	   shift;;
+    save_restart_checkpoint_level=*)
+       save_restart_checkpoint_level=`echo -e $i |sed -n -e 's/save_restart_checkpoint_level=//p'` 
+       echo -e "[runtc] save_restart_checkpoint_level : $save_restart_checkpoint_level"
+       echo  "[runtc] save_restart_checkpoint_level : $save_restart_checkpoint_level" >> fw.log
+       shift;;
+    -zeroloop_report)
+	   zeroloop_report=1
+	   shift;;	
+    timeout=*)
+       timeout=`echo -e $i |sed -n -e 's/timeout=//p'`
+       shift;;
+    ate_cust_mb_cfg_file=*)
+       ATE_MB_CFG=1
+       ATE_MB_CFG_file=`echo -e $i |sed -n -e 's/ate_cust_mb_cfg_file=//p'`
+       shift;;
+    ate_cust_csr_cfg_file=*)
+       ATE_CSR_CFG=1
+       ATE_CSR_CFG_file=`echo -e $i |sed -n -e 's/ate_cust_csr_cfg_file=//p'`
+       shift;;
+    uccof=*)
+      user_customized_compile_opts_file=`echo -e $i |sed -n -e 's/uccof=//p'`
+      echo -e "[runtc] user_customized_compile_opts_file: $user_customized_compile_opts_file"
+      shift;;
+    ucsof=*)
+      user_customized_sim_opts_file=`echo -e $i |sed -n -e 's/ucsof=//p'`
+      echo -e "[runtc] user_customized_sim_opts_file: $user_customized_sim_opts_file"
+      shift;;
+    -quickboot)
+       quickboot=1
+       echo -e "[runtc] quickboot: $quickboot"
+       echo -e "[runtc] quickboot: $quickboot" >>fw.log
+       shift;;
+  esac
+done <cmd_opts_file.f
+
+ if [ "$CTB_HOME" = "" ]; then
+   echo '[runtc] ERROR: Environment variable $CTB_HOME should be set to ctb directory path before using runtc'
+   exit 0;
+fi
+
+if [ $data_cmpr_dis == 1 ]; then
+  cmd_opts="$cmd_opts +define+DATA_CMPR_DIS" 
+fi
+
+if [ $quickboot == 1 ]; then
+  cmd_opts="$cmd_opts +define+QUICKBOOT" 
+fi
+
+if [ $user_customized_compile_opts_file != "undefined" ]; then
+while read opt_comp
+do
+  cmd_opts="$cmd_opts $opt_comp"
+done < $user_customized_compile_opts_file
+fi
+
+if [ $user_customized_sim_opts_file != "undefined" ]; then
+while read opt_sim
+do
+  run_arg="$run_arg $opt_sim"
+done < $user_customized_sim_opts_file
+fi
+
+# temp switch for firmare generator (protocol)
+#---------------------------------------------
+protocol="ddr4"
+test_dir="demo"
+if [ "$dimm" == "rdimm" ] ; then
+    protocol="ddr4_rdimm"
+fi
+if [ "$dimm" == "lrdimm" ]; then
+    protocol="ddr4_lrdimm"
+fi
+if [ "$dram" == "ddr3" ] ; then
+  if [ "$dimm" == "udimm" ] || [ "$dimm" == "nodimm" ] ; then
+    protocol="ddr3"
+  fi
+  if [ "$dimm" == "rdimm" ] ; then
+    protocol="ddr3_rdimm"
+  fi
+fi
+if [ "$dram" == "lpddr3" ] ; then
+  protocol="lpddr3"
+  dimm="udimm"
+fi
+if [ "$dram" == "lpddr4" ] ; then
+  protocol="lpddr4"
+  dimm="udimm"
+  if [ $lp4x_mode == 1 ]; then
+     protocol="lpddr4"
+#     protocol="lpddr4x"
+  fi
+fi
+if [ "$dram" == "lpddr5" ] ; then
+  protocol="lpddr5"
+  dimm="udimm"
+fi
+if [ "$test" == "demo_ate" ]; then
+   protocol="none"
+   dram="none"
+   dimm="nodimm"
+fi
+if [ "$test" == "demo_csr_test" ]; then
+	svt_apb=1
+fi
+if [[ "$test" == dc* ]] ; then
+  protocol="none"
+  dram="none"
+  dimm="nodimm"
+  test_dir="dc"
+else
+  test_dir="demo"
+fi
+
+if [ "$test" == "demo_warm_reset" ]; then
+    warm_reset=1
+fi
+
+if [ $warm_reset == 1 ]; then
+	cmd_opts="$cmd_opts +define+WARM_RESET_MODE"
+fi
+
+if [ "$test" == "demo_lp" ] && [ $lp_mode == 6 ] ; then
+  ret_en=1
+fi
+
+if [ $enable_glitch_checker == 1 ]; then
+  cmd_opts="$cmd_opts +define+GLITCH_CHECK"
+fi
+
+if [ $fsp_disable == 1 ]; then
+  cmd_opts="$cmd_opts +define+FSP_DIS"
+fi
+
+if [ $wdqsext == 1 ]; then
+  cmd_opts="$cmd_opts +define+WDQSEXT"
+fi
+
+if [ $dis_viollog == 1 ]; then
+  cmd_opts="$cmd_opts +no_tchk_msg"
+fi
+
+if [ $uvm1_1 == 0  ]; then
+  cmd_opts="$cmd_opts +define+SVT_UVM_12_OR_HIGHER"
+  uvm_version="uvm-1.2"
+else
+  uvm_version="uvm"
+fi
+# clean simulation directory
+#---------------------------------------------
+if  [ $clean == 1 ]; then
+   echo -e "[runtc] Info: cleaning simulation directory..."
+   rm -rf *.f .fw csrc simv* cmd.run *.key INCA_libs *.h *.cfg *.fsdb* *.vpd *.log *.cmd_trace novas.* *verdi* *.xml *.mempa *.c *.sv job* ws_*
+   if [ -L runtc ]; then 
+    rm -rf runtc
+   fi
+   exit 0;
+fi
+
+echo "[runtc] protocol = $protocol"
+echo "[runtc] dram = $dram"
+echo "[runtc] protocol = $protocol" >>fw.log
+echo "[runtc] dram = $dram" >>fw.log
+
+# check tc argument existence
+#---------------------------------------------
+if [ "$test" = "undefined" ]; then
+      echo -e "[runtc] ERROR: test name undefined; use tc=<test_name> option. Available tests:"
+      ls $CTB_HOME/testbench/tc/
+      exit 0;
+fi
+
+# check quickboot argument configuration
+#---------------------------------------------
+if [ "$quickboot" == "1" ] && [ "$skip_train" != "0" ] ; then
+  echo -e "[runtc] ERROR: skip_train should be set to 0(training) when quickboot is enabled"
+  exit 0;
+fi
+
+if [ $quickboot == 1 ]; then
+   ln -s $CTB_HOME/testbench/inc/xmlparse.py xmlparse.py
+fi
+
+####  cfg and cust_vdefines must exist one and then get $cfg  ####
+#---------------------------------------------
+if [ "$cfg" = "undefined" ] && [ "$cust_vdefines" = "undefined" ]; then
+      echo -e "[runtc] ERROR: configure undefined; use cfg=<cfg_name> option or cust_vdefine=<cust_vdefines_path>. Example: cfg=lp54cs1dq36ch2, cust_vdefines=../../../../.."
+      exit 0;
+elif [ "$cust_vdefines" != "undefined" ]; then
+  if [ ! -e $cust_vdefines ]; then
+      echo -e "[runtc] ERROR: the cust_vdefine file $cust_vdefines does not exist "
+      exit 0; 
+  else
+      lp=`grep "define DWC_DDRPHY_LPDDR5_ENABLED" $cust_vdefines|grep -v "//"|cut -f2 -d ' '`
+      DMI=`grep "define DWC_DDRPHY_DBYTE_DMI_ENABLED" $cust_vdefines|grep -v "//"|cut -f2 -d ' '`
+      d=`grep "define DWC_DDRPHY_NUM_DBYTES_PER_CHANNEL_" $cust_vdefines|grep -v "//"|grep -v Error|cut -f7 -d '_'`
+      num_rank=`grep "define DWC_DDRPHY_NUM_RANKS_" $cust_vdefines|grep -v "//"|grep -v Error|cut -f5 -d '_'`
+      ch=`grep "define DWC_DDRPHY_NUM_CHANNELS_" $cust_vdefines|grep -v "//"|grep -v Error|cut -f5 -d '_'`
+      if [ $lp != "" ]; then
+        LP="54";
+      else 
+        LP="4";
+      fi
+      if [ $DMI != "" ]; then
+       d=18; 
+      else 
+       d=16; 
+      fi
+  fi
+   cfg='lp'$LP'cs'$num_rank'dq'$d'ch'$ch
+fi
+
+echo "[runtc] cfg=$cfg"
+echo "[runtc] cfg=$cfg" >>fw.log
+
+#---------------------------------------------
+#set CTB_HM_DIR for common area simulation
+#---------------------------------------------
+if [ "$hard_macro_ver" == "undefined" ];then
+#if [ $release == 2 ]; then
+  if [ $hard_macro == "A" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_a/rev0_74a_patch1"
+    cmd_opts="$cmd_opts +define+HMA"
+  fi     
+  if [ $hard_macro == "B" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_b/rev0_74a_patch1_sp1"
+    #CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_b/rev0_74a_patch1"
+    cmd_opts="$cmd_opts +define+HMB"
+  fi
+  if [ $hard_macro == "D" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_d/rev1" 
+    cmd_opts="$cmd_opts +define+HMD"
+  fi
+  if [ $hard_macro == "E" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_e/rev2" 
+    cmd_opts="$cmd_opts +define+HME"
+  fi
+else
+  if [ $hard_macro == "A" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_a/$hard_macro_ver"
+    cmd_opts="$cmd_opts +define+HMA"
+fi
+  if [ $hard_macro == "B" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_b/$hard_macro_ver"
+    cmd_opts="$cmd_opts +define+HMB"
+  fi
+  if [ $hard_macro == "D" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_d/$hard_macro_ver"
+    cmd_opts="$cmd_opts +define+HMD"
+  fi
+  if [ $hard_macro == "E" ]; then
+    CTB_HM_DIR="$CTB_HOME/../../hard_macros/hard_macro_family_e/$hard_macro_ver" 
+    cmd_opts="$cmd_opts +define+HME"
+  fi
+fi
+
+### create corekit workspace based on cfg for internal testing
+#---------------------------------------------
+echo "[runtc] corekit = $corekit"
+if [ $corekit == 1 ] && [ ! -f $CTB_HOME/../../src/dwc_ddrphy_top.lst ]; then ## runtc lauched under workspace should skip creating workspace again 
+  if [ -e ws.log ]; then
+    rm -f ws.log
+  fi  
+  re="lp([54]+)cs([0-9]+)dq([0-9]+)ch([1-2])"
+  if [[ $cfg =~ $re ]]; then
+      lp=${BASH_REMATCH[1]}
+      cs=${BASH_REMATCH[2]}
+      dq=${BASH_REMATCH[3]}
+      ch=${BASH_REMATCH[4]}
+      echo "create coreKit workspace ws_$cfg" | tee -a ws.log
+#-------runtc launched in dev branch------------------------------------------------------#
+        if [ -d $CTB_HOME/../ctb_verif ]; then      
+          echo "$CTB_HOME/../ctb_verif found, will check if coreKit exists in dev" | tee -a ws.log 
+          ct=(`ls -F $CTB_HOME/../build/rtl/src | grep /$ | grep coretool | tr "\n" " " `);
+            if [ -z ${ct[0]} ]; then
+                echo "build/rtl/src/coretool* not found, please make rtl coreKit=1" | tee -a ws.log 
+                exit 0;
+            fi
+            if [ -d $CTB_HOME/../build/rtl/src/${ct[0]}lib/install ]; then
+              installed_coreKit="$CTB_HOME/../build/rtl/src/${ct[0]}lib/install"
+              echo "found coreKit in dev: $installed_coreKit" | tee -a ws.log
+              # re-create workspace if it is not existed or out of date.
+              if [ -f ws_$cfg/.succeed ]; then
+                 ck_timestamp=$(date +%Y%m%d%H%M%S -r $installed_coreKit); 
+                 ws_timestamp=$(date +%Y%m%d%H%M%S -r ws_$cfg);
+                 if test $ck_timestamp -gt $ws_timestamp; then
+                    rm -rf ws_$cfg
+                    $CTB_HOME/../coretool/bin/genCCWorkSpace.sh -lp$lp -rk $cs -dq $dq -ch $ch -corekit $installed_coreKit -ws ws_$cfg -ipxact -prefix $prefix | tee -a ws.log
+                 fi
+              else
+                 $CTB_HOME/../coretool/bin/genCCWorkSpace.sh -lp$lp -rk $cs -dq $dq -ch $ch -corekit $installed_coreKit -ws ws_$cfg -ipxact -prefix $prefix | tee -a ws.log
+              fi
+            else
+                echo "coreKit(build/rtl/src/coretool*/lib/install) not found, please make rtl coreKit=1" | tee -a ws.log 
+                exit 0;
+            fi  
+#-------runtc launched in release package------------------------------------------------------#          
+        elif [ -d $CTB_HOME/../../installed_coreKit/Latest ]; then # support regression in release package
+          installed_coreKit="$CTB_HOME/../../installed_coreKit/Latest"
+          echo "found coreKit in release package: $installed_coreKit" | tee -a ws.log
+          $CTB_HOME/sim/genCCWorkSpace.sh -lp$lp -rk $cs -dq $dq -ch $ch -corekit $installed_coreKit -ws ws_$cfg -ipxact -prefix $prefix | tee -a ws.log
+#-------runtc launched in common area------------------------------------------------------#            
+        elif [ -d $CTB_COREKIT_DIR/kb ]; then
+          installed_coreKit="$CTB_COREKIT_DIR"
+          echo "found coreKit in common area: $installed_coreKit" | tee -a ws.log
+          # re-create workspace if it is not existed or out of date.
+          if [ -f ws_$cfg/.succeed ]; then
+             ck_timestamp=$(date +%Y%m%d%H%M%S -r $installed_coreKit); 
+             ws_timestamp=$(date +%Y%m%d%H%M%S -r ws_$cfg);
+             if test $ck_timestamp -gt $ws_timestamp; then
+                rm -rf ws_$cfg
+                $CTB_COREKIT_DIR/../etc/genCCWorkSpace.sh -lp$lp -rk $cs -dq $dq -ch $ch -corekit $installed_coreKit -ws ws_$cfg -ipxact -prefix $prefix | tee -a ws.log
+             fi
+          else
+             $CTB_COREKIT_DIR/../etc/genCCWorkSpace.sh -lp$lp -rk $cs -dq $dq -ch $ch -corekit $installed_coreKit -ws ws_$cfg -ipxact -prefix $prefix | tee -a ws.log
+          fi
+        else 
+          echo "coreKit is not found" | tee -a ws.log
+          exit 0;
+        fi
+      # create softlink when run ctb in common
+      cwd=`pwd`
+      pushd $cwd/ws_$cfg
+      if [ ! -d ctb ]; then
+        mkdir -p ctb/Latest/sim
+        mkdir -p ctb/Latest/gatesim_script
+        mkdir -p ctb/Latest/testbench
+        mkdir -p ctb/Latest/upf
+        pushd ctb/Latest
+        # use 'ln -snf' instead of 'cp -rsf' for sim, to prevent iterative link when run simulation under ctb directory
+        sub_file=(`find $CTB_HOME -maxdepth 1 -type f | tr "\n" " " `)
+        for file in ${sub_file[@]}
+        do
+            ln -fns $file .
+        done
+        sub_dir=(`ls -F $CTB_HOME | grep /$ | tr "\n" " " `)
+        for dir in ${sub_dir[@]}
+        do
+            if [ "$dir" = "sim/" ]; then
+                ln -fns $CTB_HOME/sim/* sim
+            elif [ "$dir" = "gatesim_script/" ]; then
+                ln -fns $CTB_HOME/gatesim_script/* gatesim_script
+			elif [ "$dir" = "testbench/" ]; then
+                ln -fns $CTB_HOME/testbench/* testbench
+			elif [ "$dir" = "upf/" ]; then
+                ln -fns $CTB_HOME/upf/* upf
+            fi
+        done
+        popd
+      fi
+      if [ ! -d phyinit ]; then
+        mkdir phyinit
+        mkdir phyinit/Latest
+        pushd phyinit/Latest
+        if [ -d $CTB_HOME/../build/c/init ]; then
+          ln -fns $CTB_HOME/../build/c/init software
+        else
+          ln -fns $CTB_PHYINIT_DIR
+        fi 
+        popd
+      fi
+      if [ ! -d firmware ]; then
+        mkdir firmware
+        pushd firmware
+        fw_dir_name=${CTB_FW_DIR##*/}
+        if [ -d $CTB_HOME/../build/c/fw/rel ]; then # dev brgganch
+          mkdir internal  
+          cp -rsf $CTB_HOME/../build/c/fw/rel internal/training
+          cp -rsf $CTB_HOME/testbench/inc/ate_dev internal/ate
+          ln -fns internal Latest
+        else   
+          cp -rsf $CTB_FW_DIR .
+          if [ -d $CTB_FW_DIR/ate ]; then
+            cp -rsf $CTB_FW_DIR/ate $fw_dir_name
+            cp -rsf $CTB_FW_DIR/etc $fw_dir_name
+          fi
+          ln -fns $fw_dir_name Latest
+        fi
+        popd
+      fi
+      #copy upf to workspace from common area; In dev area this is finished in coretool/bin/preprocess
+      if [ ! -d example/Latest/upf ]; then
+          mkdir -p example/Latest/upf
+          ln -fns $CTB_UPF_DIR/* example/Latest/upf 
+      fi
+
+    if [ ! -d $CTB_HOME/../../installed_coreKit/Latest ]; then #In release package, hardmacro is prepared when workspace is created. 
+       if [ $gatesim == 1 ]; then
+           rm -rf sec sec_ew sec_ns se se_ns se_ew diff diff_ns diff_ew master master_ns master_ew 
+           mkdir -p sec/Latest/include sec_ew/Latest/include sec_ns/Latest/include 
+           mkdir -p se/Latest/include se_ns/Latest/include se_ew/Latest/include
+           mkdir -p diff/Latest/include diff_ns/Latest/include diff_ew/Latest/include
+           mkdir -p master/Latest/include master_ns/Latest/include master_ew/Latest/include
+           #digital rtl and analog model
+         if [ -d $CTB_HM_DIR ]; then
+           ln -fns $CTB_HM_DIR/dwc_ddrphysec_top/views/rtl $CTB_HM_DIR/dwc_ddrphysec_top/views/behavior $CTB_HM_DIR/dwc_ddrphysec_top/views/upf sec/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphysec_top/views/rtl $CTB_HM_DIR/dwc_ddrphysec_top/views/behavior $CTB_HM_DIR/dwc_ddrphysec_top/views/upf sec_ns/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphysec_top/views/rtl $CTB_HM_DIR/dwc_ddrphysec_top/views/behavior $CTB_HM_DIR/dwc_ddrphysec_top/views/upf sec_ew/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphyse_top/views/rtl $CTB_HM_DIR/dwc_ddrphyse_top/views/behavior $CTB_HM_DIR/dwc_ddrphyse_top/views/upf se/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphyse_top/views/rtl $CTB_HM_DIR/dwc_ddrphyse_top/views/behavior $CTB_HM_DIR/dwc_ddrphyse_top/views/upf se_ns/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphyse_top/views/rtl $CTB_HM_DIR/dwc_ddrphyse_top/views/behavior $CTB_HM_DIR/dwc_ddrphyse_top/views/upf se_ew/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphydiff_top/views/rtl $CTB_HM_DIR/dwc_ddrphydiff_top/views/behavior $CTB_HM_DIR/dwc_ddrphydiff_top/views/upf diff/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphydiff_top/views/rtl $CTB_HM_DIR/dwc_ddrphydiff_top/views/behavior $CTB_HM_DIR/dwc_ddrphydiff_top/views/upf diff_ns/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphydiff_top/views/rtl $CTB_HM_DIR/dwc_ddrphydiff_top/views/behavior $CTB_HM_DIR/dwc_ddrphydiff_top/views/upf diff_ew/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphymaster_top/views/rtl $CTB_HM_DIR/dwc_ddrphymaster_top/views/behavior $CTB_HM_DIR/dwc_ddrphymaster_top/views/upf master/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphymaster_top/views/rtl $CTB_HM_DIR/dwc_ddrphymaster_top/views/behavior $CTB_HM_DIR/dwc_ddrphymaster_top/views/upf master_ns/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphymaster_top/views/rtl $CTB_HM_DIR/dwc_ddrphymaster_top/views/behavior $CTB_HM_DIR/dwc_ddrphymaster_top/views/upf master_ew/Latest/
+           ln -fns $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/rtl $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/behavior $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/upf repeater_blocks/Latest/
+         else
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphyse_top se/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphyse_top se_ns/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphyse_top se_ew/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphysec_top sec/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphysec_top sec_ns/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphysec_top sec_ew/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphydiff_top diff/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphydiff_top diff_ns/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphydiff_top diff_ew/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphymaster_top master/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphymaster_top master_ns/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphymaster_top master_ew/Latest/rtl
+           ln -snf $CTB_HOME/../coretool/src/d2c/release/dwc_ddrphy_repeater_blocks repeater_blocks/Latest/rtl
+         fi
+           #std cell library verilog models(only fetch from acx4)
+           ln -snf $gatesim_process/$gatesim_project/lib/* diff/Latest/include
+           ln -snf $gatesim_process/$gatesim_project/lib/* diff_ns/Latest/include
+           ln -snf $gatesim_process/$gatesim_project/lib/* diff_ew/Latest/include
+          #analog model with suffix
+          ln -snf $gatesim_process/$gatesim_project/sim_diff/* diff/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_diff/* diff_ns/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_diff/* diff_ew/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_se/* se/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_se/* se_ns/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_se/* se_ew/Latest/include
+
+          ln -snf $gatesim_process/$gatesim_project/sim_sec/* sec/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_sec/* sec_ns/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_sec/* sec_ew/Latest/include
+
+          ln -snf $gatesim_process/$gatesim_project/sim_master/* master/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_master/* master_ns/Latest/include
+          ln -snf $gatesim_process/$gatesim_project/sim_master/* master_ew/Latest/include
+          
+          #gate_level_netlist and sdf file
+        if [ -d $gatesim_process/$gatesim_project/dwc_ddrphymaster_top ]; then
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top/views/behavior master/Latest/gate_level_netlist
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top/views/timing master/Latest/
+       fi
+        if [ -d $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ns ]; then
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ns/views/behavior master_ns/Latest/gate_level_netlist
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ns/views/timing master_ns/Latest/
+       fi
+        if [ -d $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ew ]; then
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ew/views/behavior master_ew/Latest/gate_level_netlist
+           ln -snf $gatesim_process/$gatesim_project/dwc_ddrphymaster_top_ew/views/timing master_ew/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphyse_top ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top/views/behavior se/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top/views/timing se/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ns ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ns/views/behavior se_ns/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ns/views/timing se_ns/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ew ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ew/views/behavior se_ew/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphyse_top_ew/views/timing se_ew/Latest
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphysec_top ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top/views/behavior sec/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top/views/timing sec/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ns ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ns/views/behavior sec_ns/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ns/views/timing sec_ns/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ew ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ew/views/behavior sec_ew/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphysec_top_ew/views/timing sec_ew/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphydiff_top ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top/views/behavior diff/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top/views/timing diff/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ns ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ns/views/behavior diff_ns/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ns/views/timing diff_ns/Latest/
+       fi
+       if [ -d $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ew ]; then
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ew/views/behavior diff_ew/Latest/gate_level_netlist
+           ln -sf $gatesim_process/$gatesim_project/dwc_ddrphydiff_top_ew/views/timing diff_ew/Latest/
+       fi
+      else
+         if [ ! -d sec ] && [ ! -d sec_ew ] && [ ! -d sec_ns ]; then
+           mkdir sec_ew
+         fi
+         if [ -d sec ]; then
+           pushd sec
+         elif [ -d sec_ns ]; then
+           pushd sec_ns
+         elif [ -d sec_ew ]; then
+           pushd sec_ew
+         fi
+         if [ ! -d Latest ]; then
+           mkdir Latest
+         fi
+         pushd Latest
+         if [ -d rtl ]; then
+           /bin/rm -rf rtl
+         fi
+         if [ -d $CTB_HM_DIR/dwc_ddrphysec_top ]; then
+         #rtl, behavior, upf ...
+           ln -fns $CTB_HM_DIR/dwc_ddrphysec_top/views/* .
+           echo "linked $CTB_HM_DIR/dwc_ddrphysec_top/views/..." | tee -a ws.log  
+         elif [ -d $CTB_HOME/../build/rtl/src/${ct[0]}src/sec ]; then  
+           ln -fns $CTB_HOME/../build/rtl/src/${ct[0]}src/sec rtl
+           echo "linked $CTB_HOME/../build/rtl/src/${ct[0]}src/sec..." | tee -a ws.log  
+         else
+           echo "No sec found in $CTB_HM_DIR/dwc_ddrphysec_top/views/ and $CTB_HOME/../build/rtl/src/${ct[0]}src/sec" | tee -a ws.log  
+           exit 0;
+         fi
+         popd
+         popd
+
+         if [ ! -d se ] && [ ! -d se_ew ] && [ ! -d se_ns ]; then
+           mkdir se_ew
+         fi
+         if [ -d se ]; then
+           pushd se
+         elif [ -d se_ns ]; then
+           pushd se_ns
+         elif [ -d se_ew ]; then
+           pushd se_ew
+         fi
+         if [ ! -d Latest ]; then
+           mkdir Latest
+         fi
+         pushd Latest
+         if [ -d rtl ]; then
+           /bin/rm -rf rtl
+         fi
+         if [ -d $CTB_HM_DIR/dwc_ddrphyse_top ]; then
+         #rtl, behavior, upf ...
+           ln -fns $CTB_HM_DIR/dwc_ddrphyse_top/views/* .
+           echo "linked $CTB_HM_DIR/dwc_ddrphyse_top/views/..." | tee -a ws.log  
+         elif [ -d $CTB_HOME/../build/rtl/src/${ct[0]}src/se ]; then  
+           ln -fns $CTB_HOME/../build/rtl/src/${ct[0]}src/se rtl
+           echo "linked $CTB_HOME/../build/rtl/src/${ct[0]}src/se..." | tee -a ws.log  
+         else
+           echo "No se found in $CTB_HM_DIR/dwc_ddrphyse_top/views/ and $CTB_HOME/../build/rtl/src/${ct[0]}src/se" | tee -a ws.log  
+           exit 0;
+         fi
+         popd
+         popd
+
+         if [ ! -d diff ] && [ ! -d diff_ew ] && [ ! -d diff_ns ]; then
+           mkdir diff_ew
+         fi
+         if [ -d diff ]; then
+           pushd diff
+         elif [ -d diff_ns ]; then
+           pushd diff_ns
+         elif [ -d diff_ew ]; then
+           pushd diff_ew
+         fi
+         if [ ! -d Latest ]; then
+           mkdir Latest
+         fi
+         pushd Latest
+         if [ -d rtl ]; then
+           /bin/rm -rf rtl
+         fi
+         if [ -d $CTB_HM_DIR/dwc_ddrphydiff_top ]; then
+         #rtl, behavior, upf ...
+           ln -fns $CTB_HM_DIR/dwc_ddrphydiff_top/views/* .
+           echo "linked $CTB_HM_DIR/dwc_ddrphydiff_top/views/..." | tee -a ws.log  
+         elif [ -d $CTB_HOME/../build/rtl/src/${ct[0]}src/diff ]; then  
+           ln -fns $CTB_HOME/../build/rtl/src/${ct[0]}src/diff rtl
+           echo "linked $CTB_HOME/../build/rtl/src/${ct[0]}src/diff" | tee -a ws.log  
+         else
+           echo "No diff found in $CTB_HM_DIR/dwc_ddrphydiff_top/views/ and $CTB_HOME/../build/rtl/src/${ct[0]}src/diff" | tee -a ws.log  
+           exit 0;
+         fi
+         popd
+         popd
+         if [ ! -d master ] && [ ! -d master_ew ] && [ ! -d master_ns ]; then
+           mkdir master
+         fi
+         if [ -d master ]; then
+           pushd master
+         elif [ -d master_ns ]; then
+           pushd master_ns
+         elif [ -d master_ew ]; then
+           pushd master_ew
+         fi
+         if [ ! -d Latest ]; then
+           mkdir Latest
+         fi
+         pushd Latest
+         if [ -d rtl ]; then
+           /bin/rm -rf rtl
+         fi
+         if [ -d $CTB_HM_DIR/dwc_ddrphymaster_top ]; then
+         #rtl, behavior, upf ...
+           ln -fns $CTB_HM_DIR/dwc_ddrphymaster_top/views/* .
+           echo "linked $CTB_HM_DIR/dwc_ddrphymaster_top/views/..." | tee -a ws.log  
+         elif [ -d $CTB_HOME/../build/rtl/src/${ct[0]}src/master ]; then  
+           ln -fns $CTB_HOME/../build/rtl/src/${ct[0]}src/master rtl
+           echo "linked $CTB_HOME/../build/rtl/src/${ct[0]}src/master" | tee -a ws.log  
+         else
+           echo "No master found in $CTB_HM_DIR/dwc_ddrphymaster_top/views/ and $CTB_HOME/../build/rtl/src/${ct[0]}src/master" | tee -a ws.log  
+           exit 0;
+         fi
+         popd
+         popd
+
+         if [ ! -d repeater_blocks ] && [ ! -d repeater_blocks_ew ] && [ ! -d repeater_blocks_ns ]; then
+           mkdir repeater_blocks
+         fi
+         if [ -d repeater_blocks ]; then
+           pushd repeater_blocks
+         elif [ -d repeater_blocks_ns ]; then
+           pushd repeater_blocks_ns
+         elif [ -d repeater_blocks_ew ]; then
+           pushd repeater_blocks_ew
+         fi
+         if [ ! -d Latest ]; then
+           mkdir Latest
+         fi
+         pushd Latest
+         if [ -d rtl ]; then
+           /bin/rm -rf rtl
+         fi
+         if [ -d $CTB_HM_DIR/dwc_ddrphy_repeater_blocks ]; then
+         #rtl, behavior, upf ...
+           ln -fns $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/* .
+           echo "linked $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/..." | tee -a ws.log  
+         elif [ -d $CTB_HOME/../build/rtl/src/${ct[0]}src/repeater_blocks ]; then  
+           ln -fns $CTB_HOME/../build/rtl/src/${ct[0]}src/repeater_blocks rtl
+           echo "linked $CTB_HOME/../build/rtl/src/${ct[0]}src/repeater_blocks" | tee -a ws.log  
+         else
+           echo "No repeater_blocks found in $CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/ and $CTB_HOME/../build/rtl/src/${ct[0]}src/repeater_blocks" | tee -a ws.log  
+         fi
+         popd
+         popd
+      fi
+    fi
+      # run simulation
+      pushd $cwd
+      export BUILD_DIR=$CTB_HOME/../build
+      export CTB_HOME=$cwd/ws_$cfg/ctb/Latest
+      export CTB_FW_DIR=$cwd/ws_$cfg/firmware/Latest
+      export CTB_PHYINIT_DIR=$cwd/ws_$cfg/phyinit/Latest/software
+      echo "CTB_HOME=$CTB_HOME" | tee -a ws.log
+      echo "CTB_FW_DIR=$CTB_FW_DIR" | tee -a ws.log
+      echo "CTB_PHYINIT_DIR=$CTB_PHYINIT_DIR" | tee -a ws.log
+      if [ ! -f runtc ]; then
+        ln -fns $CTB_HOME/sim/runtc
+      fi
+      echo "./runtc $runtc_args corekit=0" | tee -a ws.log
+      ./runtc $runtc_args corekit=0
+      exit 0;
+  fi
+fi ### End create corekit workspace based on cfg for internal testing
+
+####  Get PUB version  ####
+#---------------------------------------------
+if [ "$cust_vdefines" != "undefined" ]; then
+	  echo "NOTE:Please add DWC_DDRPHY_PUB_RID define macro into customized vdefine files, ig.define DWC_DDRPHY_PUB_RID 16'hxxxx"
+      pub_version=`grep "define DWC_DDRPHY_PUB_RID" $cust_vdefines|cut -f3 -d ' '| sed "s/^....//g"`
+      echo "[runtc]Custom VDEFINE: PUB_VERSION=$pub_version"
+elif [ "$cfg" != "undefined" ]; then
+  if [ $release == 0 ]; then
+    vdefine=$CTB_HOME/../build/d2c/rtl/dwc_ddrphy_${cfg}_VDEFINES.v
+  elif [ $release == 1 ]; then
+    vdefine=$CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_${cfg}_VDEFINES.v
+  else 
+    vdefine=${CTB_PUB_DIR}/phy_top/rtl/dwc_ddrphy_${cfg}_VDEFINES.v
+  fi  
+  if [[ -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+    vdefine=$CTB_HOME/../../src/${prefix_string}dwc_ddrphy_VDEFINES.v
+  else
+    echo "[runtc] No CoreTools"
+    #vdefine=$CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_${cfg}_VDEFINES.v 
+  fi
+  pub_version=`grep "define ${prefix_string}DWC_DDRPHY_PUB_RID" $vdefine|cut -f3 -d ' '| sed "s/^....0*//g"`
+  echo "[runtc] PUB VERSION:$pub_version"
+fi
+echo "[runtc] PUB VERSION:$pub_version" >>fw.log
+
+pub_version_base_lbist=100;
+if [ $pub_version -ge $pub_version_base_lbist ]; then
+   cmd_opts="$cmd_opts +define+PUB_VERSION_GE_0100"
+fi
+
+pub_version_base_ctrlupd_type=200;
+if [ $pub_version -lt $pub_version_base_ctrlupd_type ] || [ $pub_version -eq "1102" ]; then
+   cmd_opts="$cmd_opts +define+PUB_VERSION_LE_0200"
+   pub_ver=1
+else
+   pub_ver=2
+fi
+
+pub_version_base_105=105;
+if [ $pub_version -le $pub_version_base_105 ] || [ $pub_version -eq "1102" ]; then
+   cmd_opts="$cmd_opts +define+PUB_VERSION_LT_0105"
+fi
+
+case $pub_version in
+  101) #PUB 1.01a
+    cmd_opts="$cmd_opts +define+PUB_101A +define+PUB_101A_OR_102A"
+  ;;
+  102) #PUB 1.02a
+    cmd_opts="$cmd_opts +define+PUB_102A +define+PUB_101A_OR_102A"
+  ;;
+  1102) #PUB 1.02a_patch3
+    cmd_opts="$cmd_opts +define+PUB_102A_PATCH3"
+  ;;
+  105) #PUB 1.05a
+    cmd_opts="$cmd_opts +define+PUB_105A +define+PUB_103A_PLUS"
+  ;;
+  200) #PUB 2.00a
+    cmd_opts="$cmd_opts +define+PUB_200A +define+PUB_103A_PLUS"
+  ;;
+  *)
+    cmd_opts="$cmd_opts +define+PUB_103A_PLUS"
+    echo "[runtc]PUB Nondefine VERSION:$pub_version"
+    echo "[runtc]PUB Nondefine VERSION:$pub_version" >>fw.log
+  ;;
+esac
+#---------------------------------------------
+
+# make sure test directory exists
+#---------------------------------------------
+if [ ! -d $CTB_HOME/testbench/tc/$test_dir ]; then
+      echo -e "[runtc] ERROR: the testcase directory $CTB_HOME/testbench/tc/$test_dir does not exist "
+      exit 0;
+fi
+
+# check dump argument
+#---------------------------------------------
+if [ "$dump" != "VPD" ]; then
+  if [ "$dump" != "FSDB" ]; then
+    if [ "$dump" != "VCD" ]; then
+      if [ "$dump" != "NONE" ]; then
+        echo -e "[runtc] ERROR: dump value is VPD, FSDB or NONE (default: VPD)"     
+        exit 0;
+      fi
+    fi
+  fi
+fi  
+# check dram argument
+#---------------------------------------------
+if [ "$dram" == "undefined" ]; then
+  echo -e "[runtc] ERROR: dram type should be ddr3, ddr4 , lpddr3 or lpddr4"
+  exit 0;
+fi
+# check dimm argument
+if [ "$dimm" == "undefined" ]; then
+  echo -e "[runtc] ERROR: dimm type should be specified for ddr device"
+  exit 0;
+fi
+# check skip_train argument
+if [ "$skip_train" == "undefined" ] && [ $dram != "none" ]; then
+  echo -e "[runtc] ERROR: skip_train should be set to 0(training) or 1(skip-train) or 2(devinit)"
+  exit 0;
+fi
+# check hard_macro argument
+if [ "$hard_macro" == "undefined" ] && [ "$hard_macro_ver" == "undefined" ]; then
+  echo -e "[runtc] ERROR: hard_macro should be set to A/B/D/E"
+  exit 0;
+fi
+# check dfi_mode argument
+#if [ "$dfi_mode" == "undefined" ]; then
+#  if [ "$protocol" == "lpddr3" ] || [ "$protocol" == "lpddr4" ] || [ "$protocol" == "lpddr4x" ]; then
+#    echo -e "[runtc] ERROR: dfi_mode should be set to 1|3|5 for LPDDR" 
+#    exit 0;
+#  fi
+#fi
+#fi
+#-------------creat prefix define-----------
+ch1=`echo ${cfg#*ch}`
+c_num=`echo ${ch1%d*}`
+if [ "$prefix" == "" ]; then
+   echo "[Prefix define] prefix == null " 
+   echo "[Prefix define] prefix == null " >>fw.log
+   $CTB_HOME/testbench/inc/ctb_prefix.pl -ch_num=$c_num  >>fw.log
+else
+   echo "[Prefix define] prefix == $prefix  ch_num= $c_num "
+   echo "[Prefix define] prefix == $prefix  ch_num= $c_num " >>fw.log
+   cmd_opts="$cmd_opts +define+PREFIX_OPT_ENABLE"
+   $CTB_HOME/testbench/inc/ctb_prefix.pl -prefix=$prefix -ch_num=$c_num -upf=$upf>>fw.log
+   cp -f $CTB_HOME/../../scratch/dwc_ddrphy_top_unprefix.vh .
+fi
+echo "[Prefix define] done  " >>fw.log
+
+#-------------------------------------------
+#---------------------------------------------
+# user test
+#---------------------------------------------
+if [ "$user_test" != "undefined" ]; then
+  cmd_opts="$cmd_opts +define+USER_TEST +incdir+$CTB_HOME/testbench/tc/user_test/$user_test +incdir+$CTB_HOME/sim/$user_test"
+fi
+
+#---------------------------------------------
+# run command
+#---------------------------------------------
+# Refine parameter value
+if [ $skip_train == 2 ]; then  # devinit
+   seqCtrl=1
+   echo "[runtc] seqCtrl set to $seqCtrl for Devinit case"
+   echo "[runtc] seqCtrl set to $seqCtrl for Devinit case" >>fw.log
+fi
+if [ $gatesim == 1 ] && [ "$protocol" == "lpddr4" ] && [ $MRLCalcAdj == 0 ]; then
+  MRLCalcAdj=1
+  echo "[runtc] MRLCalcAdj set to $MRLCalcAdj for lpddr4"
+  echo "[runtc] MRLCalcAdj set to $MRLCalcAdj for lpddr4" >>fw.log
+fi
+if [ $skip_train == 0 ]; then  
+   cmd_opts="$cmd_opts +define+TRAINING_MODE"
+fi
+# phase1 -fw; phase2 -sim
+if [ $powersim == 1 ]; then
+  if [ $sim_only == 1 ]; then
+    grep -q "SET ZQCalCodeOvr for Powersim" ./apb_config.sv
+    ZQ_set=$?
+    if [ $ZQ_set -eq 1 ]; then
+      sed -i "/End of dwc_ddrphy_phyinit_C_initPhyConfig()/a\/\/SET ZQCalCodeOvr for Powersim\n\dwc_ddrphy_apb_wr(\`DWC_DDRPHYA_MASTER0_p0_ZQCalCodeOvrPU,16'hff01);\ndwc_ddrphy_apb_wr(\`DWC_DDRPHYA_MASTER0_p0_ZQCalCodeOvrPD,16'hff01);" apb_config.sv
+    fi
+  fi
+fi
+if [ $sim_only == 0 ]; then
+  # cs1=`echo ${cfg#*cs}`
+  # num_rank=`echo ${cs1%c*}`
+  # dq1=`echo ${cfg#*dq}`
+  # dq_num=`echo ${dq1%c*}`
+  # ch1=`echo ${cfg#*ch}`
+  # ch_num=`echo ${ch1%d*}`
+
+  num_rank=`echo "$cfg" | awk -F "cs" '{printf $2}' |awk -F "dq" '{printf $1 "\n"}'`
+if [ "$rank" -gt "$num_rank" ]; then
+    echo -e "[runtc] ERROR:Conflict!!!NumRank number must greater than NumRank_dfi0/1 " 
+    exit 0;
+fi
+  dq_num=`echo "$cfg" | awk -F "dq" '{printf $2}' |awk -F "ch" '{printf $1 "\n"}'`
+  ch_num=`echo "$cfg" | awk -F "ch" '{printf $2}'`
+  if [ $ch_num == 2 ]; then
+    acx=6 
+  else
+    acx=3
+  fi
+  if [ $dq_num == 32 ] || [ $dq_num == 36 ]; then
+    dbyte=$[4*$ch_num]
+  else
+    dbyte=$[2*$ch_num]
+  fi
+  cfg_p='cs'$num_rank'ac'$acx'd'$dbyte'ch'$ch_num
+  echo "[runtc] cfg_p=$cfg_p"
+  echo "[runtc] cfg_p=$cfg_p" >>fw.log
+  if [ $gatesim == 1 ]; then
+     tphy_dqs2dq=111;
+  fi
+  # BOZO: could be remove the bkdoor value later if ECC is impleleted in DCCM memdata
+  $CTB_HOME/testbench/inc/gen_override_c.pl -cfg=$cfg_p -tphy_dqs2dq=$tphy_dqs2dq -test=$test -dram=$dram -lp4x_mode=$lp4x_mode -dimm=$dimm -skip_train=$skip_train -disable2d=$disable2d -freq0=$freq0 -freq1=$freq1 -freq2=$freq2 -freq3=$freq3 -freq_ratio0=$freq_ratio0 -freq_ratio1=$freq_ratio1 -freq_ratio2=$freq_ratio2 -freq_ratio3=$freq_ratio3 -pll_bypass0=$pll_bypass0 -pll_bypass1=$pll_bypass1 -pll_bypass2=$pll_bypass2 -pll_bypass3=$pll_bypass3 -rank=$rank -pstates=$pstates -dfi_mode=$dfi_mode -seqCtrl=$seqCtrl -MRLCalcAdj=$MRLCalcAdj -hdtCtrl=$hdtCtrl -rdbi0=$rdbi0 -rdbi1=$rdbi1 -rdbi2=$rdbi2 -rdbi3=$rdbi3 -wdbi0=$wdbi0 -wdbi1=$wdbi1 -wdbi2=$wdbi2 -wdbi3=$wdbi3 -dm0=$dm0 -dm1=$dm1 -dm2=$dm2 -dm3=$dm3 -fsp_disable=$fsp_disable -wdqsext=$wdqsext -wck_free0=$wck_free0 -wck_free1=$wck_free1 -wck_free2=$wck_free2 -wck_free3=$wck_free3 -DisablePmuEcc=$disable_pmu_ecc -DisableRetraining=$dis_retrain -emul=$emul | tee -a fw.log
+  if [ $override_c == "undefined" ]; then
+    if [ $gatesim == 1 ]; then
+      $CTB_HOME/testbench/inc/postprocess.pl -file=./.result -gatesim -skip_train=$skip_train -pub_version=$pub_version | tee -a fw.log
+    else
+      $CTB_HOME/testbench/inc/postprocess.pl -file=./.result -skip_train=$skip_train -pub_version=$pub_version |tee -a fw.log
+    fi
+     override_c="./.dwc_ddrphy_phyinit_userCustom_overrideUserInput.c"
+  fi
+  $CTB_HOME/testbench/inc/gen_fw_cfg.tcl $test $protocol $skip_train $disable2d $cfg_p $default_c $override_c $hard_macro $emul $ret_en  $bkdoor $pub_ver $quickboot| tee -a fw.log | tee gen_fw_cfg.log
+  ipxact_error=$(grep IPXACT_ERROR gen_fw_cfg.log -c)
+  if test $ipxact_error -gt 0; then
+      echo "[runtc] exit due to no ipxact "
+      exit 1;
+  fi
+  override_c="./dwc_ddrphy_phyinit_userCustom_overrideUserInput.c"
+  $CTB_HOME/testbench/inc/ctb_utils.pl $override_c $test $default_c $protocol $ate_tests_to_run |tee -a fw.log
+  echo "Timeout                  = $timeout;" >> ./cfg_data.sv
+  if [ $gen_fw == 1 ]; then
+    exit 0;
+  fi
+fi
+
+if [ "$protocol" == "none" ]; then
+  strings_dir=""
+  strings_dir_quickboot=""
+elif [ $release == 0 ]; then
+  strings_dir="$CTB_HOME/../build/c/fw/${protocol}/pmu_train.strings"
+  strings_dir_quickboot="$CTB_HOME/../build/c/fw/${protocol}_quickboot/pmu_train.strings"
+elif [ $release == 1 ] || [ $release == 2 ]; then
+  strings_dir="$CTB_FW_DIR/training/$protocol/${protocol}_pmu_train.strings"
+  strings_dir_quickboot="$CTB_FW_DIR/training/${protocol}_quickboot/pmu_train.strings"
+  if [ ! -f $strings_dir ]; then
+    strings_dir="$CTB_FW_DIR/training/$protocol/pmu_train.strings"
+  fi
+  if [ ! -f $strings_dir_quickboot ]; then
+    strings_dir_quickboot="$CTB_FW_DIR/quickboot/${protocol}_quickboot/pmu_train.strings"
+  fi
+fi
+
+if [ "$protocol" == "none" ]; then
+  dis_dir="$CTB_FW_DIR/training/"
+  dis_src="pmu_train.dis"
+elif [ $release == 0 ]; then
+  dis_dir="$CTB_HOME/../build/c/fw/${protocol}"
+  dis_src="${protocol}_pmu_train.dis"
+elif [ $release == 1 ] || [ $release == 2 ]; then
+  dis_dir="$CTB_FW_DIR/training/${protocol}"
+  dis_src="${protocol}_pmu_train.dis"
+#  if [ ! -f ${dis_dir}/${dis_src} ]; then
+#    dis_dir="$CTB_FW_DIR/etc"
+#    dis_src="${protocol}_pmu_train.dis"
+#  fi
+fi
+
+if [ "$test" == "demo_ate" ]; then
+  dis_src="dwc_ddrphy_ate_main.elf.dis"
+fi
+  $CTB_HOME/testbench/inc/gen_fw_addr.bash  ${dis_dir} ${dis_src} fw_addr.v
+
+
+if [ -e tmp_ate_mb_cust_setting.sv ]; then
+   rm -rf tmp_ate_mb_cust_setting.sv
+fi
+if [ -e tmp_ate_csr_cust_setting.sv ]; then
+   rm -rf tmp_ate_csr_cust_setting.sv
+fi
+
+if [ $ATE_MB_CFG == 1 ];then
+   cmd_opts="$cmd_opts +define+CUSTOMER_ATE_MB_CFG"
+   if [ -e $ATE_MB_CFG_file ]; then
+     cp -rf $ATE_MB_CFG_file tmp_ate_mb_cust_setting.sv
+     echo " Load ATE message block customer setting done"
+   else
+     echo " ERROR : There is no $ATE_MB_CFG_file, please check it"
+     exit;
+   fi
+fi
+if [ $ATE_CSR_CFG == 1 ];then
+   cmd_opts="$cmd_opts +define+CUSTOMER_ATE_CSR_CFG"
+   if [ -e $ATE_CSR_CFG_file ]; then
+     cp -rf $ATE_CSR_CFG_file tmp_ate_csr_cust_setting.sv
+     echo "Load ATE csr customer setting done"
+   else
+     echo " ERROR : There is no $ATE_CSR_CFG_file, please check it"
+     exit;
+   fi
+fi
+
+if [ $svt_dfi == 1 ] && [ "$dram" = "lpddr4" ]; then
+  cmd_opts="$cmd_opts +define+SVT_DFI +define+DFI_SVT_DFI5 -f $CTB_HOME/testbench/vc/dfi/svt_dfi/svt_dfi_lpddr4.f"
+fi
+
+if [ $svt_dfi == 1 ] && [ "$dram" = "lpddr5" ]; then
+  cmd_opts="$cmd_opts +define+SVT_DFI +define+DFI_SVT_DFI5 -f $CTB_HOME/testbench/vc/dfi/svt_dfi/svt_dfi_lpddr5.f"
+fi
+
+if [ $svt_apb == 1 ]; then
+	cmd_opts="$cmd_opts +define+SVT_APB -f $CTB_HOME/testbench/vc/apb/svt_apb.f"
+	ipxact_file="dwc_ddrphy_top.ipxact.xml"
+	ralf_file="dwc_ddrphy_top.ipxact.ralf"
+  if [ $CORETOOLS ]; then
+	  ipxact_fullpath_file="$BUILD_DIR/rtl/src/dwc_ddrphy_top/export/$ipxact_file"
+  else
+    ipxact_fullpath_file="$CTB_HOME/../build/rtl/src/dwc_ddrphy_top/export/$ipxact_file"
+  fi
+	if [ ! -f "$ipxact_fullpath_file" ]; then
+		echo "Error: ipxact file:$ipxact_fullpath_file can not be found"
+		exit 0
+	fi
+	cp -f $ipxact_fullpath_file $ipxact_file
+	ralgen -ipxact2ralf $ipxact_file
+	ralgen -t dwc_ddrphy_top -uvm $ralf_file
+fi
+
+if  [ "$dram" = "none" ] || [ "$dram" = "undefined" ] || [ "$test" = "demo_flyover" ]; then
+  cmd_opts="$cmd_opts +define+NO_DRAM_CHK"
+fi
+if  [ "$dram" = "none" ] && [ "$test" = "dcchar" ]; then
+  cmd_opts="$cmd_opts +define+NONE_STD -f $CTB_HOME/testbench/vc/ate/ate.f"
+fi
+if  [ "$dram" = "ddr3" ]; then
+  cmd_opts="$cmd_opts +define+DDR3_STD -f $CTB_HOME/testbench/vc/ddr3/ddr3.f +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG  +define+DWC_DDRPHY_TECH__TEMBUF_LOGIC_ONLY +define+DDR3_2G_X8"
+  run_arg="$run_arg +ddr_squashz_to_0"
+fi
+if  [ "$dram" = "ddr4" ]; then
+  cmd_opts="$cmd_opts +define+DDR4_STD -f $CTB_HOME/testbench/vc/ddr4/ddr4.f +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG  +define+DWC_DDRPHY_TECH__TEMBUF_LOGIC_ONLY +define+DDR4_2G_X8"
+  run_arg="$run_arg +ddr_squashz_to_0"
+fi
+if  [ "$dram" = "lpddr3" ]; then
+  cmd_opts="$cmd_opts +define+LP3_STD -f $CTB_HOME/testbench/vc/lpddr3/lpddr3.f +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG +define+DWC_DDRPHY_TECH__TEMBUF_LOGIC_ONLY"
+  run_arg="$run_arg +ddr_squashz_to_0"
+fi
+
+if  [ "$dram" = "lpddr4" ]; then
+  cmd_opts="$cmd_opts +define+LP4_STD -f $CTB_HOME/testbench/vc/lpddr4/lpddr4.f +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG +define+DWC_DDRPHY_TECH__TEMBUF_LOGIC_ONLY"
+  run_arg="$run_arg +ddr_squashz_to_0"
+fi
+if  [ "$dram" = "lpddr5" ]; then
+  cmd_opts="$cmd_opts +define+LP5_STD -f $CTB_HOME/testbench/vc/lpddr5/lpddr5.f +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG +define+DWC_DDRPHY_TECH__TEMBUF_LOGIC_ONLY"
+  run_arg="$run_arg +ddr_squashz_to_0"
+fi
+if  [ $code_cov_en == 1 ]; then
+  cmd_opts="$cmd_opts -cm line+cond+fsm+tgl+branch+tgl+assert -cm_libs yv -cm_dir $CTB_HOME/sim/Coverage -cm_hier $CTB_HOME/testbench/fcov/cm_uc.hier -cm_noconst"
+  run_opts="$run_opts -cm line+cond+fsm+tgl+branch+tgl+assert"
+fi
+if  [ $fun_cov_en == 1 ]; then
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_COVERAGE_EN +incdir+$CTB_HOME/testbench/fcov +incdir+$CTB_HOME/testbench/fcov/lp4 +incdir+$CTB_HOME/testbench/fcov/covergroup_sample_files"
+fi
+
+
+if  [ "$test" = "demo_ate" ]; then
+  run_arg="$run_arg +ddr_squashz_to_0"
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG";
+  cmd_opts="$cmd_opts +define+ATE_TEST"   
+  if [ -d $CTB_HOME/testbench/inc/ate_dev ]; then #In dev branch
+    cmd_opts="$cmd_opts +incdir+$CTB_HOME/testbench/inc/ate_dev +incdir+$CTB_HOME/testbench/inc/ate"
+  fi
+  if [ $release == 1 ]; then
+    cmd_opts="$cmd_opts +incdir+$CTB_FW_DIR/ate +incdir+$CTB_HOME/testbench/inc/ate"
+  elif [ $release == 2 ]; then
+    cmd_opts="$cmd_opts +incdir+$CTB_FW_DIR/ate +incdir+$CTB_HOME/testbench/inc/ate"
+  fi
+
+  if [ $ate_bkdoor = 1 ]; then
+    cmd_opts="$cmd_opts +define+ATE_BKDOOR_ECC"
+    if [ $release == 0 ]; then
+       if [[ -e $CTB_HOME/testbench/inc/ate_dev/ddr_ate_dmem_ecc.txt ]] && [[ -e $CTB_HOME/testbench/inc/ate_dev/ddr_ate_imem_ecc.txt ]]; then
+          cp $CTB_HOME/testbench/inc/ate_dev/ddr_ate_dmem_ecc.txt ./
+          cp $CTB_HOME/testbench/inc/ate_dev/ddr_ate_imem_ecc.txt ./
+       else
+          echo "ERROR : can't find $CTB_HOME/testbench/inc/ate_dev/ddr_ate_dmem_ecc.txt or $CTB_HOME/testbench/inc/ate_dev/ddr_ate_imem_ecc.txt for ate bkdoor"
+          exit;
+       fi
+    fi
+    if [ $release == 1 ]; then
+       if [[ -e $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt ]] && [[ -e $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt ]]; then
+          cp $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt ./
+          cp $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt ./
+       else
+          echo "ERROR : can't find  $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt or  $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt for ate bkdoor"
+          exit;
+       fi
+    fi
+    if [ $release == 2 ]; then
+       if [[ -e $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt ]] && [[ -e $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt ]]; then
+          cp $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt ./
+          cp $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt ./
+       else
+          echo "ERROR : can't find  $CTB_FW_DIR/ate/ddr_ate_dmem_ecc.txt or  $CTB_FW_DIR/ate/ddr_ate_imem_ecc.txt for ate bkdoor"
+          exit;
+       fi
+    fi
+  fi
+
+  if [ $ate_clockingmode = "lpddr4" ]; then
+    cmd_opts="$cmd_opts +define+ATE_LP4"
+  fi  
+  if [ $ate_clockingmode = "lpddr5" ]; then
+    cmd_opts="$cmd_opts +define+ATE_LP5"
+  fi  
+  if [ $ate = "revision_check" ]; then
+    cmd_opts="$cmd_opts +define+ATE_revision_check"
+  fi   
+  if [ $ate = "impedance_cal" ]; then
+    cmd_opts="$cmd_opts +define+ATE_impedance_cal"
+  fi
+  if [ $ate = "pll_lock" ]; then
+    cmd_opts="$cmd_opts +define+ATE_pll_lock"
+  fi
+  if [ $ate = "lcdl_linearity" ]; then
+    cmd_opts="$cmd_opts +define+ATE_lcdl_linearity"
+  fi
+  if [ $ate = "ac_loopback" ]; then
+    cmd_opts="$cmd_opts +define+ATE_ac_loopback"
+    if [ $padlbk == 1 ]; then
+      cmd_opts="$cmd_opts +define+AC_PAD_LBK"
+    fi
+  fi
+  if [ $ate = "data_1d_loopback" ]; then
+    cmd_opts="$cmd_opts +define+ATE_data_1d_loopback"
+    if [ $padlbk == 1 ]; then
+      cmd_opts="$cmd_opts +define+DAT_PAD_LBK"
+    fi
+  fi
+  if [ $ate = "data_2d_loopback" ]; then
+    cmd_opts="$cmd_opts +define+ATE_data_2d_loopback"
+    if [ $padlbk == 1 ]; then
+      cmd_opts="$cmd_opts +define+DAT_PAD_LBK"
+    fi
+  fi  
+  if [ $ate = "lcdl_offset" ]; then
+    cmd_opts="$cmd_opts +define+ATE_lcdl_offset"
+  fi
+  if [ $ate = "burn_in" ]; then
+    cmd_opts="$cmd_opts +define+ATE_burn_in"
+    cmd_opts="$cmd_opts +define+BURN_IN_TIME=$burn_in_time"
+  fi
+  if [ $ate = "rxreplica" ]; then
+    cmd_opts="$cmd_opts +define+ATE_rxreplica"
+  fi
+  if [ $ate = "dca" ]; then
+    cmd_opts="$cmd_opts +define+ATE_dca"
+  fi
+  if [ $ate = "MASIS" ]; then
+    cmd_opts="$cmd_opts +define+ATE_dsply"
+    cmd_opts="$cmd_opts +define+ATE_MASIS" 
+  fi
+  if [ $ate = "burn_in" ] || [ $ate = "data_2d_loopback" ]; then
+    if [ $prt_off == 0 ]; then
+      cmd_opts="$cmd_opts +define+ATE_dsply"
+    fi 
+  fi
+
+  if [ $masis_short == 1 ]; then
+    cmd_opts="$cmd_opts +define+MASIS_SHORT"
+  fi
+
+  if [ $masis_dmem_rd == 1 ]; then
+    cmd_opts="$cmd_opts +define+MASIS_DMEM_RD"
+  fi
+
+  if [ $mem_dump == 1 ]; then
+    cmd_opts="$cmd_opts +define+MEM_DUMP"
+  fi
+fi   
+
+if  [ "$test" = "demo_dfi_sideband" ]; then
+  if [ $dfi_sb = "ctrlupd" ]; then
+    cmd_opts="$cmd_opts +define+DDRPHY_CTRLUPD"
+  fi   
+  if [ $dfi_sb = "phyupd" ]; then
+    cmd_opts="$cmd_opts +define+DDRPHY_PHYUPD"
+  fi
+  if [ $dfi_sb = "phymstr" ]; then
+    cmd_opts="$cmd_opts +define+DDRPHY_PHYMSTR"
+  fi
+  if [ $dfi_sb = "upd_mstr" ]; then
+    cmd_opts="$cmd_opts +define+DDRPHY_PHYMSTR+DDRPHY_CTRLUPD+DDRPHY_PHYUPD"
+  fi  
+fi
+
+if [ $disable_pmu_ecc == 1 ]; then
+  cmd_opts="$cmd_opts +define+DISABLE_SRAM_ECC_PORTS"
+else
+  cmd_opts="$cmd_opts +define+ENABLE_SRAM_ECC_PORTS"
+fi
+
+if [ $rank == 2 ];then
+   cmd_opts="$cmd_opts +define+RANK2"
+fi
+
+if [ $pll_bypass0 == 1 ] || [ $pll_bypass1 == 1 ] || [ $pll_bypass2 == 1 ] || [ $pll_bypass3 == 1 ]; then 
+   cmd_opts="$cmd_opts +define+PLL_BYPASS"
+fi
+
+if [ $dfi_mode == 1 ]; then
+  cmd_opts="$cmd_opts +define+DFI_MODE1"
+fi
+
+if [ $dfi_mode == 5 ]; then
+  cmd_opts="$cmd_opts +define+DFI_MODE5"
+fi
+
+if [ $jtag == 1 ]; then
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_JTAG" 
+fi
+
+if [ $rdbi0 == 1 ];
+then cmd_opts="$cmd_opts +define+READ_DBI0"
+fi
+if [ $rdbi1 == 1 ];
+then cmd_opts="$cmd_opts +define+READ_DBI1"
+fi
+if [ $rdbi2 == 1 ];
+then cmd_opts="$cmd_opts +define+READ_DBI2"
+fi
+if [ $rdbi3 == 1 ];
+then cmd_opts="$cmd_opts +define+READ_DBI3"
+fi
+
+if [ $wdbi0 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DBI0"
+fi
+if [ $wdbi1 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DBI1"
+fi
+if [ $wdbi2 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DBI2"
+fi
+if [ $wdbi3 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DBI3"
+fi
+
+if [ $dm0 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DM0"
+fi
+if [ $dm1 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DM1"
+fi
+if [ $dm2 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DM2"
+fi
+if [ $dm3 == 1 ];
+then cmd_opts="$cmd_opts +define+WRITE_DM3"
+fi
+
+#if [ $svt_dfi == 1 ]; then
+#  cmd_opts="$cmd_opts +define+SVT_DFI -f $CTB_HOME/testbench/vc/dfi/svt_dfi/svt_dfi.f"
+#fi
+
+if [ "$protocol" == "ddr4_rdimm" ] || [ "$protocol" == "ddr4_lrdimm" ]; then
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_TECH__CDCBUF__DISABLE_BEHAVIORAL_VERILOG"
+fi   
+
+if [ $dump == "FSDB" ]; then
+  cmd_opts="$cmd_opts -P $VERDI_HOME/share/PLI/VCS/LINUX64/novas.tab $VERDI_HOME/share/PLI/VCS/LINUX64/pli.a"
+fi
+
+if [ $dump == "VPD" ]; then
+  cmd_opts="$cmd_opts -debug_access -debug_region=cell+encrypt"
+fi
+
+if [ $emul == 1 ]; then
+  if [ $no_v2vx == 0 ]; then
+    cmd_opts="$cmd_opts -Xhwcosimtest=v2vx -Xhdl_cosim_dut test.top.dut +define+DWC_DDRPHY_HWEMUL +define+DWC_DDRPHY_SIMPLE_MODEL " 
+  elif [ $no_v2vx == 1 ]; then
+    cmd_opts="$cmd_opts  +define+DWC_DDRPHY_HWEMUL +define+DWC_DDRPHY_SIMPLE_MODEL " 
+  fi
+fi
+cmd_opts="$cmd_opts  +define+EMUL_BUBBLE=$emul_bubble +define+EMUL_B2BNNUM=$emul_b2bnum " 
+
+if [ $debug == 0 ]; then
+  run_arg="$run_arg +UVM_VERBOSITY=UVM_NONE"
+fi   
+
+if [ $debug == 2 ]; then
+  cmd_opts="$cmd_opts +UVM_VERBOSITY=UVM_FULL"
+fi   
+
+run_arg="$run_arg +debug=$debug"
+run_arg="$run_arg +skip_train=$skip_train"
+run_arg="$run_arg +apb_freq=$apb_freq"
+run_arg="$run_arg +tdr_freq=$tdr_freq"
+  
+if [ $hard_macro == "E" ]; then
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_VDDQLP_SUPPORT"
+fi
+
+if [ $skip_unsupport_check == 1 ] || [ $gatesim == 1 ]; then
+  cmd_opts="$cmd_opts +define+SKIP_UNSUPPORT_CHECK"
+fi
+
+if [ $dmem_rd == 1 ]; then
+  cmd_opts="$cmd_opts +define+DMEM_READ"
+fi
+cmd_opts="$cmd_opts +define+DMEM_START_ADDRESS=360448"
+cmd_opts="$cmd_opts +define+DMEM_END_ADDRESS=393215"
+
+if [ $dmem_start_address != 0 ] && [ $dmem_end_address != 0 ]; then
+  cmd_opts="$cmd_opts +define+DMEM_START_ADDRESS=$dmem_start_address"
+  cmd_opts="$cmd_opts +define+DMEM_END_ADDRESS=$dmem_end_address"
+fi
+
+if [ $lp_mode != 0 ]; then
+  cmd_opts="$cmd_opts +define+LP_MODE=$lp_mode"
+fi
+if [ $lp_mode == 1 ]; then
+  cmd_opts="$cmd_opts +define+DFI_LP_DATA"
+fi
+if [ $lp_mode == 2 ]; then
+  cmd_opts="$cmd_opts +define+DFI_LP_CTRL"
+fi
+if [ $lp_mode == 3 ]; then
+  cmd_opts="$cmd_opts +define+DFI_LP_CTRL_CLK_DISABLE"
+fi
+if [ $lp_mode == 4 ]; then
+  cmd_opts="$cmd_opts +define+FREQ_CHANGE"
+fi
+if [ $lp_mode == 6 ]; then
+  cmd_opts="$cmd_opts +define+RET_EN"
+fi
+
+if [ $wck_free0 == 0 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_WCK_OFF"
+elif [ $wck_free0 == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_WCK_FREE"
+fi
+
+if [ $wck_free1 == 0 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_WCK_OFF1"
+elif [ $wck_free1 == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_WCK_FREE1"
+fi
+
+if [ $dsm == 1 ]; then
+  cmd_opts="$cmd_opts +define+DEEP_SLEEP_MODE"
+fi
+
+case $protocol in
+  ddr4)
+    cmd_opts="$cmd_opts +define+DDR4_UDIMM"
+  ;;
+  ddr4_rdimm)
+    cmd_opts="$cmd_opts +define+DDR4_RDIMM"
+  ;;
+  ddr4_lrdimm)
+    cmd_opts="$cmd_opts +define+DDR4_LRDIMM"
+  ;;
+  ddr3)
+    cmd_opts="$cmd_opts +define+DDR3_UDIMM"
+  ;;
+  ddr3_rdimm)
+    cmd_opts="$cmd_opts +define+DDR3_RDIMM"
+  ;;
+  lpddr4)
+    if [ $lp4x_mode == 1 ]; then 
+      cmd_opts="$cmd_opts +define+LPDDR4X"
+    else
+      cmd_opts="$cmd_opts +define+LPDDR4"
+    fi
+  ;;
+  lpddr5)
+    cmd_opts="$cmd_opts +define+LPDDR5"
+  ;;
+  lpddr3)
+    cmd_opts="$cmd_opts +define+LPDDR3"
+  ;;
+esac
+
+if [ "$test" = "demo_flyover" ]; then
+  cmd_opts="$cmd_opts +define+FLYOVER_TEST"
+  if [ "$bypass_mode" = "undefined" ]; then
+    echo -e "[runtc] ERROR: bypass_mode undefined in flyover test"
+    exit 0;
+  elif [ $bypass_mode = "poweron" ]; then
+    cmd_opts="$cmd_opts +define+POWER_ON_DEFAULT_TEST" 
+  elif [ $bypass_mode = "external" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_TEST" 
+  elif [ $bypass_mode = "rcv" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_RCV_TEST"
+  elif [ $bypass_mode = "internal_DBMISCM" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_INT_TEST +define+BYPASS_CONTROL_INT_TEST_DBYTE_MISCM"
+  elif [ $bypass_mode = "internal_DBTXM" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_INT_TEST +define+BYPASS_CONTROL_INT_TEST_DBYTE_TXM"
+  elif [ $bypass_mode = "internal_others" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_INT_TEST +define+BYPASS_CONTROL_INT_TEST_OTHER"
+  elif [ $bypass_mode = "internal_all" ]; then
+    cmd_opts="$cmd_opts +define+BYPASS_CONTROL_INT_TEST +define+BYPASS_CONTROL_INT_TEST_DBYTE_MISCM +define+BYPASS_CONTROL_INT_TEST_DBYTE_TXM +define+BYPASS_CONTROL_INT_TEST_OTHER"
+  fi
+fi
+if [ $freq_ratio0 = 1 ]; then
+ cmd_opts="$cmd_opts +define+FREQ_RATIO0_1"
+fi
+#---------------------------------------------
+# Generate test_head.sv
+#---------------------------------------------
+rm -f test_head.sv
+echo '`include "csr_defines.sv"' > test_head.sv
+echo "string debug_message_file_path = \"$strings_dir\";" >> test_head.sv
+if [ $quickboot == 1 ]; then
+  echo '`include "csr_defines_quickboot.sv"' >> test_head.sv
+  echo "string debug_message_file_path_quickboot = \"$strings_dir_quickboot\";" >> test_head.sv
+fi
+echo "" >> test_head.sv
+if [ "$test" == "demo_ate" ]; then
+  #echo '`include "dwc_ddrphy_cmpbhv.v"' >> test_head.sv
+  echo '`include "dwc_ddrphy_zcalana_bhv.v"' >> test_head.sv
+fi
+if [ "$dram" == "ddr4" ]; then
+  echo '`define DDR_DIMM top.U_ddr4_dimm' >> test_head.sv
+  if [ "$dimm" == "rdimm" ]; then
+    echo '`define TC_RDIMM' >> test_head.sv
+  elif [ "$dimm" == "lrdimm" ]; then
+    echo '`define TC_X4' >> test_head.sv
+    echo '`define TC_RDIMM' >> test_head.sv
+    echo '`define TC_LRDIMM' >> test_head.sv
+  fi
+elif [ "$dram" == "ddr3" ]; then
+  echo '`define DDR_DIMM top.U_ddr3_dimm' >> test_head.sv
+  echo '`define DDR_SMBUS top.U_ddr_smbus' >> test_head.sv
+  if [ "$dimm" == "rdimm" ]; then
+    echo '`define TC_RDIMM' >> test_head.sv
+    #echo '`define TC_X4' >> test_head.sv
+  fi
+elif [ "$dram" == "lpddr3" ]; then
+  echo '`define LPDDR3_DRAM1 top.U_lpddr3_dram1' >> test_head.sv
+  echo '`define LPDDR3_DRAM2 top.U_lpddr3_dram2' >> test_head.sv
+  echo '`define LPDDR3_DRAM3 top.U_lpddr3_dram3' >> test_head.sv
+  echo '`define LPDDR3_DRAM4 top.U_lpddr3_dram4' >> test_head.sv
+elif [ "$dram" == "lpddr4" ]; then
+  echo '`define LPDDR4_DRAM1 top.U_lpddr4_dram1' >> test_head.sv
+  echo '`define LPDDR4_DRAM2 top.U_lpddr4_dram2' >> test_head.sv
+  echo '`define LPDDR4_DRAM3 top.U_lpddr4_dram3' >> test_head.sv
+  echo '`define LPDDR4_DRAM4 top.U_lpddr4_dram4' >> test_head.sv
+elif [ "$dram" == "lpddr5" ]; then
+  echo '`define LPDDR5_DRAM1 top.lpddr5_svt_if0' >> test_head.sv
+  echo '`define LPDDR5_DRAM2 top.lpddr5_svt_if1' >> test_head.sv
+  echo '`define LPDDR5_DRAM3 top.lpddr5_svt_if2' >> test_head.sv
+  echo '`define LPDDR5_DRAM4 top.lpddr5_svt_if3' >> test_head.sv
+fi
+
+if [[ $powersim == 1 || $gatesim == 1 && "$test" == "demo_ate" ]]; then
+  rm -f ./dwc_ddrphy_zcalana_bhv*.v
+  cp $CTB_HOME/testbench/inc/ate/dwc_ddrphy_zcalana_bhv.v .
+  if [[ $CORETOOLS == 0 && $release == 0 ]]; then
+    if [ $master_ew_use == "0" ]; then
+      master_path="dwc_ddrphymaster_top_ns"
+    elif [ $master_ew_use == "1" ]; then
+      master_path="dwc_ddrphymaster_top_ew"
+    else
+      master_path="dwc_ddrphymaster_top"
+    fi
+    grep -q "dwc_ddrphy_zcalana_ew dwc_ddrphy_zcalana" $CTB_HOME/../../process/$gatesim_project/$master_path/views/behavior/$sdf_path/*_pg.v
+    zcalana_chk=$?
+    if [ $zcalana_chk -eq 0 ]; then
+      sed -i 's/dwc_ddrphy_zcalana\./dwc_ddrphy_zcalana_ew\./g' ./dwc_ddrphy_zcalana_bhv.v 
+      sed -i 's/bind dwc_ddrphy_zcalana/bind dwc_ddrphy_zcalana_ew/g' ./dwc_ddrphy_zcalana_bhv.v
+    else
+      grep -q "dwc_ddrphy_zcalana_ns dwc_ddrphy_zcalana" $CTB_HOME/../../process/$gatesim_project/$master_path/views/behavior/$sdf_path/*_pg.v 
+      zcalana_chk=$?
+      if [ $zcalana_chk -eq 0 ]; then
+        sed -i 's/dwc_ddrphy_zcalana\./dwc_ddrphy_zcalana_ns\./g' ./dwc_ddrphy_zcalana_bhv.v 
+        sed -i 's/bind dwc_ddrphy_zcalana/bind dwc_ddrphy_zcalana_ns/g' ./dwc_ddrphy_zcalana_bhv.v
+      fi
+    fi
+  fi
+  if [[ $CORETOOLS == 0 && $release == 1 || -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+    if [ $master_ew_use == "0" ]; then
+      master_path="master_ns"
+    elif [ $master_ew_use == "1" ]; then
+      master_path="master_ew"
+    else
+      master_path="master"
+    fi
+    grep -q "dwc_ddrphy_zcalana_ew dwc_ddrphy_zcalana" $CTB_HOME/../../$master_path/Latest/gate_level_netlist/$sdf_path/*_pg.v
+    zcalana_chk=$?
+    if [ $zcalana_chk -eq 0 ]; then
+      sed -i 's/dwc_ddrphy_zcalana\./dwc_ddrphy_zcalana_ew\./g' ./dwc_ddrphy_zcalana_bhv.v 
+      sed -i 's/bind dwc_ddrphy_zcalana/bind dwc_ddrphy_zcalana_ew/g' ./dwc_ddrphy_zcalana_bhv.v
+    else
+      grep -q "dwc_ddrphy_zcalana_ns dwc_ddrphy_zcalana" $CTB_HOME/../../$master_path/Latest/gate_level_netlist/$sdf_path/*_pg.v
+      zcalana_chk=$?
+      if [ $zcalana_chk -eq 0 ]; then
+        sed -i 's/dwc_ddrphy_zcalana\./dwc_ddrphy_zcalana_ns\./g' ./dwc_ddrphy_zcalana_bhv.v 
+        sed -i 's/bind dwc_ddrphy_zcalana/bind dwc_ddrphy_zcalana_ns/g' ./dwc_ddrphy_zcalana_bhv.v
+      fi
+    fi
+  fi
+  rm -f ./zcalana_bhv.f
+  touch zcalana_bhv.f
+  echo "./dwc_ddrphy_zcalana_bhv.v" > zcalana_bhv.f
+fi
+
+#---------------------------------------------
+#check for gatesim Env set up
+#---------------------------------------------
+if [ $gatesim == 1 ]; then
+  if [ $sdf == 1 ]; then
+    if [ $sdf_path = "" ]; then
+      echo  "sdf_path must be set in bootenv(i.e.7M_2Xa1Xd_h_3Xe_vhv is a sdf/netlist_path name, which is the name between timing and sdf, or under behavior"
+      exit 0;
+    fi 
+  fi 
+  if [ $release = 0 ] || [ $release = 2 ]; then
+    if [ $gatesim_project = "" ]; then
+      echo  "gatesim_project  must be set in bootenv(i.e.d519_rel070a) for common and maintruck development"
+      exit 0;
+    fi
+  fi
+fi
+
+#deal with cmd_opts for gatesim 
+#---------------------------------------------
+if [ $gatesim == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DWC_DDRPHY_GATESIM"
+  cmd_opts="$cmd_opts +define+DWC_DDRPHY_PLL_ACCURATE_MODEL" #gatesim use accurate pll module 
+  if [ $sdf == 1 ]; then
+    cmd_opts="$cmd_opts +define+DWC_DDRPHY_GATESIM_SDF" 
+    cmd_opts="$cmd_opts +transport_path_delays +pulse_e/0 +pulse_r/0 +neg_tchk -negdelay" 
+    cmd_opts="$cmd_opts +transport_int_delays +pulse_int_e/0 +pulse_int_r/0" 
+     if [[ $mtm_spec =~ max ]]; then
+       cmd_opts="$cmd_opts +define+spec=\\\"MAXIMUM\\\""
+       cmd_opts="$cmd_opts +maxdelays"
+     fi
+     if [[ $mtm_spec =~ min ]]; then
+       cmd_opts="$cmd_opts +define+spec=\\\"MINIMUM\\\""
+       cmd_opts="$cmd_opts +mindelays"
+     fi
+     if [[ $mtm_spec =~ typical ]]; then
+       cmd_opts="$cmd_opts +define+spec=\\\"TYPICAL\\\""
+       cmd_opts="$cmd_opts +typdelays"
+     fi
+  else
+    cmd_opts="$cmd_opts +nospecify +notimingchecks" 
+  fi
+  if [ $powersim == 1 ]; then
+  cmd_opts="$cmd_opts +vcs+initreg+random"
+  run_arg="$run_arg +vcs+initreg+0"
+  fi
+fi
+
+#deal with AC/Dbyte numbers for SDF Back Annotation
+#--------------------------------------------------
+if [ $gatesim == 1 ]; then
+  if [ $master_ew_use == "0" ]; then
+    cmd_opts="$cmd_opts +define+MASTER_NS"
+  elif [ $master_ew_use == "1" ]; then
+    cmd_opts="$cmd_opts +define+MASTER_EW"
+  fi
+  dq_t=`echo ${cfg#*dq}`
+  dq_num_t=`echo ${dq_t%c*}`
+  ch_num_t=`echo ${cfg#*ch}`
+  dbyte_num_t=$[dq_num_t/8*ch_num_t]
+  if [ $ac_ew_use == "undefined" ] && [ $dbyte_ew_use == "undefined" ]; then 
+     for ((i=0;i<$ch_num_t;i++))
+     do
+       eval orien_ac_$i="none"
+     done
+     orien_ac="none"
+     for ((i=0;i<$dbyte_num_t;i++))
+     do
+       eval orien_dbyte_$i="none"
+     done
+     orien_dbyte="none"
+  else
+    #### do the orientation analysis ######
+    ## choose EW/NS for anib
+    ac_orien_ew=0
+    ac_orien_ns=0
+    dbyte_orien_ew=0
+    dbyte_orien_ns=0
+    if [ $ac_ew_use == "undefined" ]; then
+       for ((i=0;i<$ch_num_t;i++))
+       do
+         eval orien_ac_$i="none"
+       done
+    else
+      ac_ew=16#$ac_ew_use     
+      for ((i=0;i<$ch_num_t;i++))
+      do
+        AC_BIT=$[ac_ew%2]
+        ac_ew=$[ac_ew/2]
+        if [ $AC_BIT == "1" ]; then 
+          eval orien_ac_$i="ew"
+          cmd_opts="$cmd_opts +define+AC_EW_$i"
+          ac_orien_ew=$[$ac_orien_ew + 1]
+        else
+          eval orien_ac_$i="ns"
+          cmd_opts="$cmd_opts +define+AC_NS_$i"
+          ac_orien_ns=$[$ac_orien_ns + 1] 
+        fi
+      done
+    fi
+    ## choose EW/NS for dbyte
+    if [ $dbyte_ew_use == "undefined" ]; then
+      for ((i=0;i<$dbyte_num_t;i++))
+      do
+        eval orien_dbyte_$i="none"
+      done
+    else
+      dbyte_ew=16#$dbyte_ew_use
+      for ((i=0;i<$dbyte_num_t;i++))
+      do
+        DBYTE_BIT=$[dbyte_ew%2]
+        dbyte_ew=$[dbyte_ew/2]
+        if [ $DBYTE_BIT == "1" ]; then
+          eval orien_dbyte_$i="ew"
+          cmd_opts="$cmd_opts +define+DBYTE_EW_$i"
+          dbyte_orien_ew=$[$dbyte_orien_ew + 1]
+        else 
+          eval orien_dbyte_$i="ns"
+          cmd_opts="$cmd_opts +define+DBYTE_NS_$i"
+          dbyte_orien_ns=$[$dbyte_orien_ns + 1]
+        fi
+      done
+    fi
+    whole_ac=$[$ac_orien_ew + $ac_orien_ns]
+    whole_dbyte=$[$dbyte_orien_ew + $dbyte_orien_ns]
+    ##### used in the gen_gatesim_flist.pl ####
+    if [ $ac_orien_ew == 0 ] && [ $ac_orien_ns != 0 ] && [ $whole_ac == $ch_num_t ]; then
+      orien_ac="ns"
+    elif [ $ac_orien_ew != 0 ] && [ $ac_orien_ns == 0 ] && [ $whole_ac == $ch_num_t ]; then
+      orien_ac="ew"
+    elif [ $ac_orien_ew != 0 ] && [ $ac_orien_ns != 0 ] && [ $whole_ac == $ch_num_t ]; then
+      orien_ac="mix"
+    else
+      orien_ac="none"
+    fi
+    echo "[runtc] orien_ac=$orien_ac"
+    ##### used in the gen_gatesim_flist.pl ####
+    if [ $dbyte_orien_ew == 0 ] && [ $dbyte_orien_ns != 0 ] && [ $whole_dbyte == $dbyte_num_t ]; then
+      orien_dbyte="ns"
+    elif [ $dbyte_orien_ew != 0 ] && [ $dbyte_orien_ns == 0 ] && [ $whole_dbyte == $dbyte_num_t ]; then
+      orien_dbyte="ew"
+    elif [ $dbyte_orien_ew != 0 ] && [ $dbyte_orien_ns != 0 ] && [ $whole_dbyte == $dbyte_num ]; then
+      orien_dbyte="mix"
+    else
+      orien_dbyte="none"
+    fi
+    echo "[runtc] orien_dbyte=$orien_dbyte"
+  fi
+
+  #SDF Back Annotation files select for SDF GateSim
+  #--------------------------------------------------
+  if [ $sdf == 1 ]; then
+    if [ -e master_sdf_folder ]; then
+      unlink master_sdf_folder
+    fi 
+    if [ -e sec_sdf_folder ]; then
+      unlink sec_sdf_folder
+    fi 
+    if [ -e se_sdf_folder ]; then
+      unlink se_sdf_folder
+    fi 
+    if [ -e diff_sdf_folder ]; then
+      unlink diff_sdf_folder
+    fi 
+    if [ -e sec_ns_sdf_folder ]; then
+      unlink sec_ns_sdf_folder
+    fi 
+    if [ -e sec_ew_sdf_folder ]; then
+      unlink sec_ew_sdf_folder
+    fi
+    if [ -e se_ns_sdf_folder ]; then
+      unlink se_ns_sdf_folder
+    fi 
+    if [ -e se_ew_sdf_folder ]; then
+      unlink se_ew_sdf_folder
+    fi   
+    if [ -e diff_ns_sdf_folder ]; then
+      unlink diff_ns_sdf_folder
+    fi
+    if [ -e diff_ew_sdf_folder ]; then
+      unlink diff_ew_sdf_folder
+    fi
+	if [ -e master_ew_sdf_folder ]; then
+      unlink master_ew_sdf_folder
+    fi
+	if [ -e master_ns_sdf_folder ]; then
+      unlink master_ns_sdf_folder
+    fi
+    rm -rf master_sdf_folder
+    rm -rf diff_sdf_folder
+    rm -rf sec_sdf_folder
+    rm -rf se_sdf_folder
+    rm -rf diff_ew_sdf_folder
+    rm -rf sec_ew_sdf_folder
+    rm -rf se_ew_sdf_folder
+    rm -rf diff_ns_sdf_folder
+    rm -rf sec_ns_sdf_folder
+    rm -rf se_ns_sdf_folder
+    rm -rf master_ew_sdf_folder
+    rm -rf master_ns_sdf_folder
+    if [ $release == 0 ] || [ $release == 2 ]; then
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphymaster_top/views/timing/$sdf_path/sdf master_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphydiff_top/views/timing/$sdf_path/sdf diff_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphysec_top/views/timing/$sdf_path/sdf sec_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphyse_top/views/timing/$sdf_path/sdf se_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphydiff_top_ew/views/timing/$sdf_path/sdf diff_ew_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphydiff_top_ns/views/timing/$sdf_path/sdf diff_ns_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphysec_top_ew/views/timing/$sdf_path/sdf sec_ew_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphysec_top_ns/views/timing/$sdf_path/sdf sec_ns_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphyse_top_ew/views/timing/$sdf_path/sdf se_ew_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphyse_top_ns/views/timing/$sdf_path/sdf se_ns_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphymaster_top_ns/views/timing/$sdf_path/sdf master_ns_sdf_folder
+        ln -s $CTB_HOME/../../process/$gatesim_project/dwc_ddrphymaster_top_ew/views/timing/$sdf_path/sdf master_ew_sdf_folder
+    else
+        ln -s $CTB_HOME/../../master/Latest/timing/$sdf_path/sdf master_sdf_folder
+        ln -s $CTB_HOME/../../diff/Latest/timing/$sdf_path/sdf diff_sdf_folder
+        ln -s $CTB_HOME/../../sec/Latest/timing/$sdf_path/sdf sec_sdf_folder
+        ln -s $CTB_HOME/../../se/Latest/timing/$sdf_path/sdf se_sdf_folder
+        ln -s $CTB_HOME/../../diff_ew/Latest/timing/$sdf_path/sdf diff_ew_sdf_folder
+        ln -s $CTB_HOME/../../diff_ns/Latest/timing/$sdf_path/sdf diff_ns_sdf_folder
+        ln -s $CTB_HOME/../../sec_ew/Latest/timing/$sdf_path/sdf sec_ew_sdf_folder
+        ln -s $CTB_HOME/../../sec_ns/Latest/timing/$sdf_path/sdf sec_ns_sdf_folder
+        ln -s $CTB_HOME/../../se_ew/Latest/timing/$sdf_path/sdf se_ew_sdf_folder
+        ln -s $CTB_HOME/../../se_ns/Latest/timing/$sdf_path/sdf se_ns_sdf_folder 
+        ln -s $CTB_HOME/../../master_ew/Latest/timing/$sdf_path/sdf master_ew_sdf_folder
+        ln -s $CTB_HOME/../../master_ns/Latest/timing/$sdf_path/sdf master_ns_sdf_folder
+    fi
+    if [ $pvt == "undefined" ]; then
+      if [ $rand_pvt = 1 ]; then
+        sel_num=$(($RANDOM%6+1));
+      else
+        sel_num=1;
+      fi
+    fi
+    case $orien_ac_0 in
+      ew)
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_0_diff_sdf=`find -L diff_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_0_diff_sdf=`find -L diff_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_0_diff_sdf=`find -L diff_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_0_diff_sdf=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf.gz
+            ac_0_sec_sdf=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf.gz
+            ac_0_se_sdf=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf.gz
+		  else
+            ac_0_diff_sdf=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf
+            ac_0_sec_sdf=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf
+            ac_0_se_sdf=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf
+          fi
+        fi
+      ;;
+      ns)
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_0_diff_sdf=`find -L diff_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_0_diff_sdf=`find -L diff_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_0_diff_sdf=`find -L diff_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_0_diff_sdf=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf.gz
+            ac_0_sec_sdf=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf.gz
+            ac_0_se_sdf=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf.gz
+          else
+            ac_0_diff_sdf=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf
+            ac_0_sec_sdf=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf
+            ac_0_se_sdf=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf
+	      fi
+        fi
+      ;;
+      none)  
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_0_diff_sdf=`find -L diff_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_0_diff_sdf=`find -L diff_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_0_diff_sdf=`find -L diff_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_sec_sdf=`find -L sec_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_0_se_sdf=`find -L se_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_0_diff_sdf=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf.gz
+            ac_0_sec_sdf=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf.gz
+            ac_0_se_sdf=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf.gz
+          else
+            ac_0_diff_sdf=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf
+            ac_0_sec_sdf=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf
+            ac_0_se_sdf=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf
+	      fi
+        fi
+      ;;
+    esac
+    case $orien_ac_1 in
+      ew)
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_1_diff_sdf=`find -L diff_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_1_diff_sdf=`find -L diff_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_1_diff_sdf=`find -L diff_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_1_diff_sdf=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf.gz
+            ac_1_sec_sdf=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf.gz
+            ac_1_se_sdf=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf.gz
+          else
+            ac_1_diff_sdf=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf
+            ac_1_sec_sdf=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf
+            ac_1_se_sdf=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf
+          fi 
+        fi
+      ;;
+      ns)
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_1_diff_sdf=`find -L diff_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_1_diff_sdf=`find -L diff_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_1_diff_sdf=`find -L diff_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_1_diff_sdf=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf.gz
+            ac_1_sec_sdf=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf.gz
+            ac_1_se_sdf=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf.gz
+          else
+            ac_1_diff_sdf=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf
+            ac_1_sec_sdf=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf
+            ac_1_se_sdf=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf
+	      fi
+        fi
+      ;;
+      none)  
+        if [ $pvt == "undefined" ]; then 
+          if [[ $corner =~ ss ]]; then
+            ac_1_diff_sdf=`find -L diff_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ ff ]]; then
+            ac_1_diff_sdf=`find -L diff_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+          fi
+          if [[ $corner =~ tt ]]; then
+            ac_1_diff_sdf=`find -L diff_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_sec_sdf=`find -L sec_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+            ac_1_se_sdf=`find -L se_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+          fi
+        else
+		  if [ $gzip_sdf == 1 ]; then
+            ac_1_diff_sdf=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf.gz
+            ac_1_sec_sdf=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf.gz
+            ac_1_se_sdf=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf.gz
+          else
+            ac_1_diff_sdf=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf
+            ac_1_sec_sdf=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf
+            ac_1_se_sdf=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf
+		  fi
+        fi
+      ;;
+    esac
+    for ((i=0;i<$dbyte_num_t;i++))
+      do 
+        eval orien_dbyte_temp=orien_dbyte_${i}
+        eval orien_dbyte_map=$(echo \$$orien_dbyte_temp)
+        if [ $orien_dbyte_map == "ew" ]; then
+            if [ $pvt == "undefined" ]; then 
+              if [[ $corner =~ ss ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ ff ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ tt ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+              fi
+            else
+		      if [ $gzip_sdf == 1 ]; then
+                 eval dbyte_diff_sdf_$i=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf.gz
+                 eval dbyte_sec_sdf_$i=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf.gz
+                 eval dbyte_se_sdf_$i=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf.gz
+	          else
+                 eval dbyte_diff_sdf_$i=diff_ew_sdf_folder/dwc_ddrphydiff_top_ew_$corner$pvt.sdf
+                 eval dbyte_sec_sdf_$i=sec_ew_sdf_folder/dwc_ddrphysec_top_ew_$corner$pvt.sdf
+                 eval dbyte_se_sdf_$i=se_ew_sdf_folder/dwc_ddrphyse_top_ew_$corner$pvt.sdf
+	          fi
+            fi
+        elif [ $orien_dbyte_map == "ns" ]; then
+            if [ $pvt == "undefined" ]; then 
+              if [[ $corner =~ ss ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ ff ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ tt ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+              fi
+            else
+		      if [ $gzip_sdf == 1 ]; then
+                eval dbyte_diff_sdf_$i=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf.gz
+                eval dbyte_sec_sdf_$i=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf.gz
+                eval dbyte_se_sdf_$i=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf.gz
+	          else
+                eval dbyte_diff_sdf_$i=diff_ns_sdf_folder/dwc_ddrphydiff_top_ns_$corner$pvt.sdf
+                eval dbyte_sec_sdf_$i=sec_ns_sdf_folder/dwc_ddrphysec_top_ns_$corner$pvt.sdf
+                eval dbyte_se_sdf_$i=se_ns_sdf_folder/dwc_ddrphyse_top_ns_$corner$pvt.sdf
+	          fi
+            fi
+        else 
+            if [ $pvt == "undefined" ]; then 
+              if [[ $corner =~ ss ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ ff ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+              fi
+              if [[ $corner =~ tt ]]; then
+                eval dbyte_diff_sdf_$i=`find -L diff_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_sec_sdf_$i=`find -L sec_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+                eval dbyte_se_sdf_$i=`find -L se_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+              fi
+            else
+		      if [ $gzip_sdf == 1 ]; then
+                eval dbyte_diff_sdf_$i=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf.gz
+                eval dbyte_sec_sdf_$i=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf.gz
+                eval dbyte_se_sdf_$i=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf.gz
+	          else
+                eval dbyte_diff_sdf_$i=diff_sdf_folder/dwc_ddrphydiff_top_$corner$pvt.sdf
+                eval dbyte_sec_sdf_$i=sec_sdf_folder/dwc_ddrphysec_top_$corner$pvt.sdf
+                eval dbyte_se_sdf_$i=se_sdf_folder/dwc_ddrphyse_top_$corner$pvt.sdf
+			  fi
+            fi
+        fi
+      done
+  
+    if [ $pvt == "undefined" ]; then 
+      if [ $master_ew_use == 0 ]; then
+        if [[ $corner =~ ss ]]; then
+          master_sdf=`find -L master_ns_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ ff ]]; then
+          master_sdf=`find -L master_ns_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ tt ]]; then
+          master_sdf=`find -L master_ns_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+        fi
+	  elif [ $master_ew_use == 1 ]; then
+        if [[ $corner =~ ss ]]; then
+          master_sdf=`find -L master_ew_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ ff ]]; then
+          master_sdf=`find -L master_ew_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ tt ]]; then
+          master_sdf=`find -L master_ew_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+        fi	
+	  else
+        if [[ $corner =~ ss ]]; then
+          master_sdf=`find -L master_sdf_folder -name "*ss*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ ff ]]; then
+          master_sdf=`find -L master_sdf_folder -name "*ff*sdf*" | sed -n "$sel_num p"`
+        fi
+        if [[ $corner =~ tt ]]; then
+          master_sdf=`find -L master_sdf_folder -name "*tt*sdf*" | sed -n "$sel_num p"`
+        fi
+   fi
+    else
+      if [ $master_ew_use == 0 ]; then
+		if [ $gzip_sdf == 1 ]; then
+          master_sdf=master_ns_sdf_folder/dwc_ddrphymaster_top_ns_$corner$pvt.sdf.gz
+        else
+          master_sdf=master_ns_sdf_folder/dwc_ddrphymaster_top_ns_$corner$pvt.sdf
+		fi
+      elif [ $master_ew_use == 1 ]; then 
+		if [ $gzip_sdf == 1 ]; then
+          master_sdf=master_ew_sdf_folder/dwc_ddrphymaster_top_ew_$corner$pvt.sdf.gz
+        else
+          master_sdf=master_ew_sdf_folder/dwc_ddrphymaster_top_ew_$corner$pvt.sdf
+	    fi
+      else
+		if [ $gzip_sdf == 1 ]; then
+          master_sdf=master_sdf_folder/dwc_ddrphymaster_top_$corner$pvt.sdf.gz
+        else
+          master_sdf=master_sdf_folder/dwc_ddrphymaster_top_$corner$pvt.sdf
+	    fi
+	  fi
+    fi
+  
+    cmd_opts="$cmd_opts +define+MASTER_SDF=\\\"$master_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC0_DIFF_SDF=\\\"$ac_0_diff_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC0_SEC_SDF=\\\"$ac_0_sec_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC0_SE_SDF=\\\"$ac_0_se_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC1_DIFF_SDF=\\\"$ac_1_diff_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC1_SEC_SDF=\\\"$ac_1_sec_sdf\\\""
+    cmd_opts="$cmd_opts +define+AC1_SE_SDF=\\\"$ac_1_se_sdf\\\""
+    cmd_opts="$cmd_opts +define+DBYTE0_DIFF_SDF=\\\"$dbyte_diff_sdf_0\\\""
+    cmd_opts="$cmd_opts +define+DBYTE0_SEC_SDF=\\\"$dbyte_sec_sdf_0\\\""
+    cmd_opts="$cmd_opts +define+DBYTE0_SE_SDF=\\\"$dbyte_se_sdf_0\\\""
+    cmd_opts="$cmd_opts +define+DBYTE1_DIFF_SDF=\\\"$dbyte_diff_sdf_1\\\""
+    cmd_opts="$cmd_opts +define+DBYTE1_SEC_SDF=\\\"$dbyte_sec_sdf_1\\\""
+    cmd_opts="$cmd_opts +define+DBYTE1_SE_SDF=\\\"$dbyte_se_sdf_1\\\""
+    cmd_opts="$cmd_opts +define+DBYTE2_DIFF_SDF=\\\"$dbyte_diff_sdf_2\\\""
+    cmd_opts="$cmd_opts +define+DBYTE2_SEC_SDF=\\\"$dbyte_sec_sdf_2\\\""
+    cmd_opts="$cmd_opts +define+DBYTE2_SE_SDF=\\\"$dbyte_se_sdf_2\\\""
+    cmd_opts="$cmd_opts +define+DBYTE3_DIFF_SDF=\\\"$dbyte_diff_sdf_3\\\""
+    cmd_opts="$cmd_opts +define+DBYTE3_SEC_SDF=\\\"$dbyte_sec_sdf_3\\\""
+    cmd_opts="$cmd_opts +define+DBYTE3_SE_SDF=\\\"$dbyte_se_sdf_3\\\""
+    cmd_opts="$cmd_opts +define+DBYTE4_DIFF_SDF=\\\"$dbyte_diff_sdf_4\\\""
+    cmd_opts="$cmd_opts +define+DBYTE4_SEC_SDF=\\\"$dbyte_sec_sdf_4\\\""
+    cmd_opts="$cmd_opts +define+DBYTE4_SE_SDF=\\\"$dbyte_se_sdf_4\\\""
+    cmd_opts="$cmd_opts +define+DBYTE5_DIFF_SDF=\\\"$dbyte_diff_sdf_5\\\""
+    cmd_opts="$cmd_opts +define+DBYTE5_SEC_SDF=\\\"$dbyte_sec_sdf_5\\\""
+    cmd_opts="$cmd_opts +define+DBYTE5_SE_SDF=\\\"$dbyte_se_sdf_5\\\""
+    cmd_opts="$cmd_opts +define+DBYTE6_DIFF_SDF=\\\"$dbyte_diff_sdf_6\\\""
+    cmd_opts="$cmd_opts +define+DBYTE6_SEC_SDF=\\\"$dbyte_sec_sdf_6\\\""
+    cmd_opts="$cmd_opts +define+DBYTE6_SE_SDF=\\\"$dbyte_se_sdf_6\\\""
+    cmd_opts="$cmd_opts +define+DBYTE7_DIFF_SDF=\\\"$dbyte_diff_sdf_7\\\""
+    cmd_opts="$cmd_opts +define+DBYTE7_SEC_SDF=\\\"$dbyte_sec_sdf_7\\\""
+    cmd_opts="$cmd_opts +define+DBYTE7_SE_SDF=\\\"$dbyte_se_sdf_7\\\""  
+  fi
+fi
+#---------------------------------------------
+#generate gatesim file list and update dwc_ddrphy_top.v for GateSim with/ without SDF test 
+#---------------------------------------------
+if [ $gatesim == 1 ]; then
+  if [[ $CORETOOLS == 0 && $release == 0 ]]; then
+    rm -f ./rtl.f.gate
+    rm -f gatesim.f
+    rm -f ./analog_diff.f ./analog_se.f ./analog_sec.f ./analog_master.f
+    rm -f ./analog_suffix.f ./analog_suffix_sort.f ./analog_model.f
+    sed  's/dwc/\$CTB_HOME\/..\/build\/d2c\/rtl\/dwc/g' $CTB_HOME/../build/d2c/rtl/rtl.f > ./rtl.f.gate
+    find $CTB_HOME/../../process/$gatesim_project/lib -name "*.mv" >> ./rtl.f.gate
+    find $CTB_HOME/../../process/$gatesim_project/lib -name "*.v" >> ./rtl.f.gate
+    find $CTB_HOME/../../process/$gatesim_project/sim_diff   -name "*.v" > ./analog_diff.f
+    find $CTB_HOME/../../process/$gatesim_project/sim_se     -name "*.v" > ./analog_se.f
+    find $CTB_HOME/../../process/$gatesim_project/sim_sec    -name "*.v" > ./analog_sec.f
+    find $CTB_HOME/../../process/$gatesim_project/sim_master -name "*.v" > ./analog_master.f
+    ls $CTB_HOME/../../process/$gatesim_project/sim_diff    >  ./analog_suffix.f
+    ls $CTB_HOME/../../process/$gatesim_project/sim_se      >> ./analog_suffix.f
+    ls $CTB_HOME/../../process/$gatesim_project/sim_sec     >> ./analog_suffix.f
+    ls $CTB_HOME/../../process/$gatesim_project/sim_master  >> ./analog_suffix.f
+    sort -n analog_suffix.f | uniq > analog_suffix_sort.f
+    for model in $(cat analog_suffix_sort.f)
+    do
+      grep -q $model ./analog_diff.f
+      model_chk=$?
+      if [ $model_chk -eq 0 ]; then
+        find $CTB_HOME/../../process/$gatesim_project/sim_diff -name $model >> analog_model.f
+      else
+        grep -q $model ./analog_se.f
+        model_chk=$?
+        if [ $model_chk -eq 0 ]; then
+          find $CTB_HOME/../../process/$gatesim_project/sim_se -name $model >> analog_model.f
+        else
+          grep -q $model ./analog_sec.f
+          model_chk=$?
+          if [ $model_chk -eq 0 ]; then
+            find $CTB_HOME/../../process/$gatesim_project/sim_sec -name $model >> analog_model.f
+          else
+            grep -q $model ./analog_master.f
+            model_chk=$?
+            if [ $model_chk -eq 0 ]; then
+              find $CTB_HOME/../../process/$gatesim_project/sim_master -name $model >> analog_model.f
+            else
+              echo "Cannot find $model"
+            fi
+          fi
+        fi
+      fi  
+    done
+    #awk '{print "-v "$1 > "analog_model.f"}' analog_model.f
+    sed -i 's/.*dwc_ddrphy_lcdl/-v &/' analog_model.f
+    sed -i 's/.*dwc_ddrphy_pclk_master/-v &/' analog_model.f
+    sed -i 's/.*atpg_primitives/\/\/ &/' analog_model.f
+    sed -i 's/.*rtl_primitives/\/\/ &/' analog_model.f
+    cat analog_model.f >> ./rtl.f.gate
+
+    $CTB_HOME/gatesim_script/gen_gatesim_flist.pl -release=$release -gatesim_flist=./rtl.f.gate -orien_ac=$orien_ac -orien_dbyte=$orien_dbyte -multi_metal_stack=$multi_metal_stack -sdf=$sdf -CTB_HOME=$CTB_HOME -orien_master=$master_ew_use
+
+    
+    #dwc_ddrphy_top/ac/dbyte wrapper deal
+    if [ -e dwc_ddrphy_top.v.org ]; then
+      rm -f dwc_ddrphy_top.v.org
+    fi 
+    if [ -e dwc_ddrphy_top.v ]; then
+      rm -f dwc_ddrphy_top.v
+    fi 
+    if [ -e dwc_ddrphy_ac_wrapper.v.org ]; then
+      rm -f dwc_ddrphy_ac_wrapper.v.org
+    fi 
+    if [ -e dwc_ddrphy_ac_wrapper.v ]; then
+      rm -f dwc_ddrphy_ac_wrapper.v
+    fi 
+    if [ -e dwc_ddrphy_dbyte_wrapper.v.org ]; then
+      rm -f dwc_ddrphy_dbyte_wrapper.v.org 
+    fi 
+    if [ -e dwc_ddrphy_dbyte_wrapper.v ]; then
+      rm -f dwc_ddrphy_dbyte_wrapper.v
+    fi
+    if [ $sdf == 1 ];then
+    sed 's/\t/ /g' $CTB_HOME/../build/d2c/rtl/dwc_ddrphy_top.v | sed 's/[ ][ ]*/ /g' | sed 's/( /(/g' | sed 's/ )/)/g' | sed 's/ (/(/g'|sed 's/^ //g'  > dwc_ddrphy_top.v.org
+ else
+    sed 's/\t/ /g' $CTB_HOME/../build/d2c/rtl/dwc_ddrphy_top.v | sed 's/[ ][ ]*/ /g' |sed 's/^ //g'  > dwc_ddrphy_top.v.org
+ fi
+    cp $CTB_HOME/../build/d2c/rtl/dwc_ddrphy_ac_wrapper.v dwc_ddrphy_ac_wrapper.v.org 
+    cp $CTB_HOME/../build/d2c/rtl/dwc_ddrphy_dbyte_wrapper.v dwc_ddrphy_dbyte_wrapper.v.org 
+    cp $CTB_HOME/../build/d2c/rtl/dwc_ddrphymaster_top.v dwc_ddrphymaster_top.v.org
+    cp $CTB_HOME/../build/d2c/rtl/dwc_ddrphypub.v dwc_ddrphypub.v.org
+  fi
+  if [[ $CORETOOLS == 0 && $release == 1 || -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+    rm -f file.f
+    rm -f gatesim_rel.f
+    rm -f diff_rtl_file.f se_rtl_file.f sec_rtl_file.f master_rtl_file.f pub_rtl_file.f
+    rm -f diff_bhv_file.f se_bhv_file.f sec_bhv_file.f master_bhv_file.f
+    rm -f file_rtl_1.f file_bhv_1.f file_1.f file_1_sort.f
+    rm -f ./analog_diff.f ./analog_se.f ./analog_sec.f ./analog_master.f
+    rm -f ./analog_suffix.f ./analog_suffix_orien.f ./analog_suffix_sort.f ./analog_model.f
+    case $orien_ac in
+    ew)
+        diff_dir="diff_ew"
+        se_dir="se_ew"
+        sec_dir="sec_ew"
+    ;;
+    ns)
+        diff_dir="diff_ns"
+        se_dir="se_ns"
+        sec_dir="sec_ns"
+    ;;
+    mix)
+        diff_dir="diff_ns"
+        se_dir="se_ns"
+        sec_dir="sec_ns"
+    ;;
+    none)
+        diff_dir="diff"
+        se_dir="se"
+        sec_dir="sec"
+    ;;
+    esac
+    if [ $master_ew_use == "0" ]; then
+      master_dir="master_ns"
+    elif [ $master_ew_use == "1" ]; then
+      master_dir="master_ew"
+    else
+      master_dir="master"
+    fi
+
+    if [[ -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+        pub_dir="src/pub"
+        macro_dir="src"
+    else
+        pub_dir="pub/Latest/rtl"
+        macro_dir="macro/Latest/rtl"
+    fi
+
+    find $CTB_HOME/../../$diff_dir/Latest/include/  -name "*.mv" > file.f
+    find $CTB_HOME/../../$diff_dir/Latest/include/  -name "std_primitives.v" >> file.f
+    find $CTB_HOME/../../$macro_dir/${prefix_string}dwc_ddrphy_ac_wrapper.v >> file.f
+    find $CTB_HOME/../../$macro_dir/${prefix_string}dwc_ddrphy_dbyte_wrapper.v >> file.f
+    
+    find $CTB_HOME/../../$diff_dir/Latest/rtl/        -name "*.v" > ./diff_rtl_file.f
+    find $CTB_HOME/../../$se_dir/Latest/rtl/          -name "*.v" > ./se_rtl_file.f
+    find $CTB_HOME/../../$sec_dir/Latest/rtl/         -name "*.v" > ./sec_rtl_file.f
+    find $CTB_HOME/../../$master_dir/Latest/rtl/      -name "*.v" > ./master_rtl_file.f
+    find $CTB_HOME/../../$pub_dir/                    -name "*.v" > ./pub_rtl_file.f
+    find $CTB_HOME/../../$diff_dir/Latest/behavior/   -name "*.v" > ./diff_bhv_file.f
+    find $CTB_HOME/../../$se_dir/Latest/behavior/     -name "*.v" > ./se_bhv_file.f
+    find $CTB_HOME/../../$sec_dir/Latest/behavior/    -name "*.v" > ./sec_bhv_file.f
+    find $CTB_HOME/../../$master_dir/Latest/behavior/ -name "*.v" > ./master_bhv_file.f
+    ls $CTB_HOME/../../$diff_dir/Latest/rtl/        >  ./file_1.f
+    ls $CTB_HOME/../../$se_dir/Latest/rtl/          >> ./file_1.f
+    ls $CTB_HOME/../../$sec_dir/Latest/rtl/         >> ./file_1.f
+    ls $CTB_HOME/../../$master_dir/Latest/rtl/      >> ./file_1.f
+    ls $CTB_HOME/../../$pub_dir/                    >> ./file_1.f
+    ls $CTB_HOME/../../$diff_dir/Latest/behavior/   >> ./file_1.f
+    ls $CTB_HOME/../../$se_dir/Latest/behavior/     >> ./file_1.f
+    ls $CTB_HOME/../../$sec_dir/Latest/behavior/    >> ./file_1.f
+    ls $CTB_HOME/../../$master_dir/Latest/behavior/ >> ./file_1.f
+    sort -n file_1.f | uniq > file_1_sort.f
+    for model in $(cat file_1_sort.f)
+    do
+      grep -q $model ./diff_rtl_file.f
+      model_chk=$?
+      if [ $model_chk -eq 0 ]; then
+        find $CTB_HOME/../../$diff_dir/Latest/rtl -name $model >> file_rtl_1.f
+      else
+        grep -q $model ./se_rtl_file.f
+        model_chk=$?
+        if [ $model_chk -eq 0 ]; then
+          find $CTB_HOME/../../$se_dir/Latest/rtl -name $model >> file_rtl_1.f
+        else
+          grep -q $model ./sec_rtl_file.f
+          model_chk=$?
+          if [ $model_chk -eq 0 ]; then
+            find $CTB_HOME/../../$sec_dir/Latest/rtl -name $model >> file_rtl_1.f
+          else
+            grep -q $model ./master_rtl_file.f
+            model_chk=$?
+            if [ $model_chk -eq 0 ]; then
+              find $CTB_HOME/../../$master_dir/Latest/rtl -name $model >> file_rtl_1.f
+            else
+              grep -q $model ./pub_rtl_file.f
+              model_chk=$?
+              if [ $model_chk -eq 0 ]; then
+                find $CTB_HOME/../../$pub_dir -name $model >> file_rtl_1.f
+              else
+                grep -q $model ./diff_bhv_file.f
+                model_chk=$?
+                if [ $model_chk -eq 0 ]; then
+                  find $CTB_HOME/../../$diff_dir/Latest/behavior -name $model >> file_bhv_1.f
+                else
+                  grep -q $model ./se_bhv_file.f
+                  model_chk=$?
+                  if [ $model_chk -eq 0 ]; then
+                    find $CTB_HOME/../../$se_dir/Latest/behavior -name $model >> file_bhv_1.f
+                  else
+                    grep -q $model ./sec_bhv_file.f
+                    model_chk=$?
+                    if [ $model_chk -eq 0 ]; then
+                      find $CTB_HOME/../../$sec_dir/Latest/behavior -name $model >> file_bhv_1.f
+                    else
+                      grep -q $model ./master_bhv_file.f
+                      model_chk=$?
+                      if [ $model_chk -eq 0 ]; then
+                        find $CTB_HOME/../../$master_dir/Latest/behavior -name $model >> file_bhv_1.f
+                      else
+                        echo "Cannot find $model"
+                      fi
+                    fi
+                  fi
+                fi
+              fi
+            fi
+          fi
+        fi
+      fi  
+    done
+    cat file_rtl_1.f >> ./file.f
+    cat file_bhv_1.f >> ./file.f
+    
+    find $CTB_HOME/../../$diff_dir/Latest/include/   -name "*.v" > ./analog_diff.f
+    find $CTB_HOME/../../$se_dir/Latest/include/     -name "*.v" > ./analog_se.f
+    find $CTB_HOME/../../$sec_dir/Latest/include/    -name "*.v" > ./analog_sec.f
+    find $CTB_HOME/../../$master_dir/Latest/include/ -name "*.v" > ./analog_master.f
+    sed -i '/std_primitives.v/d' ./analog_diff.f
+    ls $CTB_HOME/../../$diff_dir/Latest/include/   >  ./analog_suffix.f
+    ls $CTB_HOME/../../$se_dir/Latest/include/     >> ./analog_suffix.f
+    ls $CTB_HOME/../../$sec_dir/Latest/include/    >> ./analog_suffix.f
+    ls $CTB_HOME/../../$master_dir/Latest/include/ >> ./analog_suffix.f
+    grep -E "ddrphy|*_ew.v|*_ns.v" analog_suffix.f > ./analog_suffix_orien.f
+    sort -n analog_suffix_orien.f | uniq > analog_suffix_sort.f
+    for model in $(cat analog_suffix_sort.f)
+    do
+      grep -q $model ./analog_diff.f
+      model_chk=$?
+      if [ $model_chk -eq 0 ]; then
+        find $CTB_HOME/../../$diff_dir/Latest/include -name $model >> analog_model.f
+      else
+        grep -q $model ./analog_se.f
+        model_chk=$?
+        if [ $model_chk -eq 0 ]; then
+          find $CTB_HOME/../../$se_dir/Latest/include -name $model >> analog_model.f
+        else
+          grep -q $model ./analog_sec.f
+          model_chk=$?
+          if [ $model_chk -eq 0 ]; then
+            find $CTB_HOME/../../$sec_dir/Latest/include -name $model >> analog_model.f
+          else
+            grep -q $model ./analog_master.f
+            model_chk=$?
+            if [ $model_chk -eq 0 ]; then
+              find $CTB_HOME/../../$master_dir/Latest/include -name $model >> analog_model.f
+            else
+              echo "Cannot find $model"
+            fi
+          fi
+        fi
+      fi  
+    done
+    #awk '{print "-v "$1 > "analog_model.f"}' analog_model.f
+    sed -i 's/.*dwc_ddrphy_lcdl/-v &/' analog_model.f
+    sed -i 's/.*dwc_ddrphy_pclk_master/-v &/' analog_model.f
+    cat analog_model.f >> ./file.f
+     #pub_version>=1.10, phy_top instance repeater, temporarily for use repeater rtl 
+    pub_version_has_repeater_base=0110;
+    if [ $pub_version -ge $pub_version_has_repeater_base ] ; then
+      printf "$CTB_HOME/../../repeater_blocks/Latest/rtl/dwc_ddrphy_repeater_blocks.v \n" >> ./file.f
+    fi
+   
+    $CTB_HOME/gatesim_script/gen_gatesim_flist.pl -release=$release -gatesim_flist=./file.f -orien_ac=$orien_ac -orien_dbyte=$orien_dbyte -multi_metal_stack=$multi_metal_stack -sdf=$sdf -CTB_HOME=$CTB_HOME -orien_master=$master_ew_use
+
+   #update gatesim timing disable list
+   if [ $sdf == 1 ];then
+     if [ -e gatesim_timing_disable_list_sub.sv ]; then
+       rm -f gatesim_timing_disable_list_sub.sv
+     fi 
+     if [ -e gatesim_timing_disable_list_update.sv ]; then
+       rm -f gatesim_timing_disable_list_update.sv
+     fi 
+     $CTB_HOME/testbench/inc/gen_timing_disable_list.pl $dbyte_num_t $CTB_HOME/../../$se_dir/Latest/gate_level_netlist/$sdf_path/*_pg.v
+     cp $CTB_HOME/testbench/inc/gatesim_timing_disable_list.sv ./gatesim_timing_disable_list_update.sv
+     chmod -R 777 gatesim_timing_disable_list_update.sv
+     cat gatesim_timing_disable_list_sub.sv >> gatesim_timing_disable_list_update.sv
+   fi
+   
+   #if add prefix option, replace dwc_ddrphy_top.v in gatesim_rel.f to prefix_dwc_ddrphy_top.v
+   if [ "$prefix" != " " ]; then
+       sed -i "s/dwc_ddrphy_top.v/${prefix_string}dwc_ddrphy_top.v/"   gatesim_rel.f
+       sed -i "s/dwc_ddrphy_ac_wrapper.v/${prefix_string}dwc_ddrphy_ac_wrapper.v/"   gatesim_rel.f
+       sed -i "s/dwc_ddrphy_dbyte_wrapper.v/${prefix_string}dwc_ddrphy_dbyte_wrapper.v/"   gatesim_rel.f
+   fi
+
+    #dwc_ddrphy_top/ac/dbyte wrapper deal
+     if [ -e ${prefix_string}dwc_ddrphy_top.v.org ]; then
+       rm -f ${prefix_string}dwc_ddrphy_top.v.org
+     fi 
+     if [ -e ${prefix_string}dwc_ddrphy_top.v ]; then
+       rm -f ${prefix_string}dwc_ddrphy_top.v
+     fi 
+     if [ -e ${prefix_string}dwc_ddrphy_ac_wrapper.v.org ]; then
+       rm -f ${prefix_string}dwc_ddrphy_ac_wrapper.v.org
+     fi 
+     if [ -e ${prefix_string}dwc_ddrphy_ac_wrapper.v ]; then
+       rm -f ${prefix_string}dwc_ddrphy_ac_wrapper.v
+     fi 
+     if [ -e ${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org ]; then
+       rm -f ${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org 
+     fi 
+     if [ -e ${prefix_string}dwc_ddrphy_dbyte_wrapper.v ]; then
+       rm -f ${prefix_string}dwc_ddrphy_dbyte_wrapper.v
+     fi
+     if [[ -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+       if [ $sdf == 1 ];then
+          sed 's/\t/ /g' $CTB_HOME/../../src/${prefix_string}dwc_ddrphy_top.v | sed 's/[ ][ ]*/ /g' | sed 's/( /(/g' | sed 's/ )/)/g' | sed 's/ (/(/g'|sed 's/^ //g'  >${prefix_string}dwc_ddrphy_top.v.org
+       else
+          sed 's/\t/ /g' $CTB_HOME/../../src/${prefix_string}dwc_ddrphy_top.v | sed 's/[ ][ ]*/ /g' | sed 's/^ //g'  > ${prefix_string}dwc_ddrphy_top.v.org
+       fi
+          cp $CTB_HOME/../../src/${prefix_string}dwc_ddrphy_ac_wrapper.v ${prefix_string}dwc_ddrphy_ac_wrapper.v.org 
+          cp $CTB_HOME/../../src/${prefix_string}dwc_ddrphy_dbyte_wrapper.v ${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org
+          ln -sf $CTB_HOME/../../$master_dir/Latest/rtl/dwc_ddrphymaster_top.v dwc_ddrphymaster_top.v.org
+          ln -sf $CTB_HOME/../../src/pub/${prefix_string}dwc_ddrphypub.v ${prefix_string}dwc_ddrphypub.v.org
+
+     else
+      if [ $sdf == 1 ];then
+         sed 's/\t/ /g' $CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_top.v| sed 's/[ ][ ]*/ /g' | sed 's/( /(/g' | sed 's/ )/)/g' | sed 's/ (/(/g'|sed 's/^ //g'   > dwc_ddrphy_top.v.org
+      else
+         sed 's/\t/ /g' $CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_top.v| sed 's/[ ][ ]*/ /g' |sed 's/^ //g'   > dwc_ddrphy_top.v.org
+      fi
+        cp $CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_ac_wrapper.v dwc_ddrphy_ac_wrapper.v.org 
+        cp $CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_dbyte_wrapper.v dwc_ddrphy_dbyte_wrapper.v.org
+        ln -sf $CTB_HOME/../../$master_dir/Latest/rtl/dwc_ddrphymaster_top.v dwc_ddrphymaster_top.v.org
+        ln -sf $CTB_HOME/../../pub/Latest/rtl/dwc_ddrphypub.v dwc_ddrphypub.v.org
+     fi
+  fi
+
+  ################################################
+  #deal and generate dwc_ddrphy_top.v for gatesim#
+  ################################################
+  if [ $sdf == 1 ]; then
+    rm -rf ${prefix_string}dwc_ddrphy_top.v_tmp
+    if [ -e dwc_ddrphymaster_top.v.org ]; then
+       echo "Load dwc_ddrphymaster_top.v ..."
+    else
+       echo "Can not find dwc_ddrphymaster_top.v.org in current dir \!"
+       exit 0;
+    fi
+    if [ -e ${prefix_string}dwc_ddrphy_ac_wrapper.v.org ]; then
+       echo "Load dwc_ddrphy_ac_wrapper.v.org ..."
+    else
+       echo "Can not find dwc_ddrphy_ac_wrapper.v.org in current dir \!"
+       exit 0;
+    fi
+    if [ -e ${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org ]; then
+       echo "Load dwc_ddrphy_dbyte_wrapper.v.org ..."
+    else
+       echo "Can not find dwc_ddrphy_dbyte_wrapper.v.org in current dir \!"
+       exit 0;
+    fi
+    if [ -e ${prefix_string}dwc_ddrphypub.v.org ]; then
+       echo "Load dwc_ddrphypub.v.org ..."
+    else
+       echo "Can not find dwc_ddrphypub.v.org in current dir \!"
+       exit 0;
+    fi
+    # input file order : 1.delay_time 2.dwc_ddrphymaster_top.v 3.dwc_ddrphy_ac_wrapper.v 4.dwc_ddrphy_dbyte_wrapper.v  5.dwc_ddrphy_top.v.org(for get connection info) 6.dwc_ddrphy_top.v.org(for modification)
+    $CTB_HOME/gatesim_script/gen_gatesim_phy_top_sdf.awk -v dly_time_glo=$delay_set dwc_ddrphymaster_top.v.org ${prefix_string}dwc_ddrphy_ac_wrapper.v.org ${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org ${prefix_string}dwc_ddrphypub.v.org ${prefix_string}dwc_ddrphy_top.v.org ${prefix_string}dwc_ddrphy_top.v.org > ${prefix_string}dwc_ddrphy_top.v_tmp
+    # change master/AC/DBYTE direction
+    $CTB_HOME/gatesim_script/gatesim_orien.awk -v master_ew_use=$master_ew_use -v ac_ew_use=$ac_ew_use -v dbyte_ew_use=$dbyte_ew_use ${prefix_string}dwc_ddrphy_top.v_tmp ${prefix_string}dwc_ddrphy_top.v_tmp > ${prefix_string}dwc_ddrphy_top.v
+  else
+    $CTB_HOME/gatesim_script/gatesim_orien.awk -v master_ew_use=$master_ew_use -v ac_ew_use=$ac_ew_use -v dbyte_ew_use=$dbyte_ew_use ${prefix_string}dwc_ddrphy_top.v.org ${prefix_string}dwc_ddrphy_top.v.org > ${prefix_string}dwc_ddrphy_top.v
+  fi
+  $CTB_HOME/gatesim_script/gen_gatesim_ac_dbyte_wrapper.pl -ac_wrapper_org=${prefix_string}dwc_ddrphy_ac_wrapper.v.org -dbyte_wrapper_org=${prefix_string}dwc_ddrphy_dbyte_wrapper.v.org 
+  sleep 30
+fi
+  ################################################
+  #           PowerSim parameters                #
+  ################################################
+if [ $powersim == 1 ]; then
+  cmd_opts="$cmd_opts +define+DDRPHY_POWERSIM"
+  rm -f ./vip_version
+  echo $CTB_VIP_HOME > ./vip_version
+  grep -q "2019.06" ./vip_version 
+  vip_chk=$?
+  if [ $vip_chk -eq 0 ]; then
+    cmd_opts="$cmd_opts +define+DDRPHY_POWERSIM_VIP_201906"
+  fi
+fi
+if [ $power_ac_pattern == 0 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_AC_PATTERN0"
+fi 
+if [ $power_ac_pattern == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_AC_PATTERN1"
+fi 
+if [ $power_data_pattern == 0 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DATA_PATTERN0"
+fi 
+if [ $power_data_pattern == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DATA_PATTERN1"
+fi 
+if [ $power_data_pattern == 2 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DATA_PATTERN2"
+fi 
+if [ $device_idle == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DEVICE_IDLE"
+fi
+if [ $dis_dxodt == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DIS_DX_ODT"
+elif [ $dis_dxodt == 2 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_EN_DX_ODT"
+fi
+if [ $dis_acodt == 1 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_DIS_AC_ODT"
+elif [ $dis_acodt == 2 ]; then
+  cmd_opts="$cmd_opts +define+POWERSIM_EN_AC_ODT"
+fi
+if [ $wr_only == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_WR_ONLY"
+fi
+if [ $rd_only == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_RD_ONLY"
+fi
+if [ $b2b_wr == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_B2B_WR"
+fi
+if [ $b2b_rd == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_B2B_RD"
+fi
+if [ $b2b == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_B2B"
+fi
+if [ $b2b_em == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+DDRPHY_PWR_EM"
+fi
+if [ $bubble == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+BUBBLE"
+fi
+if [ $wr2rd == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+WR2RD"
+fi
+if [ $rd2wr == 1 ]; then
+  cmd_opts="$cmd_opts +define+BIAS_PINS +define+RD2WR"
+fi
+  ################################################
+  #       Solution for Simulation Settings       #
+  ################################################
+if [ $split_fsdb == 1 ]; then
+  cmd_opts="$cmd_opts +define+SPLIT_FSDB"
+fi
+if [ "$save_restart_checkpoint" != "undefined" ]; then
+  cmd_opts="$cmd_opts +define+SAVE_RESTART_CHECKPOINT"
+fi
+if [ $zeroloop_report == 1 ]; then
+  cmd_opts="$cmd_opts +vcs+loopreport"
+fi
+  ################################################
+  #              Add the file list               #
+  ################################################
+
+if [[ $CORETOOLS == 0 && $release == 0 ]]; then
+  if [ $gatesim == 1 ]; then
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f  -F gatesim.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f  -F gatesim.f"
+    fi
+  else
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f  -F $CTB_HOME/testbench/rtl/rtl.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f  -F $CTB_HOME/testbench/rtl/rtl.f"
+    fi
+  fi
+  upf_dir="$CTB_HOME/../upf"
+fi
+if [[ $CORETOOLS == 0 && $release == 1 || -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+  if [ $gatesim == 1 ]; then
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -F gatesim_rel.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -F gatesim_rel.f"
+    fi
+  else
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f rtl_rel.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f rtl_rel.f"
+    fi
+  fi
+  if [ $CORETOOLS == 1 ]; then
+    upf_dir="$CTB_HOME/../../example/Latest/upf"
+  else
+    upf_dir="$CTB_HOME/../../macro/Latest/upf"
+  fi 
+fi
+if [[ $CORETOOLS == 0 && $release == 2 ]]; then
+  if [ $gatesim == 1 ]; then
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f gatesim_r2.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f gatesim_r2.f"
+    fi
+  else
+    if [ $powersim == 1 ]; then
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f $CTB_HOME/testbench/rtl/rtl_r2.f -F ./zcalana_bhv.f"
+    else
+      rtl_files="-F $CTB_HOME/testbench/rtl/common.f   -f $CTB_HOME/testbench/rtl/rtl_r2.f"
+    fi
+  fi
+   upf_dir="$CTB_UPF_DIR"
+fi
+
+if [ "$cust_vdefines" = "undefined" ]; then
+  if [ $release == 0 ]; then
+    echo "export BUILD_PATH=$CTB_HOME/../build/d2c/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee cmd.run
+    #echo "export BUILD_PATH=$CTB_HOME/../build/d2c/rtl/dwc_ddrphy_lp54cs2dq18ch2_VDEFINES.v" | tee cmd.run
+  fi
+  if [ $release == 1 ]; then
+      if [[ -z $CORETOOLS || $CORETOOLS == 1 ]]; then
+        echo "export BUILD_PATH=$CTB_HOME/../../src/${prefix_string}dwc_ddrphy_VDEFINES.v" | tee cmd.run 
+      else
+        echo "export BUILD_PATH=$CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee cmd.run 
+      fi
+  fi
+  if [ $release == 2 ]; then
+    echo "export BUILD_PATH=${CTB_PUB_DIR}/phy_top/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee cmd.run 
+  fi   
+else 
+  echo "export BUILD_PATH=$cust_vdefines" | tee cmd.run 
+fi
+if [ $release == 2 ]; then
+  echo "export CTB_HM_DIR=$CTB_HM_DIR" | tee -a cmd.run
+fi
+#echo "vcs -full64 -ntb_opts uvm $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts -sverilog -timescale=1ps/1ps -debug_acc+pp+dmptf -debug_region+cell+encrypt +incdir+$CTB_HOME/testbench/tc/${test_dir} +incdir+$CTB_HOME/testbench/inc  -lca +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv" | tee -a cmd.run
+if [ $upf == 0 ]; then
+  upf_opts=""
+  verdi_upf_opt=""
+  if [ "$prefix" == "" ]; then
+    cmd_opts="$cmd_opts   +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS"
+  else
+    pg_pins="_DWC_DDRPHY_PG_PINS"
+    top_pg_pins="_DWC_DDRPHY_TOP_PG_PINS"
+    prefix_pg_en="$prefix$pg_pins"
+    prefix_top_pg_en="$prefix$top_pg_pins"
+    cmd_opts="$cmd_opts  +define+$prefix_pg_en +define+$prefix_top_pg_en"
+  fi
+fi
+
+if [ $upf == 1 ]; then
+  echo "[runtc] upf_dir=$upf_dir" 
+  echo "[runtc] upf_dir=$upf_dir" >>fw.log
+  if [ ! -d $upf_dir ]; then
+    echo -e "[runtc] ERROR: dwc_ddrphy_top.upf file not exist for top wrapper!!!"
+    exit 0
+  fi  
+  #include dwc_ddrphy_top.upf
+  upf_opts="+incdir+$upf_dir $upf_opts"
+  #include dwc_ddrphy_top_wrap.upf
+  case $pub_version in
+    101) #PUB 1.01a or 1.02a specific 
+    upf_opts="-upf $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_101_or_102.upf  -power_top dwc_ddrphy_top_wrap  -power=apfcompat+rtlpg  +define+DWC_DDRPHY_UPF_MODE $upf_opts"
+    verdi_upf_opts="-upf2.0 $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_101_or_102.upf -upfTop dwc_ddrphy_top_wrap  +define+DWC_DDRPHY_UPF_MODE"
+    ;;
+    102) #PUB 1.01a or 1.02a specific 
+    upf_opts="-upf $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_101_or_102.upf  -power_top dwc_ddrphy_top_wrap  -power=apfcompat+rtlpg  +define+DWC_DDRPHY_UPF_MODE $upf_opts"
+    verdi_upf_opts="-upf2.0 $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_101_or_102.upf -upfTop dwc_ddrphy_top_wrap  +define+DWC_DDRPHY_UPF_MODE"
+    ;;
+    103) #PUB 1.03a 
+    upf_opts="-upf $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_103.upf  -power_top dwc_ddrphy_top_wrap  -power=apfcompat+rtlpg  +define+DWC_DDRPHY_UPF_MODE $upf_opts"
+    verdi_upf_opts="-upf2.0 $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_103.upf -upfTop dwc_ddrphy_top_wrap  +define+DWC_DDRPHY_UPF_MODE"
+    ;;
+    105) #PUB 1.05a specific 
+    upf_opts="-upf $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_105.upf  -power_top dwc_ddrphy_top_wrap  -power=apfcompat+rtlpg  +define+DWC_DDRPHY_UPF_MODE $upf_opts"
+    verdi_upf_opts="-upf2.0 $CTB_HOME/upf/dwc_ddrphy_top_wrap_pub_105.upf -upfTop dwc_ddrphy_top_wrap  +define+DWC_DDRPHY_UPF_MODE"
+    ;;
+	*)
+    upf_opts="-upf $CTB_HOME/upf/dwc_ddrphy_top_wrap.upf  -power_top dwc_ddrphy_top_wrap  -power=apfcompat+rtlpg  +define+DWC_DDRPHY_UPF_MODE $upf_opts"
+    verdi_upf_opts="-upf2.0 $CTB_HOME/upf/dwc_ddrphy_top_wrap.upf -upfTop dwc_ddrphy_top_wrap  +define+DWC_DDRPHY_UPF_MODE"
+  esac
+  if [ -e $CTB_HOME/../../master/Latest/upf ] || [ -e $CTB_HOME/../../master_ns/Latest/upf ] || [ -e $CTB_HOME/../../master_ew/Latest/upf ]; then  
+    upf_opts="+incdir+$CTB_HOME/../../master/Latest/upf +incdir+$CTB_HOME/../../master_ns/Latest/upf +incdir+$CTB_HOME/../../master_ew/Latest/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HOME/../../diff/Latest/upf +incdir+$CTB_HOME/../../diff_ns/Latest/upf +incdir+$CTB_HOME/../../diff_ew/Latest/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HOME/../../se/Latest/upf +incdir+$CTB_HOME/../../se_ns/Latest/upf +incdir+$CTB_HOME/../../se_ew/Latest/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HOME/../../sec/Latest/upf +incdir+$CTB_HOME/../../sec_ns/Latest/upf +incdir+$CTB_HOME/../../sec_ew/Latest/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HOME/../../repeater_blocks/Latest/upf $upf_opts"
+  elif [ -e $CTB_HM_DIR/dwc_ddrphymaster_top/views/upf ]; then #common area without coretools flow
+    upf_opts="+incdir+$CTB_HM_DIR/dwc_ddrphymaster_top/views/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HM_DIR/dwc_ddrphydiff_top/views/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HM_DIR/dwc_ddrphysec_top/views/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HM_DIR/dwc_ddrphyse_top/views/upf $upf_opts"
+    upf_opts="+incdir+$CTB_HM_DIR/dwc_ddrphy_repeater_blocks/views/upf $upf_opts"
+    if [ ! -d $CTB_HM_DIR/dwc_ddrphymaster_top/views/upf ] || [ ! -d $CTB_HM_DIR/dwc_ddrphydiff_top/views/upf ] || [ ! -d $CTB_HM_DIR/dwc_ddrphysec_top/views/upf ] || [ ! -d $CTB_HM_DIR/dwc_ddrphyse_top/views/upf ]; then 
+      echo -e "[runtc] ERROR: UPF file not exist!!! Hard Macro Path: $CTB_HM_DIR"
+      exit 0
+	  fi  
+  else
+    if [ $release != 0 ]; then #Exclude dev area without coretools
+      echo -e "[runtc] ERROR: UPF file not exist!!! Path: $CTB_HOME"
+      exit 0
+    fi
+  fi 
+fi
+if [ $xprop == 0 ]; then
+  xprop_opts=""
+fi
+if [ $xprop == 1 ]; then
+  xprop_opts="-xprop=$CTB_HOME/testbench/inc/xprop_config"
+  verdi_upf_opts="$verdi_upf_opts"
+fi
+if [ $inject_x == 1 ]; then
+  xprop_opts="$xprop_opts +define+DWC_DDRPHY_INJECT_X"
+  verdi_upf_opts="$verdi_upf_opts +define+DWC_DDRPHY_INJECT_X"
+fi
+
+
+echo "export STD_NAME=$dram" | tee -a cmd.run
+
+if [ $upf == 0 ]; then
+  echo "vcs -full64 +lint=TFIPC-L -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts -sverilog -timescale=1ps/1ps -debug_acc+pp+dmptf -debug_region+cell+encrypt +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc  -lca  +define+CTB_TC_NAME=\\\"$test\\\" +define+DWC_DDRPHY_PG_PINS +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv   $upf_opts $xprop_opts" | tee -a cmd.run
+fi
+if [ $upf == 1 ]; then
+  echo "vcs +vcs+loopreport -full64 +lint=TFIPC-L -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts -sverilog -timescale=1ps/1ps -debug_acc+pp+dmptf -debug_region+cell+encrypt +incdir+$CTB_HOME/testbench/tc/${test_dir} +incdir+$CTB_HOME/testbench/inc  -lca +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv  $CTB_HOME/testbench/tb/dwc_ddrphy_top_wrap.sv $upf_opts $xprop_opts " | tee -a cmd.run
+fi
+
+echo "rm -rf uvmv*" | tee -a cmd.run
+
+echo "#!/bin/bash" | tee verdi.run
+if [ "$cust_vdefines" = "undefined" ]; then
+  if [ $release == 0 ]; then
+    echo "export BUILD_PATH=$CTB_HOME/../build/d2c/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee -a verdi.run
+    #echo "export BUILD_PATH=$CTB_HOME/../build/d2c/rtl/dwc_ddrphy_lp54cs2dq18ch2_VDEFINES.v" | tee -a verdi.run
+  fi
+  if [ $release == 1 ]; then
+      if [[ -z $CORETOOLS || $CORETOOLS == 1 ]]; then    
+        echo "export BUILD_PATH=$CTB_HOME/../../src/${prefix_string}dwc_ddrphy_VDEFINES.v" | tee -a verdi.run
+      else
+        echo "export BUILD_PATH=$CTB_HOME/../../macro/Latest/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee -a verdi.run 
+      fi
+  fi
+  if [ $release == 2 ]; then
+    echo "export BUILD_PATH=${CTB_PUB_DIR}/phy_top/rtl/dwc_ddrphy_${cfg}_VDEFINES.v" | tee -a verdi.run 
+  fi  
+else 
+  echo "export BUILD_PATH=$cust_vdefines" | tee -a verdi.run 
+fi
+if [ $release == 2 ]; then
+  echo "export CTB_HM_DIR=$CTB_HM_DIR" | tee -a verdi.run
+fi
+echo "export STD_NAME=$dram" | tee -a verdi.run
+
+if [ $dump == "FSDB" ]; then
+   if [ $upf == 0 ]; then
+     if [ $gatesim == 1 ] && [ $split_fsdb == 1 ]; then
+       echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv  $CTB_HOME/testbench/tb/top.sv  -ssy -ssf test.vf " | tee -a verdi.run
+     else
+       echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv  $CTB_HOME/testbench/tb/top.sv  -ssy -ssf test.fsdb " | tee -a verdi.run
+     fi
+   fi
+   if [ $upf == 1 ]; then
+     if [ $gatesim == 1 ] && [ $split_fsdb == 1 ]; then
+       echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir} +incdir+$CTB_HOME/testbench/inc +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/dwc_ddrphy_top_wrap.sv $CTB_HOME/testbench/tb/top.sv  -ssy -ssf test.vf " | tee -a verdi.run
+     else
+       echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir} +incdir+$CTB_HOME/testbench/inc +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/dwc_ddrphy_top_wrap.sv $CTB_HOME/testbench/tb/top.sv  -ssy -ssf test.fsdb " | tee -a verdi.run
+     fi
+   fi
+#echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv -ssy -ssf test.fsdb 
+##" | tee -a verdi.run
+fi
+if [ $dump == "VCD" ]; then
+   if [ $upf == 0 ]; then
+   echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv  -ssy -ssf test.fsdb " | tee -a verdi.run
+   fi
+   if [ $upf == 1 ]; then
+   echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts $verdi_upf_opts $xprop_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir} +incdir+$CTB_HOME/testbench/inc +define+CTB_TC_NAME=\\\"$test\\\" +define+CTB_STRING_DIR=\\\"$strings_dir\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv $CTB_HOME/testbench/tb/dwc_ddrphy_top_wrap.sv -ssy -ssf test.fsdb " | tee -a verdi.run
+   fi
+#echo "verdi -ntb_opts $uvm_version $rtl_files -F $CTB_HOME/testbench/vc/vc.f $cmd_opts -sverilog -timescale=1ps/1ps +incdir+$CTB_HOME/testbench/tc/${test_dir}  +incdir+$CTB_HOME/testbench/inc +define+DWC_DDRPHY_PG_PINS +define+DWC_DDRPHY_TOP_PG_PINS +define+CTB_TC_NAME=\\\"$test\\\" +define+$dump +define+CTB_DW_HOME=\\\"$DESIGNWARE_HOME\\\" $CTB_HOME/testbench/tc/${test_dir}/${test}.sv $CTB_HOME/testbench/tb/top.sv -ssy -ssf test.vcd 
+#" | tee -a verdi.run
+fi
+chmod +x verdi.run
+
+
+################# check command ####################
+channel_num=`echo ${cfg#*ch}`
+unsupport_CTB=0
+#  if [[ $skip_train != 0 && $seqCtrl == 2]] ; then
+#    echo "seqCtrl=$seqCtrl is unsupport for CTB";
+#    exit 0;
+#  fi
+#common for LPDDR54 PHY
+if [[ $pstates != 2 && $pstates != 1 ]]; then
+  echo "pstates = $pstates is unsupport for CTB" |tee -a fw.log ;
+  unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+
+if [[ $dfi_mode != 3 && $dfi_mode != 1 ]]; then
+  echo "dfi_mode=$dfi_mode !=1 or !3 is unsupport for CTB" |tee -a fw.log ;
+  unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+
+if [[ $dfi_mode == 3 && $channel_num != 2 ]]; then
+  echo "dfi_mode=$dfi_mode, channel number=$channel_num is unsupport for CTB" |tee -a fw.log ;
+  unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+if [[ $rank != 1 && $rank != 2 ]] ; then
+   echo " rank=$rank is unsupport for CTB" |tee -a fw.log ;
+   unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+if [ $lp_mode -gt 6 ]; then
+   echo "lp_mode=$lp_mode is unsupport for CTB" |tee -a fw.log ;
+   unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+
+   
+
+if [[ $wdbi0 == 1 && $dm0 == 1 ]] || [[ $wdbi1 == 1 && $dm1 == 1 ]]; then
+   echo "wdbiN=1 && dmN=1 is unsupport for CTB" |tee -a fw.log ;
+   unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+if [[ $freq_ratio0 != 1 && $freq_ratio0 != 2 ]] || [[ $freq_ratio1 != 1 && $freq_ratio1 != 2 ]]; then
+   echo "freq_ratioN != 1 or 2 is unsupport for CTB" |tee -a fw.log ;
+   unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+if [ $disable2d != 1 ]; then
+   echo "disable2d=$disable2d is unsupport for CTB" |tee -a fw.log ;
+   unsupport_CTB=`expr $unsupport_CTB + 1`;
+fi
+#lpddr4
+if [ $dram = "lpddr4" ]; then
+  case $cfg in
+      "lp4cs1dq18ch1")   ;;
+      "lp4cs1dq16ch1")   ;;
+      "lp4cs2dq18ch1")   ;;
+      "lp4cs2dq16ch1")   ;;
+      "lp54cs1dq18ch1")  ;;
+      "lp54cs1dq16ch1")  ;;
+      "lp54cs2dq18ch1")  ;;
+      "lp54cs2dq16ch1")  ;;
+      "lp4cs1dq36ch1")   ;;
+      "lp4cs1dq32ch1")   ;;
+      "lp4cs2dq36ch1")   ;;
+      "lp4cs2dq32ch1")   ;;
+      "lp54cs1dq36ch1")  ;;
+      "lp54cs1dq32ch1")  ;;
+      "lp54cs2dq36ch1")  ;;
+      "lp54cs2dq32ch1")  ;;
+      "lp4cs1dq18ch2")   ;;
+      "lp4cs1dq16ch2")   ;;
+      "lp4cs2dq18ch2")   ;;
+      "lp4cs2dq16ch2")   ;;
+      "lp54cs1dq18ch2")  ;;
+      "lp54cs1dq16ch2")  ;;
+      "lp54cs2dq18ch2")  ;;
+      "lp54cs2dq16ch2")  ;;
+      "lp4cs1dq36ch2")   ;;
+      "lp4cs1dq32ch2")   ;;
+      "lp4cs2dq36ch2")   ;;
+      "lp4cs2dq32ch2")   ;;
+      "lp54cs1dq36ch2")  ;;
+      "lp54cs1dq32ch2")  ;;
+      "lp54cs2dq36ch2")  ;;
+      "lp54cs2dq32ch2")  ;;
+         *)
+       echo "cfg=$cfg is unsupport for CTB" |tee -a fw.log ;
+       unsupport_CTB=`expr $unsupport_CTB + 1`;
+  esac
+  LPDDR4_data_ratio0=`expr $freq0 \* 2`
+  LPDDR4_data_ratio1=`expr $freq1 \* 2`
+  if [ $pll_bypass0 == 1 ]; then
+     if [[ $LPDDR4_data_ratio0 -lt 50 || $LPDDR4_data_ratio0 -gt 668 ]]; then
+        echo "Pstate=0 ,enable pll_bypass ,LPDDR4 data ratio = $LPDDR4_data_ratio0 Mhz is unsupport for CTB" |tee -a fw.log ;
+        unsupport_CTB=`expr $unsupport_CTB + 1`;
+     fi
+  else
+     if [[ $LPDDR4_data_ratio0 -lt 666 || $LPDDR4_data_ratio0 -gt 4267 ]]; then
+        echo "Pstate=0 ,disable pll_bypass ,LPDDR4 data ratio = $LPDDR4_data_ratio0 Mhz is unsupport for CTB" |tee -a fw.log ;
+        unsupport_CTB=`expr $unsupport_CTB + 1`;
+     fi
+  fi
+  if [ $pll_bypass1 == 1 ]; then
+     if [[ $LPDDR4_data_ratio1 -lt 50 || $LPDDR4_data_ratio1 -gt 668 ]]; then
+        echo "Pstate=1 ,enable pll_bypass ,LPDDR4 data ratio = $LPDDR4_data_ratio1 Mhz is unsupport for CTB" |tee -a fw.log ;
+        unsupport_CTB=`expr $unsupport_CTB + 1`;
+     fi
+  else
+     if [[ $LPDDR4_data_ratio1 -lt 666 || $LPDDR4_data_ratio1 -gt 4267 ]]; then
+        echo "Pstate=1 ,disable pll_bypass ,LPDDR4 data ratio = $LPDDR4_data_ratio1 Mhz is unsupport for CTB" |tee -a fw.log ;
+        unsupport_CTB=`expr $unsupport_CTB + 1`;
+     fi
+  fi
+fi
+
+#lpddr5
+if [ $dram = "lpddr5" ]; then
+ case $cfg in
+       "lp54cs1dq18ch1") ;;
+       "lp54cs1dq16ch1") ;;
+       "lp54cs2dq18ch1") ;;
+       "lp54cs2dq16ch1") ;;
+       "lp54cs1dq36ch1") ;;
+       "lp54cs1dq32ch1") ;;
+       "lp54cs2dq36ch1") ;;
+       "lp54cs2dq32ch1") ;;
+       "lp54cs1dq18ch2") ;;
+       "lp54cs1dq16ch2") ;;
+       "lp54cs2dq18ch2") ;;
+       "lp54cs2dq16ch2") ;;
+       "lp54cs1dq36ch2") ;;
+       "lp54cs1dq32ch2") ;;
+       "lp54cs2dq36ch2") ;;
+       "lp54cs2dq32ch2") ;;
+        *)
+      echo "cfg=$cfg is unsupport for CTB" |tee -a fw.log ;
+      unsupport_CTB=`expr $unsupport_CTB + 1`;
+ esac
+ LPDDR5_data_ratio0=`expr $freq0 \* 4 \* $freq_ratio0`
+ LPDDR5_data_ratio1=`expr $freq1 \* 4 \* $freq_ratio1`
+ if [ $pll_bypass0 == 1 ]; then
+    if [[ $LPDDR5_data_ratio0 -lt 50 || $LPDDR5_data_ratio0 -gt 668 ]]; then
+       echo "Pstate=0 ,enable pll_bypass ,LPDDR5 data ratio = $LPDDR5_data_ratio0 Mhz is unsupport for CTB" |tee -a fw.log ;
+       unsupport_CTB=`expr $unsupport_CTB + 1`;
+    fi
+ else
+    if [[ $LPDDR5_data_ratio0 -lt 666 || $LPDDR5_data_ratio0 -gt `expr 3200 \* $freq_ratio0` ]]; then
+       echo "Pstate=0 ,disable pll_bypass ,LPDDR5 data ratio = $LPDDR5_data_ratio0 Mhz is unsupport for CTB" |tee -a fw.log ;
+       unsupport_CTB=`expr $unsupport_CTB + 1`;
+    fi
+ fi
+
+ if [ $pll_bypass1 == 1 ]; then
+    if [[ $LPDDR5_data_ratio1 -lt 50 || $LPDDR5_data_ratio1 -gt 668 ]]; then
+       echo "Pstate=1 ,enable pll_bypass ,LPDDR5 data ratio = $LPDDR5_data_ratio1 Mhz is unsupport for CTB" |tee -a fw.log ;
+       unsupport_CTB=`expr $unsupport_CTB + 1`;
+    fi
+ else
+    if [[ $LPDDR5_data_ratio1 -lt 666 || $LPDDR5_data_ratio1 -gt `expr 3200 \* $freq_ratio1` ]]; then
+       echo "Pstate=1 ,disable pll_bypass ,LPDDR5 data ratio = $LPDDR5_data_ratio1 Mhz is unsupport for CTB" |tee -a fw.log ;
+       unsupport_CTB=`expr $unsupport_CTB + 1`;
+    fi
+ fi
+fi
+
+#if [ $unsupport_CTB != 0 ]; then
+#  echo "Exit with $unsupport_CTB CTB unsupport option" |tee -a fw.log ;
+#  exit 0;
+#fi
+#exit 0;
+####################################check config end
+if [ $unsupport_CTB == 0 ]; then
+    if [ $batch == 1 ]; then
+      qsub -P bnormal -j y -l arch=glinux,os_distribution=redhat -l os_bit=64 -V -cwd cmd.run | tee $simvlog
+    fi
+    
+    if [ $batch == 0 ]; then
+          if [ $compile_only == 1 ]; then
+            source cmd.run | tee compile.log
+          else
+            if [ "$save_restart_checkpoint" == "undefined" ]; then
+              source cmd.run | tee compile.log
+              if [ $dump_bt != "undefined" ]; then 
+                if [ $dump_et != "undefined" ]; then 
+                  ./simv +fsdb+dumpon+$dump_bt +fsdb+dumpoff+$dump_et $cmd_opts $run_arg | tee $simvlog
+                else
+                  ./simv +fsdb+dumpon+$dump_bt $cmd_opts $run_arg | tee $simvlog
+                fi
+              else
+                ./simv $cmd_opts $run_arg | tee $simvlog
+              fi
+            else
+              if [ $save_restart_checkpoint_level = 2 ]; then
+                echo "save_restart_checkpoint_level::$save_restart_checkpoint_level"
+                ./simv +dump_checkpoint | tee $simvlog
+              elif [ $save_restart_checkpoint_level = 1 ]; then
+                echo "save_restart_checkpoint_level::$save_restart_checkpoint_level"
+                ./simv +dump_checkpoint -r save1.chk | tee $simvlog
+              elif [ $save_restart_checkpoint_level = 0 ]; then
+                echo "save_restart_checkpoint_level::$save_restart_checkpoint_level"
+                ./simv +dump_checkpoint -r save0.chk | tee $simvlog
+              else
+                source cmd.run | tee compile.log
+                ./simv $cmd_opts $run_arg | tee $simvlog
+              fi
+            fi
+          fi
+    fi
+fi
+
+echo "     " >>$simvlog 
+echo "*************************Runtc cmd***********************" >>$simvlog 
+echo "     " >>$simvlog
+echo "runtc $runtc_args" >> $simvlog
+echo "     " >>$simvlog
+echo "*********************************************************" >>$simvlog 
+
+
+if [ $unsupport_CTB != 0 ]; then
+  echo "Exit with $unsupport_CTB CTB unsupport option" |tee -a fw.log ;
+  exit 0;
+fi
+

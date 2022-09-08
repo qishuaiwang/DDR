@@ -1,0 +1,109 @@
+# Version 0.1 initial. Jan 14 2015
+
+#=======================================================
+# Top power domain
+#======================================================
+create_power_domain dut -include_scope 
+
+#Load lower-level UPFs
+load_upf dwc_ddrphy_top.upf -scope  pac4a
+
+# Power ports
+#------------------------------------------------
+create_supply_port VDD    -domain dut
+create_supply_port VDDQ   -domain dut
+create_supply_port VDD2H   -domain dut
+create_supply_port VAA_VDD2H    -domain dut
+create_supply_port VSS    -domain dut
+
+# Power nets
+#------------------------------------------------
+create_supply_net  nVDD    -domain dut
+create_supply_net  nVDDQ   -domain dut
+create_supply_net  nVDD2H   -domain dut
+create_supply_net  nVAA_VDD2H    -domain dut
+create_supply_net  nVSS    -domain dut
+
+
+# Connect nets to ports
+#------------------------------------------------
+connect_supply_net nVDD        -ports {VDD pac4a/VDD}
+connect_supply_net nVDDQ       -ports {VDDQ pac4a/VDDQ_MASTER}
+connect_supply_net nVDD2H      -ports {VDD2H pac4a/VDD2H_MASTER}
+connect_supply_net nVAA_VDD2H  -ports {VAA_VDD2H pac4a/VAA_VDD2H}
+connect_supply_net nVSS        -ports {VSS pac4a/VSS}
+
+
+set num_anibs 0
+set prts      ""
+foreach i [find_objects pac4a -object_type inst -pattern u_AC_WRAPPER_*] {
+    lappend prts "pac4a/VDD2H_AC${num_anibs}"
+    set num_anibs [expr $num_anibs+1]
+}
+puts $prts
+connect_supply_net nVDD2H -ports $prts
+
+set num_anibs 0
+set prts      ""
+foreach i [find_objects pac4a -object_type inst -pattern u_AC_WRAPPER_*] {
+    lappend prts "pac4a/VDDQ_AC${num_anibs}"
+    set num_anibs [expr $num_anibs+1]
+}
+puts $prts
+connect_supply_net nVDDQ -ports $prts
+
+set num_dbytes 0
+set prts       ""
+foreach i [find_objects pac4a -object_type inst -pattern u_DBYTE_WRAPPER_* ] {
+  lappend prts "pac4a/VDDQ_DB${num_dbytes}"
+  set num_dbytes [expr $num_dbytes+1]
+}
+puts $prts
+connect_supply_net nVDDQ -ports $prts
+
+
+
+# Set the primary supply nets for power domain _top_ to be VDD and VSS.
+create_supply_set dut.primary \
+  -function {power  nVDD}        \
+  -function {ground nVSS}        \
+  -update
+
+create_supply_set SS_VDDQ   \
+   -function {power  nVDDQ} \
+   -function {ground nVSS}
+
+#======================================================
+#                    Port States
+#======================================================
+add_port_state VDDQ              -state {VDDQ_ON 0.675}            -state {VDDQ_OFF off}
+add_port_state VDD               -state {VDD_ON 0.675}             -state {VDD_OFF off}
+add_port_state VDD2H             -state {VDD2H_ON 1.10}            -state {VDD2H_OFF off}
+add_port_state VAA_VDD2H         -state {VAA_VDD2H_ON 1.80}        -state {VAA_VDD2H_OFF off}
+add_port_state VSS               -state {VSS_ON 0.0}               -state {VSS_OFF off}
+
+#======================================================
+#                 Power State Table
+#======================================================
+
+set pSupplies   [list nVDD    nVSS   nVDDQ    nVAA_VDD2H    nVDD2H]
+
+create_pst dut_pst -supplies [concat $pSupplies]
+add_pst_state ALL_ON        -pst dut_pst -state [concat VDD_ON    VSS_ON   VDDQ_ON   VAA_VDD2H_ON  VDD2H_ON]
+add_pst_state ALL_OFF       -pst dut_pst -state [concat VDD_OFF   VSS_ON   VDDQ_OFF  VAA_VDD2H_OFF VDD2H_OFF]
+add_pst_state S3            -pst dut_pst -state [concat VDD_OFF   VSS_ON   VDDQ_ON   VAA_VDD2H_OFF VDD2H_ON]
+
+
+#define supply nets
+#set_domain_supply_net dut -primary_power_net nVDD -primary_ground_net nVSS
+
+
+
+##power state tables
+##define port states
+#add_port_state VDDQ      -state {VDDQ_ON 1.20}      -state {VDDQ_OFF off}
+#add_port_state VDD       -state {VDD_ON 0.85}       -state {VDD_OFF off}
+#add_port_state VDD2H      -state {VDD2H_ON 0.80}      -state {VDD2H_OFF off}
+#add_port_state VAA_VDD2H  -state {VAA_VDD2H_ON 1.80}  -state {VAA_VDD2H_OFF off}
+#add_port_state VSS       -state {VSS_ON 0.0}        -state {VSS_OFF off}
+

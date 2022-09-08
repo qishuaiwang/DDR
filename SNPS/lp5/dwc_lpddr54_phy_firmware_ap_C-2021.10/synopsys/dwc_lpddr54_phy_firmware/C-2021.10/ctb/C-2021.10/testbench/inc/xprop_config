@@ -1,0 +1,7 @@
+merge = xmerge;
+tree { dwc_ddrphy_top } { xpropOn };
+tree  { dwc_ddrphy_tembufenclk } { xpropOff };
+tree  { dwc_ddrphy_tembufclk_pub } { xpropOff };
+tree  { dwc_ddrphy_pmu_cpu} { xpropOff };
+tree  { dwc_ddrphy_cdc_stdlib_internal_sync_multibit} { xpropOff };
+tree  { dwc_lpddr5phy_pll_ns} { xpropOff };

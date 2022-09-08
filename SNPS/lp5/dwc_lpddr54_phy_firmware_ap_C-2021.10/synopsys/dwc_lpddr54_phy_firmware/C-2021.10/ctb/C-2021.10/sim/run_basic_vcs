@@ -1,0 +1,48 @@
+#!/bin/csh
+echo "CTB demo_basic regression"
+alias runtc '$CTB_HOME/sim/runtc'
+
+cd $CTB_HOME/../..
+mkdir run_basic_result
+cd $CTB_HOME/../../run_basic_result
+mkdir run_lpddr4
+mkdir run_lpddr5
+#mkdir run_lpddr4x
+mkdir run_ate
+cd $CTB_HOME/../../run_basic_result/run_lpddr4
+runtc cfg=lp54cs2dq18ch2 tc=demo_basic dram=lpddr4 skip_train=2 freq0=2133 freq_ratio0=1 rank=1 pstates=1 dfi_mode=3 hard_macro=B
+cd $CTB_HOME/../../run_basic_result/run_lpddr5
+runtc cfg=lp54cs2dq18ch2 tc=demo_basic dram=lpddr5 skip_train=2 freq0=800 freq_ratio0=1 rank=1 pstates=1 dfi_mode=3 hard_macro=B
+#cd $CTB_HOME/../../run_basic_result/run_lpddr4x
+#runtc cfg=ac6d4ch2 tc=demo_basic dram=lpddr4 -lp4x skip_train=2 freq0=1600 freq_ratio0=1 rank=1 pstates=1 dfi_mode=1 hard_macro=E
+cd $CTB_HOME/../../run_basic_result/run_ate
+runtc cfg=lp54cs2dq18ch2 tc=demo_ate  ate_clockingmode=lpddr5 freq0=800  hard_macro=B freq_ratio0=2 ate=pll_lock  
+
+echo "-------------------------------------------------------"
+echo "summarize regression results"
+cd $CTB_HOME/../../run_basic_result
+set lpddr4_pass = `tail -n 50 run_lpddr4/simv.log | grep "test passed"`
+set lpddr5_pass = `tail -n 50 run_lpddr5/simv.log | grep "test passed"`
+#set lpddr4x_pass = `tail run_lpddr4x/simv.log | grep "test passed"`
+set ate_pass = `tail -n 50 run_ate/simv.log | grep "TC INFO: test passed"`
+#if (("$lpddr4_pass" =~ "TC INFO: test passed") && ("$lpddr4x_pass" =~ "TC INFO: test passed") && ("$ate_pass" =~ "TC INFO: test passed"))then
+if (("$lpddr4_pass" =~ "TC INFO: test passed") && ("$lpddr5_pass" =~ "TC INFO: test passed") && ("$ate_pass" =~ "TC INFO: test passed"))then
+  echo "regression passed";
+else
+  echo "regression failed";
+  if ("$lpddr4_pass" !~ "TC INFO: test passed")then
+    echo "run_lpddr4 failed, log file path is $CTB_HOME/../../run_basic_result/run_lpddr4/simv.log";
+  endif
+  if ("$lpddr5_pass" !~ "TC INFO: test passed")then
+    echo "run_lpddr5 failed, log file path is $CTB_HOME/../../run_basic_result/run_lpddr5/simv.log";
+  endif
+#  if ("$lpddr4x_pass" !~ "TC INFO: test passed")then
+#    echo "run_lpddr4x failed, log file path is $CTB_HOME/../../run_basic_result/run_lpddr4x/simv.log";
+#  endif
+  if ("$ate_pass" !~ "TC INFO: test passed")then
+    echo "run_ate failed, log file path is $CTB_HOME/../../run_basic_result/run_ate/simv.log";
+  endif
+endif
+echo "-------------------------------------------------------"
+
+

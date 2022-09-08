@@ -1,0 +1,48 @@
+# Version 0.1 initial. Jan 14 2015
+
+#=======================================================
+# Top power domain
+#======================================================
+create_power_domain dut -include_scope 
+
+#Load lower-level UPFs
+load_upf dwc_ddrphy_top.upf -scope  pac4a
+
+# Power ports
+#------------------------------------------------
+create_supply_port VDD    -domain dut
+create_supply_port VDDQ   -domain dut
+create_supply_port VDD2H   -domain dut
+create_supply_port VAA_VDD2H    -domain dut
+create_supply_port VSS    -domain dut
+
+# Power nets
+#------------------------------------------------
+create_supply_net  nVDD    -domain dut
+create_supply_net  nVDDQ   -domain dut
+create_supply_net  nVDD2H   -domain dut
+create_supply_net  nVAA_VDD2H    -domain dut
+create_supply_net  nVSS    -domain dut
+
+
+# Connect nets to ports
+#------------------------------------------------
+connect_supply_net nVDDQ       -ports {VDDQ pac4a/VDDQ_MASTER}
+connect_supply_net nVDD2H      -ports {VDD2H pac4a/VDD2H_MASTER}
+
+connect_supply_net nVDD        -ports {VDD pac4a/VDD}
+connect_supply_net nVAA_VDD2H  -ports {VAA_VDD2H pac4a/VAA_VDD2H}
+connect_supply_net nVSS        -ports {VSS pac4a/VSS}
+
+#define supply nets
+set_domain_supply_net dut -primary_power_net nVDD -primary_ground_net nVSS
+
+
+##power state tables
+##define port states
+#add_port_state VDDQ      -state {VDDQ_ON 1.20}      -state {VDDQ_OFF off}
+#add_port_state VDD       -state {VDD_ON 0.85}       -state {VDD_OFF off}
+#add_port_state VDD2H      -state {VDD2H_ON 0.80}      -state {VDD2H_OFF off}
+#add_port_state VAA_VDD2H  -state {VAA_VDD2H_ON 1.80}  -state {VAA_VDD2H_OFF off}
+#add_port_state VSS       -state {VSS_ON 0.0}        -state {VSS_OFF off}
+

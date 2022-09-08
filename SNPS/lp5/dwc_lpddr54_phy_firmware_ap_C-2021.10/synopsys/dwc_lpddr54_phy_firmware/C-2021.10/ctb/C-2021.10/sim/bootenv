@@ -1,0 +1,23 @@
+setenv CTB_HOME `pwd`/..
+alias runtc '$CTB_HOME/sim/runtc'
+
+setenv release 1
+setenv CORETOOLS 1
+
+if  ( $release == 1 ) then
+setenv CTB_FW_DIR $CTB_HOME/../../firmware/Latest
+setenv CTB_PHYINIT_DIR $CTB_HOME/../../phyinit/Latest/software
+endif
+
+if ( $CORETOOLS == 1 ) then
+  setenv CTB_UPF_DIR  $CTB_HOME/../../example/Latest/upf
+endif
+
+if ( $CORETOOLS == 0 ) then
+  setenv CTB_UPF_DIR  $CTB_HOME/../../macro/Latest/upf		
+endif
+
+#---------------------------------------------------------
+# Used for gatesim
+#---------------------------------------------------------
+setenv sdf_path 6M_1X_h_1Xa_v_1Ya_h_2Y_vh
